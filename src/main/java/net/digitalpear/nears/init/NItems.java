@@ -1,6 +1,7 @@
 package net.digitalpear.nears.init;
 
 import net.digitalpear.nears.Nears;
+import net.digitalpear.nears.common.datagen.NearsRecipeGen;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -29,10 +30,17 @@ public class NItems {
         Seeds
      */
     public static final Item SOUL_BERRY_PIPS = createItem("soul_berry_pips", new AliasedBlockItem(NBlocks.SOUL_BERRY_BUSH, new Item.Settings()));
+    public static final Item FAAR_SEEDS = createItem("faar_seeds", new AliasedBlockItem(NBlocks.FAAR_GROWTH, new Item.Settings()));
 
 
     public static void init() {
+        NearsRecipeGen.COLOR_MELTING_MAP.put(NEAR, Items.ORANGE_DYE);
+        NearsRecipeGen.COLOR_MELTING_MAP.put(FAAR, Items.CYAN_DYE);
+        NearsRecipeGen.COLOR_MELTING_MAP.put(SOUL_BERRIES, Items.LIGHT_BLUE_DYE);
+
+
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
+            entries.addAfter(Items.APPLE, FAAR);
             entries.addAfter(Items.APPLE, NEAR);
             entries.addAfter(Items.GLOW_BERRIES, SOUL_BERRIES);
             entries.addAfter(Items.PUMPKIN_PIE, SOULLESS_PASTRY);
@@ -40,6 +48,7 @@ public class NItems {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> {
             entries.addAfter(Items.MELON_SEEDS, SOUL_BERRY_PIPS);
+            entries.addAfter(Items.MELON_SEEDS, FAAR_SEEDS);
         });
     }
 }

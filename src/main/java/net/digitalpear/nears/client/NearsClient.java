@@ -11,6 +11,6 @@ import net.minecraft.client.render.RenderLayer;
 public class NearsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), NBlocks.SOUL_BERRY_BUSH);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), NBlocks.SOUL_BERRY_BUSH, NBlocks.FAAR_GROWTH);
     }
 }

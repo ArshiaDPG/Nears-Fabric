@@ -1,6 +1,8 @@
 package net.digitalpear.nears.init;
 
 import net.digitalpear.nears.Nears;
+import net.digitalpear.nears.common.blocks.FaarBundleBlock;
+import net.digitalpear.nears.common.blocks.FaarGrowthBlock;
 import net.digitalpear.nears.common.blocks.SoulBerryBushBlock;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -32,6 +34,12 @@ public class NBlocks {
                 .sounds(BlockSoundGroup.SWEET_BERRY_BUSH)
                 .offsetType(AbstractBlock.OffsetType.XZ)
                 .luminance(state -> state.get(SoulBerryBushBlock.AGE) == SoulBerryBushBlock.MAX_AGE ? 5 : 0)));
+
+    public static final Block FAAR_GROWTH = createBlockWithoutItem("faar_growth",
+            new FaarGrowthBlock(AbstractBlock.Settings.copy(Blocks.TWISTING_VINES)));
+
+    public static final Block FAAR_BUNDLE = createBlockWithItem("faar_bundle", new FaarBundleBlock(AbstractBlock.Settings.of(Material.SOLID_ORGANIC,
+            MapColor.BRIGHT_TEAL).strength(0.7F, 0.4F).jumpVelocityMultiplier(1.5f).sounds(BlockSoundGroup.WART_BLOCK)));
 
 
     public static void init() {
