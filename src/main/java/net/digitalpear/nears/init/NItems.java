@@ -2,6 +2,7 @@ package net.digitalpear.nears.init;
 
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.common.datagen.NearsRecipeGen;
+import net.digitalpear.nears.common.items.FaarItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -17,7 +18,7 @@ public class NItems {
         Fruits
      */
     public static final Item NEAR = createItem("near", new Item(new Item.Settings().food(FoodComponents.APPLE)));
-    public static final Item FAAR = createItem("faar", new Item(new Item.Settings().food(FoodComponents.CARROT)));
+    public static final Item FAAR = createItem("faar", new FaarItem(new Item.Settings().food(FoodComponents.CARROT)));
     public static final Item SOUL_BERRIES = createItem("soul_berries", new Item(new Item.Settings().food(FoodComponents.SWEET_BERRIES)));
 
     /*

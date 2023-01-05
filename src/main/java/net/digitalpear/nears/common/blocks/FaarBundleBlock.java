@@ -39,7 +39,6 @@ public class FaarBundleBlock extends FallingBlock {
         } else {
             this.bounceEntity(entity);
         }
-
     }
 
     private void bounceEntity(Entity entity) {
@@ -50,4 +49,6 @@ public class FaarBundleBlock extends FallingBlock {
         }
 
     }
+
+
 }
