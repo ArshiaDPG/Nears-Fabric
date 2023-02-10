@@ -3,10 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "nears:soul_berries"
+      "item": "nears:faar"
     }
   ],
   "result": {
-    "item": "nears:soul_berry_pips"
+    "item": "nears:faar_seeds"
   }
 }
