@@ -1,0 +1,6 @@
+{
+  "parent": "nears:block/cinder_grass_base",
+  "textures": {
+    "all": "nears:block/cinder_wheat3"
+  }
+}

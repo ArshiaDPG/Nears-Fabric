@@ -1,5 +1,6 @@
 package net.digitalpear.nears.common.blocks;
 
+import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemStack;
@@ -18,7 +19,7 @@ import net.minecraft.world.event.GameEvent;
 public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
     public static final int MAX_AGE = 3;
     public static final IntProperty AGE = Properties.AGE_3;
-    private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(3.0D, 8.0D, 3.0D, 13.0D, 18.0D, 13.0D);
+    private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(1.0D, 8.0D, 1.0D, 15.0D, 16.0D, 15.0D);
     private static final VoxelShape LARGE_SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
 
@@ -42,15 +43,15 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
 
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         int i = state.get(AGE);
-        if (random.nextInt(5) == 0) {
+        if (state.get(AGE) < 3 && random.nextInt(5) == 0) {
             if (i < MAX_AGE) {
                 BlockState blockState = state.with(AGE, i + 1);
                 world.setBlockState(pos, blockState, 2);
                 world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(blockState));
             }
             else{
-                world.setBlockState(pos, Blocks.MELON.getDefaultState(), 2);
-                world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(Blocks.MELON.getDefaultState()));
+                world.setBlockState(pos, NBlocks.FAAR_BUNDLE.getDefaultState(), 2);
+                world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(NBlocks.FAAR_BUNDLE.getDefaultState()));
             }
         }
     }
@@ -70,8 +71,12 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
 
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        int i = Math.min(3, state.get(AGE) + 1);
-        world.setBlockState(pos, state.with(AGE, i), 2);
+        if (state.get(AGE) < 3){
+            int i = state.get(AGE) + random.nextBetween(1, 2);
+            BlockState blockState = state.with(AGE, i);
+            world.setBlockState(pos, blockState, 2);
+            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(blockState));
+        }
     }
 
     @Override

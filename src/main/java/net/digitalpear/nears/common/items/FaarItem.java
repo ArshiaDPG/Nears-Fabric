@@ -31,10 +31,9 @@ public class FaarItem extends Item {
                     ItemStack itemStack = new ItemStack(NItems.FAAR_SEEDS);
                     PlayerEntity playerEntity = (PlayerEntity) user;
                     if (!playerEntity.getInventory().insertStack(itemStack)) {
-                        playerEntity.dropItem(itemStack, false);
+                        playerEntity.dropItem(itemStack, true);
                     }
                 }
-
                 return stack;
             }
         }
