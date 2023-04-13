@@ -46,13 +46,14 @@ public class NearsBlockLootTables extends FabricBlockLootTableProvider {
         LootCondition.Builder cropAgeConditionBuilder = BlockStatePropertyLootCondition.builder(NBlocks.CINDER_WHEAT)
                 .properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(CropBlock.AGE, 7));
 
+        makeLoot(biConsumer, NBlocks.NEAR_BULB, cropDrops(NBlocks.NEAR_BULB, NItems.NEAR, NItems.NEAR_SEEDS, cropAgeConditionBuilder));
 
         makeLoot(biConsumer, NBlocks.FAAR_BUNDLE, faarBundle(NBlocks.FAAR_BUNDLE));
         makeLoot(biConsumer, NBlocks.FAAR_GROWTH, makeBushDrops(NBlocks.FAAR_GROWTH, NItems.FAAR_SEEDS));
+
         makeLoot(biConsumer, NBlocks.SOUL_BERRY_BUSH, makeBushDrops(NBlocks.SOUL_BERRY_BUSH, NItems.SOUL_BERRIES));
 
         makeLoot(biConsumer, NBlocks.CINDER_WHEAT, cropDrops(NBlocks.CINDER_WHEAT, Items.WHEAT, NItems.CINDER_SEEDS, cropAgeConditionBuilder));
-
         makeLoot(biConsumer, NBlocks.CINDER_GRASS, cinderGrassDrops(NBlocks.CINDER_GRASS));
     }
 

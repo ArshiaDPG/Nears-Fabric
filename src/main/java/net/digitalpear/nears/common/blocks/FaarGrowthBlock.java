@@ -3,6 +3,7 @@ package net.digitalpear.nears.common.blocks;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.minecraft.block.*;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -40,6 +41,10 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
         }
     }
 
+    @Override
+    public boolean canReplace(BlockState state, ItemPlacementContext context) {
+        return false;
+    }
 
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         int i = state.get(AGE);

@@ -56,6 +56,14 @@ public class NItems {
             entries.addAfter(NEAR_SEEDS, FAAR_SEEDS);
             entries.addAfter(FAAR_SEEDS, SOUL_BERRY_PIPS);
             entries.addAfter(SOUL_BERRY_PIPS, CINDER_SEEDS);
+
+            entries.addAfter(Items.NETHER_SPROUTS, NBlocks.CINDER_GRASS);
         });
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.addAfter(Items.WHEAT, CINDER_GRAIN);
+
+        });
+
     }
 }

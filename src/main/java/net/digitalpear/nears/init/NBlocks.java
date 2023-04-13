@@ -60,8 +60,7 @@ public class NBlocks {
             new CInderWheatCropBlock(AbstractBlock.Settings.of(Material.NETHER_SHOOTS, MapColor.GRAY)
             .noCollision()
             .breakInstantly()
-            .sounds(BlockSoundGroup.ROOTS)
-            .offset(AbstractBlock.OffsetType.XZ)));
+            .sounds(BlockSoundGroup.ROOTS)));
 
 
 

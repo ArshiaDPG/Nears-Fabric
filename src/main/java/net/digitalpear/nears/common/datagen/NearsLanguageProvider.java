@@ -27,5 +27,12 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(NItems.SOUL_BERRY_PIPS, "Soul Berry Pips");
         translationBuilder.add(NBlocks.SOUL_BERRY_BUSH, "Soul Berry Bush");
         translationBuilder.add(NItems.SOULLESS_PASTRY, "Soulless Pastry");
+
+
+        translationBuilder.add(NItems.CINDER_SEEDS, "Cinder Seeds");
+        translationBuilder.add(NItems.CINDER_GRAIN, "Cinder Grain");
+        translationBuilder.add(NBlocks.CINDER_GRASS, "Cinder Grass");
+        translationBuilder.add(NBlocks.POTTED_CINDER_GRASS, "Potted Cinder Grass");
+        translationBuilder.add(NBlocks.CINDER_WHEAT, "Cinder Wheat");
     }
 }

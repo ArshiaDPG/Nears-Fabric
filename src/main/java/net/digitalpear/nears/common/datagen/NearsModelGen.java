@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -23,8 +22,11 @@ public class NearsModelGen extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 
         registerSoulBerryBush(blockStateModelGenerator);
+
         registerFaarPlants(blockStateModelGenerator);
+
         registerNearPlants(blockStateModelGenerator);
+
         registerCinderPlants(blockStateModelGenerator);
 
     }
@@ -75,22 +77,33 @@ public class NearsModelGen extends FabricModelProvider {
         blockStateModelGenerator.registerItemModel(NItems.CINDER_GRAIN);
 
         /*
-            This one model took 3 hours.
+            This one block took 3 hours. I still don't understand most of it.
          */
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(NBlocks.CINDER_WHEAT)
-                .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
-                .coordinate(BlockStateVariantMap.create(Properties.AGE_7).register((stage) -> {
-            Identifier var2 = ModelIds.getBlockSubModelId(NBlocks.CINDER_WHEAT, "" + stage);
-            Identifier MODEL = CINDER_GRASS_BASE.upload(NBlocks.CINDER_WHEAT, "" + stage, TextureMap.all(getId(NBlocks.CINDER_WHEAT).withSuffixedPath("" + stage)),
-                    blockStateModelGenerator.modelCollector);
-            return BlockStateVariant.create().put(VariantSettings.MODEL, var2);
-        })));
+        registerHorizontallyRotatingCrop(blockStateModelGenerator, NBlocks.CINDER_WHEAT);
 
 
         blockStateModelGenerator.registerFlowerPotPlant(NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS, BlockStateModelGenerator.TintType.NOT_TINTED);
     }
 
-    private Identifier getId(Block block){
+    public static void registerHorizontallyRotatingCrop(BlockStateModelGenerator blockStateModelGenerator, Block block){
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
+                .coordinate(BlockStateVariantMap.create(Properties.AGE_7).register((stage) -> {
+
+            Identifier var2 = ModelIds.getBlockSubModelId(block, "" + stage);
+
+            /*
+                Register model
+             */
+            CINDER_GRASS_BASE.upload(block, "" + stage,
+            TextureMap.all(getId(block).withSuffixedPath("" + stage)),
+            blockStateModelGenerator.modelCollector);
+
+            return BlockStateVariant.create().put(VariantSettings.MODEL, var2);
+        })));
+    }
+
+    private static Identifier getId(Block block){
         return Registries.BLOCK.getId(block).withPrefixedPath("block/");
     }
 }

@@ -1,6 +1,7 @@
-// 1.19.4	2023-04-12T17:06:41.8162914	Nears/Block Loot Tables
+// 1.19.4	2023-04-12T18:25:59.8879347	Nears/Block Loot Tables
 bc1a7d404826caca3892a05520906e7c9da53745 data\nears\loot_tables\blocks\cinder_grass.json
-24d5837ce1968ef401daf3ecbb38a21346555eb3 data\nears\loot_tables\blocks\soul_berry_bush.json
+05a0e4b44024eb039a0de3e97a097d693b2abe5e data\nears\loot_tables\blocks\near_bulb.json
 79ab15b0fb684bbdd1275748b6a903594d6a5283 data\nears\loot_tables\blocks\faar_growth.json
+24d5837ce1968ef401daf3ecbb38a21346555eb3 data\nears\loot_tables\blocks\soul_berry_bush.json
 f9e221314bffa74fd130070cadc0447a905d458d data\nears\loot_tables\blocks\faar_bundle.json
 7d5e6a01f485b03bbebd3fd63f2e225db6eb7ff9 data\nears\loot_tables\blocks\cinder_wheat.json
