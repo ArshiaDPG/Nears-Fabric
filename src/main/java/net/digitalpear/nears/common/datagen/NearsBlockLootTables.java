@@ -6,6 +6,7 @@ import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.impl.tag.convention.TagRegistration;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
@@ -26,6 +27,7 @@ import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.operator.BoundedIntUnaryOperator;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.Identifier;
 
 import java.util.function.BiConsumer;
@@ -55,6 +57,7 @@ public class NearsBlockLootTables extends FabricBlockLootTableProvider {
 
         makeLoot(biConsumer, NBlocks.CINDER_WHEAT, cropDrops(NBlocks.CINDER_WHEAT, Items.WHEAT, NItems.CINDER_SEEDS, cropAgeConditionBuilder));
         makeLoot(biConsumer, NBlocks.CINDER_GRASS, cinderGrassDrops(NBlocks.CINDER_GRASS));
+
     }
 
 

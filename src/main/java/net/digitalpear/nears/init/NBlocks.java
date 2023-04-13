@@ -7,6 +7,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.tag.TagEntry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
@@ -47,13 +48,14 @@ public class NBlocks {
 
 
     public static final Block CINDER_GRASS = createBlockWithItem("cinder_grass",
-            new RootsBlock(AbstractBlock.Settings.of(Material.NETHER_SHOOTS, MapColor.GRAY)
+            new CinderGrassBlock(AbstractBlock.Settings.of(Material.NETHER_SHOOTS, MapColor.GRAY)
             .noCollision()
             .breakInstantly()
             .sounds(BlockSoundGroup.ROOTS)
             .offset(AbstractBlock.OffsetType.XZ)));
 
-    public static final Block POTTED_CINDER_GRASS = createBlockWithoutItem("potted_cinder_grass", new FlowerPotBlock(CINDER_GRASS, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()));
+    public static final Block POTTED_CINDER_GRASS = createBlockWithoutItem("potted_cinder_grass", new FlowerPotBlock(CINDER_GRASS,
+            AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()));
 
 
     public static final Block CINDER_WHEAT = createBlockWithoutItem("cinder_wheat",
@@ -61,8 +63,6 @@ public class NBlocks {
             .noCollision()
             .breakInstantly()
             .sounds(BlockSoundGroup.ROOTS)));
-
-
 
 
 

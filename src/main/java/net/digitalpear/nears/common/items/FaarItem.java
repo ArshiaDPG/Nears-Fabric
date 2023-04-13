@@ -29,8 +29,4 @@ public class FaarItem extends Item {
         return super.finishUsing(stack, world, user);
     }
 
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.EAT;
-    }
-
 }
