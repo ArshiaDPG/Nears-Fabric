@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.registry.Registries;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -85,6 +86,9 @@ public class NearsModelGen extends FabricModelProvider {
         blockStateModelGenerator.registerFlowerPotPlant(NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS, BlockStateModelGenerator.TintType.NOT_TINTED);
     }
 
+
+
+
     public static void registerHorizontallyRotatingCrop(BlockStateModelGenerator blockStateModelGenerator, Block block){
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
                 .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
@@ -101,6 +105,23 @@ public class NearsModelGen extends FabricModelProvider {
 
             return BlockStateVariant.create().put(VariantSettings.MODEL, var2);
         })));
+    }
+    public static void registerHorizontallyRotatingCrop(BlockStateModelGenerator blockStateModelGenerator, Block block, IntProperty age){
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
+                .coordinate(BlockStateVariantMap.create(age).register((stage) -> {
+
+                    Identifier var2 = ModelIds.getBlockSubModelId(block, "" + stage);
+
+            /*
+                Register model
+             */
+                    CINDER_GRASS_BASE.upload(block, "" + stage,
+                            TextureMap.all(getId(block).withSuffixedPath("" + stage)),
+                            blockStateModelGenerator.modelCollector);
+
+                    return BlockStateVariant.create().put(VariantSettings.MODEL, var2);
+                })));
     }
 
     private static Identifier getId(Block block){

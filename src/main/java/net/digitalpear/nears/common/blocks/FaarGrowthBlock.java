@@ -47,17 +47,8 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
     }
 
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        int i = state.get(AGE);
-        if (state.get(AGE) < 3 && random.nextInt(5) == 0) {
-            if (i < MAX_AGE) {
-                BlockState blockState = state.with(AGE, i + 1);
-                world.setBlockState(pos, blockState, 2);
-                world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(blockState));
-            }
-            else{
-                world.setBlockState(pos, NBlocks.FAAR_BUNDLE.getDefaultState(), 2);
-                world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(NBlocks.FAAR_BUNDLE.getDefaultState()));
-            }
+        if (random.nextInt(5) == 0) {
+            grow(world, random, pos, state);
         }
     }
 
@@ -67,20 +58,29 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
     }
 
     public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
-        return false;
+        return true;
     }
 
     public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
+    public boolean hasRandomTicks(BlockState state) {
+        return state.get(AGE) <= MAX_AGE;
+    }
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        if (state.get(AGE) < 3){
+        if (state.get(AGE) < MAX_AGE){
             int i = state.get(AGE) + random.nextBetween(1, 2);
+            i = Math.min(i, MAX_AGE);
             BlockState blockState = state.with(AGE, i);
             world.setBlockState(pos, blockState, 2);
             world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(blockState));
+        }
+        else{
+            world.setBlockState(pos, NBlocks.FAAR_BUNDLE.getDefaultState(), 2);
+            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(NBlocks.FAAR_BUNDLE.getDefaultState()));
         }
     }
 
@@ -94,6 +94,7 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
         return floor.isOf(Blocks.WARPED_WART_BLOCK);
     }
+
 
 
 }

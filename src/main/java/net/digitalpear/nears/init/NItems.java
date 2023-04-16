@@ -45,7 +45,7 @@ public class NItems {
 
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
-            entries.addAfter(Items.APPLE, NEAR);
+            entries.addAfter(Items.ENCHANTED_GOLDEN_APPLE, NEAR);
             entries.addAfter(NEAR, FAAR);
             entries.addAfter(Items.GLOW_BERRIES, SOUL_BERRIES);
             entries.addAfter(Items.PUMPKIN_PIE, SOULLESS_PASTRY);
@@ -56,6 +56,8 @@ public class NItems {
             entries.addAfter(NEAR_SEEDS, FAAR_SEEDS);
             entries.addAfter(FAAR_SEEDS, SOUL_BERRY_PIPS);
             entries.addAfter(SOUL_BERRY_PIPS, CINDER_SEEDS);
+
+            entries.addAfter(Items.JACK_O_LANTERN, NBlocks.FAAR_BUNDLE);
 
             entries.addAfter(Items.NETHER_SPROUTS, NBlocks.CINDER_GRASS);
         });
