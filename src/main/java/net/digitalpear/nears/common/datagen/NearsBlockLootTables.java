@@ -55,7 +55,7 @@ public class NearsBlockLootTables extends FabricBlockLootTableProvider {
 
         makeLoot(biConsumer, NBlocks.SOUL_BERRY_BUSH, makeBushDrops(NBlocks.SOUL_BERRY_BUSH, NItems.SOUL_BERRIES));
 
-        makeLoot(biConsumer, NBlocks.CINDER_WHEAT, cropDrops(NBlocks.CINDER_WHEAT, Items.WHEAT, NItems.CINDER_SEEDS, cropAgeConditionBuilder));
+        makeLoot(biConsumer, NBlocks.CINDER_WHEAT, cropDrops(NBlocks.CINDER_WHEAT, NItems.CINDER_GRAIN, NItems.CINDER_SEEDS, cropAgeConditionBuilder));
         makeLoot(biConsumer, NBlocks.CINDER_GRASS, cinderGrassDrops(NBlocks.CINDER_GRASS));
 
     }
