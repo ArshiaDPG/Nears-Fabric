@@ -26,6 +26,8 @@ public class NData {
         compostingChanceRegistry.add(NItems.FAAR, 0.2f);
         compostingChanceRegistry.add(NItems.NEAR, 0.4f);
         compostingChanceRegistry.add(NItems.CINDER_GRAIN, 0.5f);
+
+        compostingChanceRegistry.add(NBlocks.CINDER_GRASS, 0.4f);
     }
     public static void registerLootTableModifications(){
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {

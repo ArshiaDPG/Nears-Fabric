@@ -2,16 +2,7 @@ package net.digitalpear.nears;
 
 import net.digitalpear.nears.init.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.UndergroundConfiguredFeatures;
 
 public class Nears implements ModInitializer {
 
@@ -24,9 +15,6 @@ public class Nears implements ModInitializer {
         NItems.init();
         NData.init();
 
-        NConfiguredFeatures.init();
         NPlacedFeatures.init();
     }
-
-
 }

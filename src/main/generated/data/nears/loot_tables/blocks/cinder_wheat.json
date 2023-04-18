@@ -23,7 +23,7 @@
                   }
                 }
               ],
-              "name": "minecraft:wheat"
+              "name": "nears:cinder_grain"
             },
             {
               "type": "minecraft:item",
