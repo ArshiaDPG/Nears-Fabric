@@ -7,6 +7,7 @@ import net.minecraft.block.FallingBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -15,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 
 public class FaarBundleBlock extends FallingBlock {
@@ -57,8 +59,15 @@ public class FaarBundleBlock extends FallingBlock {
             entity.setVelocity(vec3d.x, -vec3d.y * 0.6600000262260437D * d, vec3d.z);
         }
         if (vec3d.y < -0.8D){
-            onBreak(world, pos, this.getDefaultState(), null);
+//            onBreak(world, pos, this.getDefaultState(), null);
+
+            world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+
+            this.spawnBreakParticles(world, null, pos, this.getDefaultState());
+            world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(entity, this.getDefaultState()));
+
             combust(entity);
+
         }
     }
 
