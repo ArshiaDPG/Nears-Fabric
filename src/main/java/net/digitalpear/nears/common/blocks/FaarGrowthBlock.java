@@ -2,6 +2,7 @@ package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
+import net.digitalpear.nears.init.tags.NBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -92,7 +93,7 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOf(Blocks.WARPED_WART_BLOCK);
+        return floor.isIn(NBlockTags.FAAR_GROWTH_BASE);
     }
 
 

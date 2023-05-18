@@ -8,7 +8,10 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
+import java.util.List;
+
 public class NConfiguredFeatures {
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_NEARS = of("patch_nears");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SOUL_BERRY_BUSH = of("patch_soul_berry_bush");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FAAR_GROWTH = of("patch_faar_growth");

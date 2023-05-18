@@ -1,6 +1,7 @@
 package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.NItems;
+import net.digitalpear.nears.init.tags.NBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
@@ -8,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.PiglinBrain;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -32,7 +34,7 @@ public class FaarBundleBlock extends FallingBlock {
     }
 
     public boolean isNotSupported(World world, BlockPos pos){
-        return !world.getBlockState(pos.up()).isOf(Blocks.WARPED_WART_BLOCK);
+        return !world.getBlockState(pos.up()).isIn(NBlockTags.FAAR_GROWTH_BASE);
     }
 
     @Override
@@ -59,11 +61,9 @@ public class FaarBundleBlock extends FallingBlock {
             entity.setVelocity(vec3d.x, -vec3d.y * 0.6600000262260437D * d, vec3d.z);
         }
         if (vec3d.y < -0.8D){
-//            onBreak(world, pos, this.getDefaultState(), null);
-
             world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 
-            this.spawnBreakParticles(world, null, pos, this.getDefaultState());
+            this.spawnBreakParticles(world, entity instanceof PlayerEntity ? (PlayerEntity) entity : null, pos, this.getDefaultState());
             world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(entity, this.getDefaultState()));
 
             combust(entity);

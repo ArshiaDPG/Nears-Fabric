@@ -1,6 +1,7 @@
 package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.NItems;
+import net.digitalpear.nears.init.tags.NBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -103,6 +104,6 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOf(Blocks.SOUL_SOIL) || floor.isOf(Blocks.SOUL_SAND);
+        return floor.isIn(NBlockTags.SOUL_BERRY_BUSH_PLANTABLE_ON);
     }
 }

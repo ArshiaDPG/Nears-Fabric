@@ -4,6 +4,7 @@ import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableBiMap;
 import net.digitalpear.nears.init.NItems;
+import net.digitalpear.nears.init.tags.NBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -75,7 +76,7 @@ public class CInderWheatCropBlock extends CropBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOf(Blocks.MAGMA_BLOCK);
+        return floor.isIn(NBlockTags.CINDER_WHEAT_PLANTABLE_ON);
     }
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, AGE);

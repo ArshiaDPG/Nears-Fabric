@@ -1,0 +1,70 @@
+{
+  "parent": "nears:nether/symbiotic",
+  "criteria": {
+    "get_faar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "nears:faar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_near": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "nears:near"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_soul_berries": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "nears:soul_berries"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.nether.oh_how_faar_we_go.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "nears:faar"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.nether.oh_how_faar_we_go.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_near"
+    ],
+    [
+      "get_faar"
+    ],
+    [
+      "get_soul_berries"
+    ]
+  ],
+  "rewards": {
+    "experience": 69
+  }
+}

@@ -32,7 +32,7 @@ public class NBlocks {
                 .noCollision()
                 .sounds(BlockSoundGroup.SWEET_BERRY_BUSH)
                 .offset(AbstractBlock.OffsetType.XZ)
-                .luminance(state -> state.get(SoulBerryBushBlock.AGE) == SoulBerryBushBlock.MAX_AGE ? 5 : 0)));
+                .luminance(state -> state.get(SoulBerryBushBlock.AGE) * 2)));
 
 
     public static final Block FAAR_GROWTH = createBlockWithoutItem("faar_growth",

@@ -1,4 +1,10 @@
 {
+  "advancements.nether.a_pie_for_the_soul.description": "Craft a Soulless Pastry.",
+  "advancements.nether.a_pie_for_the_soul.title": "A Pie For the Soul",
+  "advancements.nether.oh_how_faar_we_go.description": "Obtain every nether fruit.",
+  "advancements.nether.oh_how_faar_we_go.title": "Oh How Faar We Go",
+  "advancements.nether.symbiotic.description": "Obtain any nether fruit.",
+  "advancements.nether.symbiotic.title": "Symbiotic",
   "block.nears.cinder_grass": "Cinder Grass",
   "block.nears.cinder_wheat": "Cinder Wheat",
   "block.nears.faar_bundle": "Bundle of Faars",

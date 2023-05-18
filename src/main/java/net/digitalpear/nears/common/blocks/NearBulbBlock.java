@@ -1,9 +1,11 @@
 package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.NItems;
+import net.digitalpear.nears.init.tags.NBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -65,7 +67,7 @@ public class NearBulbBlock extends PlantBlock implements Fertilizable {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOf(Blocks.CRIMSON_NYLIUM);
+        return floor.isIn(NBlockTags.NEAR_PLANTABLE_ON);
     }
 
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {

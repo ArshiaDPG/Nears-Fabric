@@ -1,10 +1,9 @@
 package net.digitalpear.nears;
 
-import net.digitalpear.nears.common.datagen.NearsBlockLootTables;
-import net.digitalpear.nears.common.datagen.NearsLanguageProvider;
-import net.digitalpear.nears.common.datagen.NearsModelGen;
-import net.digitalpear.nears.common.datagen.NearsRecipeGen;
+import net.digitalpear.nears.common.datagen.*;
+import net.digitalpear.nears.common.datagen.tags.NearsBiomeTagGen;
 import net.digitalpear.nears.common.datagen.tags.NearsBlockTagGen;
+import net.digitalpear.nears.common.datagen.tags.NearsItemTagGen;
 import net.digitalpear.nears.common.datagen.worldgen.NConfiguredFeatureProvider;
 import net.digitalpear.nears.common.datagen.worldgen.NPlacedFeatureProvider;
 import net.digitalpear.nears.init.NConfiguredFeatures;
@@ -22,8 +21,11 @@ public class NearsDatagen implements DataGeneratorEntrypoint {
         fabricDataGenerator.createPack().addProvider(NearsBlockLootTables::new);
         fabricDataGenerator.createPack().addProvider(NearsLanguageProvider::new);
         fabricDataGenerator.createPack().addProvider(NearsRecipeGen::new);
+        fabricDataGenerator.createPack().addProvider(NearsAdvancementGen::new);
 
         fabricDataGenerator.createPack().addProvider(NearsBlockTagGen::new);
+        fabricDataGenerator.createPack().addProvider(NearsItemTagGen::new);
+        fabricDataGenerator.createPack().addProvider(NearsBiomeTagGen::new);
 
         fabricDataGenerator.createPack().addProvider(NConfiguredFeatureProvider::new);
         fabricDataGenerator.createPack().addProvider(NPlacedFeatureProvider::new);

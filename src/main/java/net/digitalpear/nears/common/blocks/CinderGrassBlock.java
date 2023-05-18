@@ -1,5 +1,6 @@
 package net.digitalpear.nears.common.blocks;
 
+import net.digitalpear.nears.init.tags.NBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PlantBlock;
@@ -14,6 +15,6 @@ public class CinderGrassBlock extends RootsBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOf(Blocks.BASALT) || floor.isOf(Blocks.MAGMA_BLOCK) || floor.isOf(Blocks.BLACKSTONE) || super.canPlantOnTop(floor, world, pos);
+        return floor.isIn(NBlockTags.CINDER_GRASS_PLANTABLE_ON);
     }
 }

@@ -1,9 +1,11 @@
 package net.digitalpear.nears.common.datagen.tags;
 
 import net.digitalpear.nears.init.NBlocks;
+import net.digitalpear.nears.init.tags.NBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
@@ -28,5 +30,17 @@ public class NearsBlockTagGen extends FabricTagProvider<Block> {
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(NBlocks.FAAR_BUNDLE);
         getOrCreateTagBuilder(BlockTags.CROPS).add(NBlocks.CINDER_WHEAT);
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(NBlocks.POTTED_CINDER_GRASS);
+
+
+
+        getOrCreateTagBuilder(NBlockTags.NEAR_PLANTABLE_ON).add(Blocks.CRIMSON_NYLIUM);
+        getOrCreateTagBuilder(NBlockTags.FAAR_GROWTH_BASE).add(Blocks.WARPED_WART_BLOCK);
+        getOrCreateTagBuilder(NBlockTags.SOUL_BERRY_BUSH_PLANTABLE_ON).add(Blocks.SOUL_SAND).add(Blocks.SOUL_SOIL);
+        getOrCreateTagBuilder(NBlockTags.CINDER_GRASS_PLANTABLE_ON).add(Blocks.SOUL_SAND).add(Blocks.SOUL_SOIL)
+                .forceAddTag(BlockTags.NYLIUM).add(Blocks.BASALT).add(Blocks.BLACKSTONE).add(Blocks.MAGMA_BLOCK);
+
+        getOrCreateTagBuilder(NBlockTags.CINDER_WHEAT_PLANTABLE_ON).add(Blocks.MAGMA_BLOCK);
+
+
     }
 }
