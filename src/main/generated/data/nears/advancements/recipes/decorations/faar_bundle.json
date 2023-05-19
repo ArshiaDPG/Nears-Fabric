@@ -30,5 +30,6 @@
     "recipes": [
       "nears:faar_bundle"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

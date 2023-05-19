@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "nears:block/cinder_bale_top",
+    "side": "nears:block/cinder_bale_side"
+  }
+}

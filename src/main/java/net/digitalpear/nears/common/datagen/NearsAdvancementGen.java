@@ -9,6 +9,7 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.ChangedDimensionCriterion;
+import net.minecraft.advancement.criterion.CriterionConditions;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.block.Blocks;
 import net.minecraft.predicate.item.ItemPredicate;
@@ -63,20 +64,31 @@ public class NearsAdvancementGen extends FabricAdvancementProvider {
                 .criterion("get_soul_berries", InventoryChangedCriterion.Conditions.items(NItems.SOUL_BERRIES))
                 .build(consumer,  Nears.MOD_ID + ":nether/oh_how_faar_we_go");
 
-        Advancement aPieForTheSoul = Advancement.Builder.create().parent(symbiotic)
+        Advancement aPieForTheSoul = makeAdvancement(consumer,
+                "a_pie_for_the_soul", AdvancementFrame.TASK,
+                InventoryChangedCriterion.Conditions.items(NItems.SOULLESS_PASTRY),
+                "get_soulless_pastry",
+                2, symbiotic);
+    }
+
+
+    public Advancement makeAdvancement(Consumer<Advancement> consumer, String name, AdvancementFrame frame, CriterionConditions conditions, String criterionNames, int reward, Advancement parent, boolean hidden){
+        return Advancement.Builder.create().parent(parent)
                 .display(
                         NItems.SOULLESS_PASTRY,
-                        Text.translatable("advancements.nether.a_pie_for_the_soul.title"),
-                        Text.translatable("advancements.nether.a_pie_for_the_soul.description"),
-                        null, // children to parent advancements don't need a background set
-                        AdvancementFrame.TASK,
+                        Text.translatable("advancements.nether." + name + ".title"),
+                        Text.translatable("advancements.nether." + name + ".description"),
+                        null,
+                        frame,
                         true,
                         true,
-                        false
+                        hidden
                 )
-                .rewards(AdvancementRewards.Builder.experience(2))
-                .criterion("get_soulless_pastry", InventoryChangedCriterion.Conditions.items(NItems.SOULLESS_PASTRY))
-                .build(consumer,  Nears.MOD_ID + ":nether/a_pie_for_the_soul");
-
+                .rewards(AdvancementRewards.Builder.experience(reward))
+                .criterion(criterionNames, conditions)
+                .build(consumer, Nears.MOD_ID + ":nether/" + name);
+    }
+    public Advancement makeAdvancement(Consumer<Advancement> consumer, String name, AdvancementFrame frame, CriterionConditions conditions, String criterionNames, int reward, Advancement parent){
+        return makeAdvancement(consumer, name, frame, conditions, criterionNames, reward, parent, false);
     }
 }

@@ -9,6 +9,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -65,24 +68,26 @@ public class FaarBundleBlock extends FallingBlock {
             this.spawnBreakParticles(world, entity instanceof PlayerEntity ? (PlayerEntity) entity : null, pos, this.getDefaultState());
             world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(entity, this.getDefaultState()));
 
-            combust(entity);
+            combust(entity, pos);
 
         }
     }
 
-    public void combust(Entity entity) {
+    public void combust(Entity entity, BlockPos pos) {
         World world = entity.getWorld();
-        SoundEvent popSound = Blocks.PUMPKIN.getSoundGroup(Blocks.PUMPKIN.getDefaultState()).getBreakSound();
+        SoundEvent popSound = this.getSoundGroup(Blocks.PUMPKIN.getDefaultState()).getBreakSound();
         world.playSoundFromEntity(null, entity, popSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        int i = 1 + world.random.nextBetween(4, 6);
-        for(int j = 0; j < i; ++j) {
-            ItemEntity itemEntity = entity.dropItem(NItems.FAAR, 1);
-            if (itemEntity != null) {
-                itemEntity.setVelocity(itemEntity.getVelocity().add(
-                        (world.random.nextFloat() - world.random.nextFloat()) * 0.1F,
-                        world.random.nextFloat() * 0.05F,
-                        (world.random.nextFloat() - world.random.nextFloat()) * 0.1F));
-            }
-        }
+
+        dropStacks(this.getDefaultState(), world, pos);
+//        int i = 1 + world.random.nextBetween(4, 6);
+//        for(int j = 0; j < i; ++j) {
+//            ItemEntity itemEntity = entity.dropItem(NItems.FAAR, 1);
+//            if (itemEntity != null) {
+//                itemEntity.setVelocity(itemEntity.getVelocity().add(
+//                        (world.random.nextFloat() - world.random.nextFloat()) * 0.1F,
+//                        world.random.nextFloat() * 0.05F,
+//                        (world.random.nextFloat() - world.random.nextFloat()) * 0.1F));
+//            }
+//        }
     }
 }

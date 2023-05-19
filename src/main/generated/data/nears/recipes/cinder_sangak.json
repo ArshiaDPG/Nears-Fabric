@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "nears:cinder_grain"
+    }
+  },
+  "pattern": [
+    "GGG"
+  ],
+  "result": {
+    "item": "nears:cinder_sangak"
+  },
+  "show_notification": true
+}

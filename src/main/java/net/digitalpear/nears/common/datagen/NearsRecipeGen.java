@@ -27,6 +27,7 @@ public class NearsRecipeGen  extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
+
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, NItems.SOUL_BERRY_PIPS)
                 .input(NItems.SOUL_BERRIES)
                 .criterion("has_soul_berries", conditionsFromItem(NItems.SOUL_BERRIES))
@@ -59,6 +60,14 @@ public class NearsRecipeGen  extends FabricRecipeProvider {
                 .criterion("has_nether_fruit", InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(NItemTags.NETHER_FRUITS).build()))
                 .offerTo(exporter);
 
+        FabricRecipeProvider.offerReversibleCompactingRecipes(exporter, RecipeCategory.MISC, NItems.CINDER_GRAIN, RecipeCategory.BUILDING_BLOCKS, NBlocks.CINDER_BALE);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, NItems.CINDER_SANGAK)
+                .input('G', NItems.CINDER_GRAIN)
+                .pattern("GGG")
+                .criterion("has_cinder_grain", conditionsFromItem(NItems.CINDER_GRAIN))
+                .offerTo(exporter);
+
         COLOR_MELTING_MAP.forEach((fruit, dye) -> {
                 FabricRecipeProvider.offerSmelting(exporter,
                 List.of(fruit),
@@ -68,5 +77,6 @@ public class NearsRecipeGen  extends FabricRecipeProvider {
                 200,
                 "");
         });
+
     }
 }

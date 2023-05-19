@@ -30,6 +30,7 @@ public class NItems {
      */
     public static final Item SOULLESS_PASTRY = createItem("soulless_pastry", new Item(new Item.Settings().food(NFoodComponents.SOULLESS_PASTRY)));
     public static final Item NETHER_STEW = createItem("nether_stew", new NetherStewItem(new Item.Settings().food(NFoodComponents.NETHER_STEW)));
+    public static final Item CINDER_SANGAK = createItem("cinder_sangak", new Item(new Item.Settings().food(NFoodComponents.CINDER_SANGAK)));
 
     /*
         Seeds
@@ -51,15 +52,21 @@ public class NItems {
             entries.addAfter(NEAR, FAAR);
             entries.addAfter(Items.GLOW_BERRIES, SOUL_BERRIES);
             entries.addAfter(Items.PUMPKIN_PIE, SOULLESS_PASTRY);
+
+            entries.addAfter(Items.BREAD, CINDER_SANGAK);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> {
-            entries.addAfter(Items.MELON_SEEDS, NEAR_SEEDS);
+            entries.addAfter(Items.BEETROOT_SEEDS, NEAR_SEEDS);
             entries.addAfter(NEAR_SEEDS, FAAR_SEEDS);
             entries.addAfter(FAAR_SEEDS, SOUL_BERRY_PIPS);
             entries.addAfter(SOUL_BERRY_PIPS, CINDER_SEEDS);
 
-            entries.addAfter(Items.JACK_O_LANTERN, NBlocks.FAAR_BUNDLE);
+            entries.addAfter(Items.SWEET_BERRIES, SOUL_BERRIES);
+
+            entries.addAfter(Items.HAY_BLOCK, NBlocks.CINDER_BALE);
+
+            entries.add(NBlocks.FAAR_BUNDLE);
 
             entries.addAfter(Items.NETHER_SPROUTS, NBlocks.CINDER_GRASS);
         });

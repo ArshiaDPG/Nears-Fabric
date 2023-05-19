@@ -30,5 +30,6 @@
     "recipes": [
       "nears:faar_seeds"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
