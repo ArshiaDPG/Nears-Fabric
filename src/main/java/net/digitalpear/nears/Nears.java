@@ -1,6 +1,7 @@
 package net.digitalpear.nears;
 
 import net.digitalpear.nears.init.*;
+import net.digitalpear.nears.init.data.NData;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 
