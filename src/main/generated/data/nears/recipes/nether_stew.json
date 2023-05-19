@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nears:soul_berries"
+    },
+    {
+      "item": "nears:faar"
+    },
+    {
+      "item": "nears:near"
+    },
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "result": {
+    "item": "nears:nether_stew"
+  }
+}
