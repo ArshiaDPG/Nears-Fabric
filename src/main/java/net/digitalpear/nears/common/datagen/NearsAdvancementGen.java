@@ -2,7 +2,7 @@ package net.digitalpear.nears.common.datagen;
 
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.init.NItems;
-import net.digitalpear.nears.init.tags.NItemTags;
+import net.digitalpear.nears.init.data.tags.NItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;

@@ -3,6 +3,8 @@ package net.digitalpear.nears.init;
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.common.datagen.NearsRecipeGen;
 import net.digitalpear.nears.common.items.FaarItem;
+import net.digitalpear.nears.common.items.NetherStewItem;
+import net.digitalpear.nears.init.data.NFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -26,8 +28,8 @@ public class NItems {
     /*
         Foods
      */
-    public static final Item SOULLESS_PASTRY = createItem("soulless_pastry", new Item(new Item.Settings().food(FoodComponents.PUMPKIN_PIE)));
-
+    public static final Item SOULLESS_PASTRY = createItem("soulless_pastry", new Item(new Item.Settings().food(NFoodComponents.SOULLESS_PASTRY)));
+    public static final Item NETHER_STEW = createItem("nether_stew", new NetherStewItem(new Item.Settings().food(NFoodComponents.NETHER_STEW)));
 
     /*
         Seeds
@@ -62,10 +64,6 @@ public class NItems {
             entries.addAfter(Items.NETHER_SPROUTS, NBlocks.CINDER_GRASS);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
-            entries.addAfter(Items.WHEAT, CINDER_GRAIN);
-
-        });
-
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> entries.addAfter(Items.WHEAT, CINDER_GRAIN));
     }
 }

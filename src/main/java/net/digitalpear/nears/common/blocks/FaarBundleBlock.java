@@ -1,14 +1,13 @@
 package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.NItems;
-import net.digitalpear.nears.init.tags.NBlockTags;
+import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;

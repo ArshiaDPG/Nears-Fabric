@@ -35,6 +35,7 @@ public class NearsModelGen extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(NItems.SOULLESS_PASTRY, Models.GENERATED);
+        itemModelGenerator.register(NItems.NETHER_STEW, Models.GENERATED);
     }
 
     private void registerFaarPlants(BlockStateModelGenerator blockStateModelGenerator) {

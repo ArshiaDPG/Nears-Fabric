@@ -4,7 +4,7 @@ import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableBiMap;
 import net.digitalpear.nears.init.NItems;
-import net.digitalpear.nears.init.tags.NBlockTags;
+import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;

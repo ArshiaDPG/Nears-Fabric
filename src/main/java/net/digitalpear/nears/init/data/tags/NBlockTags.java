@@ -1,4 +1,4 @@
-package net.digitalpear.nears.init.tags;
+package net.digitalpear.nears.init.data.tags;
 
 import net.digitalpear.nears.Nears;
 import net.minecraft.block.Block;

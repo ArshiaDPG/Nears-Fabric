@@ -1,4 +1,4 @@
-// 1.19.4	2023-05-17T17:41:56.499705	Nears/Model Definitions
+// 1.19.4	2023-05-18T17:06:25.8507949	Nears/Model Definitions
 7499ef6b0a214cb4233b1b80f4587e81dd787462 assets\nears\models\block\soul_berry_bush_stage0.json
 e91a6717e06a2f2223c47c6ba15fff1902879585 assets\nears\blockstates\faar_bundle.json
 fa599c58c1d891ab431f9291825375dccdd4ea27 assets\nears\models\block\soul_berry_bush_stage3.json
@@ -19,13 +19,14 @@ f044107f09d45333fc13bc78b286c342c470e007 assets\nears\models\block\cinder_wheat7
 aaebb0e390471a29c0e5bf7d15f7e9a5a0641005 assets\nears\models\item\soul_berries.json
 1b9759a98d9baf53d3a004e02540ca9a84093c2b assets\nears\blockstates\cinder_grass.json
 f8ab99dfe905fe5f14076711659e0ce63d20cd0d assets\nears\models\item\soul_berry_pips.json
+f37f57da3b146d78e12ccaa85fbe9bea2c62f76e assets\nears\models\block\cinder_wheat1.json
 0f2bee6cbbac9a6661960ed09c9f86e85d06f8e7 assets\nears\models\item\faar.json
 c1106b3d78ec3ad9724c54061bd20097ed7d8135 assets\nears\models\item\soulless_pastry.json
-f37f57da3b146d78e12ccaa85fbe9bea2c62f76e assets\nears\models\block\cinder_wheat1.json
 745cd1f6398484dba98fb36f091824cae519124e assets\nears\models\item\cinder_grass.json
 0340a7ccd1919c9bc1d654e023ff09a67155fb87 assets\nears\models\block\cinder_wheat4.json
 5cbed2f82154ef0b166b6684538a08ce62eb1ce1 assets\nears\models\block\faar_bundle.json
 ea3eaab02037d919ea1e23a9eb3e15756652b9cd assets\nears\blockstates\soul_berry_bush.json
+bc5cd1eb5b38ad74994d67162e82f3367e0a6a04 assets\nears\models\item\nether_stew.json
 43656d9b57335c9a32cd5b0f676619a79e17dcf5 assets\nears\models\item\faar_bundle.json
 e9bd79b5d3dfb632617796568ce65217f643044b assets\nears\models\block\soul_berry_bush_stage2.json
 8bcccdaa79285717f1ce4f49fca1d58514fcda4b assets\nears\models\block\cinder_wheat6.json

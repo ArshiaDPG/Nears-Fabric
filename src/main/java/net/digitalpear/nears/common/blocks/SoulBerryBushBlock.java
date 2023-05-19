@@ -1,7 +1,7 @@
 package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.NItems;
-import net.digitalpear.nears.init.tags.NBlockTags;
+import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

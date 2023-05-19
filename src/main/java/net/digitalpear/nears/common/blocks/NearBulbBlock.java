@@ -1,11 +1,10 @@
 package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.NItems;
-import net.digitalpear.nears.init.tags.NBlockTags;
+import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;

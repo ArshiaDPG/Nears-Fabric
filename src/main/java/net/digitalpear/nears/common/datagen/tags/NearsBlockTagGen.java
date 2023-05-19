@@ -1,7 +1,7 @@
 package net.digitalpear.nears.common.datagen.tags;
 
 import net.digitalpear.nears.init.NBlocks;
-import net.digitalpear.nears.init.tags.NBlockTags;
+import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;

@@ -1,14 +1,16 @@
-// 1.19.4	2023-05-17T17:41:56.4977112	Nears/Recipes
+// 1.19.4	2023-05-18T17:06:25.8478058	Nears/Recipes
 c6b9a780925aeb343fbfc0b06b3f53e5be697329 data\nears\recipes\soul_berry_pips.json
 22de28e8c6cc9f655debc8beca8f8145ba1b5a2f data\nears\recipes\faar_seeds.json
+48d86dd3535dda0de212a349f77a2f7b2d149e10 data\nears\advancements\recipes\decorations\faar_bundle.json
 6a1474741a3cd6f5b75cd371c05a484172c66698 data\nears\advancements\recipes\misc\faar_seeds.json
 b18f5295a832b2fa8930a7a8ba9684ddc6fac0ab data\nears\recipes\orange_dye_from_smelting_near.json
-48d86dd3535dda0de212a349f77a2f7b2d149e10 data\nears\advancements\recipes\food\faar_bundle.json
 a2bb2831ddf07e35b08119271c4b6dafe8fd1041 data\nears\recipes\faar_bundle.json
 c114c87a0139fba2d19ad31d8d15fc3378a62e51 data\nears\advancements\recipes\decorations\cyan_dye_from_smelting_faar.json
 6ea70744adcd70feb7f3ed03250127db7ce65d66 data\nears\advancements\recipes\decorations\orange_dye_from_smelting_near.json
 0ff31a669b8eafdf244d218c384c57414d058eb7 data\nears\advancements\recipes\misc\near_seeds.json
+dd1cde3cb0cf6176528f7c1bc3a87f0028efa8a2 data\nears\advancements\recipes\food\nether_stew.json
 af1e2b432b1edeab467297c09c821e7bea26a797 data\nears\recipes\light_blue_dye_from_smelting_soul_berries.json
+618817354f6ac2cbc2991cba4ec927b8765ae3ad data\nears\recipes\nether_stew.json
 27f977fbe472d2a2828eefce97fb0d25cb864fd5 data\nears\recipes\cyan_dye_from_smelting_faar.json
 595064bfd07b95843410a16b6ef8c06f3cbea968 data\nears\advancements\recipes\misc\soul_berry_pips.json
 26fe32aecba2df6d009de33325e2dd3551f8145a data\nears\advancements\recipes\decorations\light_blue_dye_from_smelting_soul_berries.json

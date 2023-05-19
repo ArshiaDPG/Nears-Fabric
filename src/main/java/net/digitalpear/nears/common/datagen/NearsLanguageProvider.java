@@ -36,7 +36,7 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(NItems.SOUL_BERRIES, "Soul Berries");
         translationBuilder.add(NItems.SOUL_BERRY_PIPS, "Soul Berry Pips");
         translationBuilder.add(NBlocks.SOUL_BERRY_BUSH, "Soul Berry Bush");
-        translationBuilder.add(NItems.SOULLESS_PASTRY, "Soulless Pastry");
+
 
 
         /*
@@ -47,6 +47,12 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(NBlocks.CINDER_GRASS, "Cinder Grass");
         translationBuilder.add(NBlocks.POTTED_CINDER_GRASS, "Potted Cinder Grass");
         translationBuilder.add(NBlocks.CINDER_WHEAT, "Cinder Wheat");
+
+        /*
+            Foods
+         */
+        translationBuilder.add(NItems.SOULLESS_PASTRY, "Soulless Pastry");
+        translationBuilder.add(NItems.NETHER_STEW, "Nether Stew");
 
 
 
