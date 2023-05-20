@@ -51,7 +51,7 @@ public class FaarBundleBlock extends FallingBlock {
 
     private void bounceEntity(Entity entity) {
         World world = entity.getWorld();
-        BlockPos pos = entity.getBlockPos().down();
+        BlockPos pos = entity.getSteppingPos();
         Vec3d vec3d = entity.getVelocity();
         if (vec3d.y < 0.0D) {
             double d = entity instanceof LivingEntity ? 1.0D : 0.8D;
