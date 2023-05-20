@@ -1,17 +1,12 @@
 package net.digitalpear.nears.common.blocks;
 
-import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -36,7 +31,7 @@ public class FaarBundleBlock extends FallingBlock {
     }
 
     public boolean isNotSupported(World world, BlockPos pos){
-        return !world.getBlockState(pos.up()).isIn(NBlockTags.FAAR_GROWTH_BASE);
+        return !world.getBlockState(pos.up()).isIn(NBlockTags.FAAR_GROWTH_PLANTABLE_ON);
     }
 
     @Override
@@ -79,15 +74,5 @@ public class FaarBundleBlock extends FallingBlock {
         world.playSoundFromEntity(null, entity, popSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
         dropStacks(this.getDefaultState(), world, pos);
-//        int i = 1 + world.random.nextBetween(4, 6);
-//        for(int j = 0; j < i; ++j) {
-//            ItemEntity itemEntity = entity.dropItem(NItems.FAAR, 1);
-//            if (itemEntity != null) {
-//                itemEntity.setVelocity(itemEntity.getVelocity().add(
-//                        (world.random.nextFloat() - world.random.nextFloat()) * 0.1F,
-//                        world.random.nextFloat() * 0.05F,
-//                        (world.random.nextFloat() - world.random.nextFloat()) * 0.1F));
-//            }
-//        }
     }
 }

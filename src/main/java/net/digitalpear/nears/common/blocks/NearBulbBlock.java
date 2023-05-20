@@ -66,7 +66,7 @@ public class NearBulbBlock extends PlantBlock implements Fertilizable {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(NBlockTags.NEAR_PLANTABLE_ON);
+        return floor.isIn(NBlockTags.NEAR_BULB_PLANTABLE_ON);
     }
 
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {

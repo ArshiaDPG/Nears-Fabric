@@ -78,6 +78,7 @@ public class NearsModelGen extends FabricModelProvider {
     private void registerCinderPlants(BlockStateModelGenerator blockStateModelGenerator){
         blockStateModelGenerator.registerItemModel(NItems.CINDER_SEEDS);
         blockStateModelGenerator.registerItemModel(NItems.CINDER_GRAIN);
+        blockStateModelGenerator.registerItemModel(NItems.CINDER_SANGAK);
 
         /*
             This one block took 3 hours. I still don't understand most of it.

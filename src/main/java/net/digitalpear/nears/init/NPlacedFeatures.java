@@ -38,8 +38,9 @@ public class NPlacedFeatures {
         RegistryEntry<ConfiguredFeature<?, ?>> patchCinderGrass = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_CINDER_GRASS);
 
         List<PlacementModifier> list = List.of(CountPlacementModifier.of(UniformIntProvider.create(0, 5)), SquarePlacementModifier.of(), PlacedFeatures.FOUR_ABOVE_AND_BELOW_RANGE, BiomePlacementModifier.of());
+        List<PlacementModifier> nearList = List.of(RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.FOUR_ABOVE_AND_BELOW_RANGE, BiomePlacementModifier.of());
 
-        PlacedFeatures.register(featureRegisterable, PATCH_NEARS, patchNears, list);
+        PlacedFeatures.register(featureRegisterable, PATCH_NEARS, patchNears, nearList);
         PlacedFeatures.register(featureRegisterable, PATCH_FAAR_GROWTH, patchFaars, list);
         PlacedFeatures.register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, patchSoulBerries, list);
         PlacedFeatures.register(featureRegisterable, PATCH_CINDER_GRASS, patchCinderGrass, list);

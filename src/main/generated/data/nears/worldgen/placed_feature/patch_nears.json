@@ -2,14 +2,8 @@
   "feature": "nears:patch_nears",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 5,
-          "min_inclusive": 0
-        }
-      }
+      "type": "minecraft:rarity_filter",
+      "chance": 3
     },
     {
       "type": "minecraft:in_square"

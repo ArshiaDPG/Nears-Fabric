@@ -73,7 +73,7 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
         if (state.get(AGE) < MAX_AGE){
-            int i = state.get(AGE) + 1;
+            int i = state.get(AGE) + random.nextBetween(1, 2);
             i = Math.min(i, MAX_AGE);
             BlockState blockState = state.with(AGE, i);
             world.setBlockState(pos, blockState, 2);
@@ -93,9 +93,6 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(NBlockTags.FAAR_GROWTH_BASE);
+        return floor.isIn(NBlockTags.FAAR_GROWTH_PLANTABLE_ON);
     }
-
-
-
 }
