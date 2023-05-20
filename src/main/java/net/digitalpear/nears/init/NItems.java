@@ -18,19 +18,20 @@ public class NItems {
     }
 
     /*
-        Fruits
+        Farmables
      */
-    public static final Item NEAR = createItem("near", new Item(new Item.Settings().food(FoodComponents.APPLE)));
-    public static final Item FAAR = createItem("faar", new FaarItem(new Item.Settings().food(FoodComponents.CARROT)));
-    public static final Item SOUL_BERRIES = createItem("soul_berries", new Item(new Item.Settings().food(FoodComponents.SWEET_BERRIES)));
+    public static final Item NEAR = createItem("near", new Item(new Item.Settings().food(NFoodComponents.NEAR)));
+    public static final Item FAAR = createItem("faar", new FaarItem(new Item.Settings().food(NFoodComponents.FAAR)));
+    public static final Item SOUL_BERRIES = createItem("soul_berries", new Item(new Item.Settings().food(NFoodComponents.SOUL_BERRIES)));
     public static final Item CINDER_GRAIN = createItem("cinder_grain", new Item(new Item.Settings()));
 
     /*
         Foods
      */
     public static final Item SOULLESS_PASTRY = createItem("soulless_pastry", new Item(new Item.Settings().food(NFoodComponents.SOULLESS_PASTRY)));
-    public static final Item NETHER_STEW = createItem("nether_stew", new NetherStewItem(new Item.Settings().food(NFoodComponents.NETHER_STEW)));
+    public static final Item NETHER_STEW = createItem("nether_stew", new NetherStewItem(new Item.Settings().food(NFoodComponents.NETHER_STEW).maxCount(1)));
     public static final Item CINDER_SANGAK = createItem("cinder_sangak", new Item(new Item.Settings().food(NFoodComponents.CINDER_SANGAK)));
+    public static final Item GLOW_SALAD = createItem("glow_salad", new Item(new Item.Settings().food(NFoodComponents.GLOW_SALAD).maxCount(1)));
 
     /*
         Seeds

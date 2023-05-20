@@ -39,9 +39,9 @@ public class NearsBlockTagGen extends FabricTagProvider<Block> {
 
         getOrCreateTagBuilder(NBlockTags.SOUL_BERRY_BUSH_PLANTABLE_ON).add(Blocks.SOUL_SAND).add(Blocks.SOUL_SOIL);
 
-        getOrCreateTagBuilder(NBlockTags.CINDER_GRASS_PLANTABLE_ON).add(Blocks.SOUL_SAND).add(Blocks.SOUL_SOIL)
-                .forceAddTag(BlockTags.NYLIUM).add(Blocks.BASALT).add(Blocks.BLACKSTONE).add(Blocks.NETHERRACK)
-                .forceAddTag((NBlockTags.CINDER_WHEAT_PLANTABLE_ON));
+        getOrCreateTagBuilder(NBlockTags.CINDER_GRASS_PLANTABLE_ON)
+                .add(Blocks.SOUL_SAND).add(Blocks.SOUL_SOIL).add(Blocks.BASALT).add(Blocks.BLACKSTONE).add(Blocks.NETHERRACK)
+                .forceAddTag(BlockTags.NYLIUM).forceAddTag(NBlockTags.CINDER_WHEAT_PLANTABLE_ON).forceAddTag(NBlockTags.NETHERRACK);
 
         getOrCreateTagBuilder(NBlockTags.CINDER_WHEAT_PLANTABLE_ON).add(Blocks.MAGMA_BLOCK);
 
