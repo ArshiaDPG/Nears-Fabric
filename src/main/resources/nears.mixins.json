@@ -4,6 +4,7 @@
   "package": "net.digitalpear.nears.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "CampfireMixin"
   ],
   "client": [
   ],

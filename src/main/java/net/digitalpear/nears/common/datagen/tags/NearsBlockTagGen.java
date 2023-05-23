@@ -30,6 +30,7 @@ public class NearsBlockTagGen extends FabricTagProvider<Block> {
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(NBlocks.FAAR_BUNDLE);
         getOrCreateTagBuilder(BlockTags.CROPS).add(NBlocks.CINDER_WHEAT);
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(NBlocks.POTTED_CINDER_GRASS);
+        getOrCreateTagBuilder(BlockTags.PIGLIN_REPELLENTS).add(NBlocks.SOUL_BERRY_BUSH);
 
 
 
@@ -44,7 +45,5 @@ public class NearsBlockTagGen extends FabricTagProvider<Block> {
                 .forceAddTag(BlockTags.NYLIUM).forceAddTag(NBlockTags.CINDER_WHEAT_PLANTABLE_ON).forceAddTag(NBlockTags.NETHERRACK);
 
         getOrCreateTagBuilder(NBlockTags.CINDER_WHEAT_PLANTABLE_ON).add(Blocks.MAGMA_BLOCK);
-
-
     }
 }

@@ -64,7 +64,7 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (!hasRandomTicks(state) && random.nextFloat() > 0.8){
+        if (state.get(AGE) == MAX_AGE && !hasRandomTicks(state) && random.nextFloat() > 0.8){
             world.addParticle(ParticleTypes.SOUL, pos.getX() + world.random.nextFloat(), pos.getY() + world.random.nextFloat(), pos.getZ() + world.random.nextFloat(), 0.0D, 0.2D, 0.0D);
         }
     }
