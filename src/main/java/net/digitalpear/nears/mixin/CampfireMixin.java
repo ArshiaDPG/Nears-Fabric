@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(CampfireBlock.class)
 public class CampfireMixin {
 
-    @Inject(method = "isSignalFireBaseBlock", at = @At("RETURN"))
+    @Inject(method = "isSignalFireBaseBlock", at = @At("RETURN"), cancellable = true)
     private void injectMethod(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (state.isOf(NBlocks.CINDER_BALE)){
             cir.setReturnValue(true);
