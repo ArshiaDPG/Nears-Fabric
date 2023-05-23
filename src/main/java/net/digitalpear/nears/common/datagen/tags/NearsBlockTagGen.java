@@ -32,8 +32,6 @@ public class NearsBlockTagGen extends FabricTagProvider<Block> {
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(NBlocks.POTTED_CINDER_GRASS);
         getOrCreateTagBuilder(BlockTags.PIGLIN_REPELLENTS).add(NBlocks.SOUL_BERRY_BUSH);
 
-
-
         getOrCreateTagBuilder(NBlockTags.NEAR_BULB_PLANTABLE_ON).add(Blocks.CRIMSON_NYLIUM);
 
         getOrCreateTagBuilder(NBlockTags.FAAR_GROWTH_PLANTABLE_ON).add(Blocks.WARPED_WART_BLOCK);

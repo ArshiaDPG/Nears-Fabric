@@ -13,6 +13,8 @@ public class NBlockTags {
     public static final TagKey<Block> CINDER_GRASS_PLANTABLE_ON = of("cinder_grass_plantable_on");
     public static final TagKey<Block> SOUL_BERRY_BUSH_PLANTABLE_ON = of("soul_berry_bush_plantable_on");
     public static final TagKey<Block> CINDER_WHEAT_PLANTABLE_ON = of("cinder_wheat_plantable_on");
+
+
     public static final TagKey<Block> NETHERRACK = commonTag("netherrack");
 
     private static TagKey<Block> of(String id) {
