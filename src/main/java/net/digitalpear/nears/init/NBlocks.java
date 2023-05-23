@@ -40,6 +40,8 @@ public class NBlocks {
     public static final Block FAAR_BUNDLE = createBlockWithItem("faar_bundle", new FaarBundleBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.BRIGHT_TEAL).strength(0.7F, 0.4F).jumpVelocityMultiplier(1.5f).sounds(BlockSoundGroup.WART_BLOCK)));
 
+
+
     public static final Block NEAR_BULB = createBlockWithoutItem("near_bulb",
             new NearBulbBlock(AbstractBlock.Settings.create()
                     .mapColor(state -> state.get(NearBulbBlock.AGE) < NearBulbBlock.MAX_AGE ? MapColor.RED : MapColor.PURPLE)

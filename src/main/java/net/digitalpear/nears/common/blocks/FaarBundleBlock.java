@@ -64,15 +64,16 @@ public class FaarBundleBlock extends FallingBlock {
             world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(entity, this.getDefaultState()));
 
             combust(entity, pos);
-
         }
+    }
+
+    public static SoundEvent getPopSound(){
+        return Blocks.PUMPKIN.getDefaultState().getSoundGroup().getBreakSound();
     }
 
     public void combust(Entity entity, BlockPos pos) {
         World world = entity.getWorld();
-        SoundEvent popSound = this.getSoundGroup(Blocks.PUMPKIN.getDefaultState()).getBreakSound();
-        world.playSoundFromEntity(null, entity, popSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
+        world.playSound(null, pos, getPopSound(), SoundCategory.BLOCKS, 1F, 2F * world.getRandom().nextFloat());
         dropStacks(this.getDefaultState(), world, pos);
     }
 }

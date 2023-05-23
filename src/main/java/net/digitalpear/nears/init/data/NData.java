@@ -2,8 +2,10 @@ package net.digitalpear.nears.init.data;
 
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
+import net.digitalpear.nears.init.data.dispenser.DispenserFaarBundleBehavior;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.ItemEntry;
@@ -29,6 +31,8 @@ public class NData {
         compostingChanceRegistry.add(NItems.CINDER_GRAIN, 0.5f);
 
         compostingChanceRegistry.add(NBlocks.CINDER_GRASS, 0.4f);
+        compostingChanceRegistry.add(NItems.CINDER_GRAIN, 0.4f);
+        compostingChanceRegistry.add(NItems.CINDER_SANGAK, 0.6f);
     }
 
 
@@ -39,13 +43,12 @@ public class NData {
                 tableBuilder.modifyPools(context -> context.with(ItemEntry.builder(NItems.NEAR).weight(6).quality(Rarity.COMMON.ordinal() + 1))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 4.0F))));
             }
-            if (LootTables.BASTION_OTHER_CHEST.equals(id) && source.isBuiltin()) {
+            else if (LootTables.BASTION_OTHER_CHEST.equals(id) && source.isBuiltin()) {
                 tableBuilder.modifyPools(context -> context.with(ItemEntry.builder(NItems.NEAR).weight(2).quality(Rarity.COMMON.ordinal() + 1))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F))));
 
             }
-            if (LootTables.NETHER_BRIDGE_CHEST.equals(id) && source.isBuiltin()) {
-
+            else if (LootTables.NETHER_BRIDGE_CHEST.equals(id) && source.isBuiltin()) {
                 LootPool.Builder poolBuilder = LootPool.builder().with(ItemEntry.builder(NItems.SOUL_BERRIES).weight(1).quality(Rarity.COMMON.ordinal() + 1)
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0F, 6.0F))));
                 tableBuilder.pool(poolBuilder);
@@ -53,8 +56,13 @@ public class NData {
         });
     }
 
+    public static void registerDispenserBehavior(){
+        DispenserBlock.registerBehavior(NBlocks.FAAR_BUNDLE, new DispenserFaarBundleBehavior());
+    }
+
     public static void init(){
         registerCompostables();
         registerLootTableModifications();
+        registerDispenserBehavior();
     }
 }
