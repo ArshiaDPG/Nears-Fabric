@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
@@ -25,9 +26,9 @@ public class NearsBiomeTagGen  extends FabricTagProvider<Biome> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(NBiomeTags.CAN_NEARS_SPAWN).add(BiomeKeys.CRIMSON_FOREST);
+        getOrCreateTagBuilder(NBiomeTags.CAN_NEARS_SPAWN).add(BiomeKeys.CRIMSON_FOREST).addOptional(new Identifier("gardens_of_the_dead", "whistling_woods"));
         getOrCreateTagBuilder(NBiomeTags.CAN_FAARS_SPAWN).add(BiomeKeys.WARPED_FOREST);
-        getOrCreateTagBuilder(NBiomeTags.CAN_SOUL_BERRIES_SPAWN).add(BiomeKeys.SOUL_SAND_VALLEY);
+        getOrCreateTagBuilder(NBiomeTags.CAN_SOUL_BERRIES_SPAWN).add(BiomeKeys.SOUL_SAND_VALLEY).addOptional(new Identifier("gardens_of_the_dead", "soulblight_forest"));
         getOrCreateTagBuilder(NBiomeTags.CAN_CINDER_GRASS_SPAWN).add(BiomeKeys.BASALT_DELTAS);
     }
 }

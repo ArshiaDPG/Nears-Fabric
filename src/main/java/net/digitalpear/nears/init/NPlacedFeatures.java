@@ -4,7 +4,6 @@ import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.init.data.tags.NBiomeTags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.command.argument.BlockStateArgumentType;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -37,13 +36,14 @@ public class NPlacedFeatures {
         RegistryEntry<ConfiguredFeature<?, ?>> patchSoulBerries = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_SOUL_BERRY_BUSH);
         RegistryEntry<ConfiguredFeature<?, ?>> patchCinderGrass = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_CINDER_GRASS);
 
-        List<PlacementModifier> list = List.of(CountPlacementModifier.of(UniformIntProvider.create(0, 5)), SquarePlacementModifier.of(), PlacedFeatures.FOUR_ABOVE_AND_BELOW_RANGE, BiomePlacementModifier.of());
-        List<PlacementModifier> nearList = List.of(RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.FOUR_ABOVE_AND_BELOW_RANGE, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_NEARS, patchNears, makePatchPlacements(RarityFilterPlacementModifier.of(3)));
+        PlacedFeatures.register(featureRegisterable, PATCH_FAAR_GROWTH, patchFaars, makePatchPlacements(CountPlacementModifier.of(UniformIntProvider.create(0, 5))));
+        PlacedFeatures.register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, patchSoulBerries, makePatchPlacements(CountPlacementModifier.of(UniformIntProvider.create(0, 3))));
+        PlacedFeatures.register(featureRegisterable, PATCH_CINDER_GRASS, patchCinderGrass, makePatchPlacements(CountPlacementModifier.of(UniformIntProvider.create(0, 4))));
+    }
 
-        PlacedFeatures.register(featureRegisterable, PATCH_NEARS, patchNears, nearList);
-        PlacedFeatures.register(featureRegisterable, PATCH_FAAR_GROWTH, patchFaars, list);
-        PlacedFeatures.register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, patchSoulBerries, list);
-        PlacedFeatures.register(featureRegisterable, PATCH_CINDER_GRASS, patchCinderGrass, list);
+    public static List<PlacementModifier> makePatchPlacements(PlacementModifier countOrRarity){
+        return List.of(countOrRarity, SquarePlacementModifier.of(), PlacedFeatures.FOUR_ABOVE_AND_BELOW_RANGE, BiomePlacementModifier.of());
     }
 
     public static void init() {

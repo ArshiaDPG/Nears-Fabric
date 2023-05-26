@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "nears:near_seeds",
+    "nears:faar_seeds",
+    "nears:soul_berry_pips",
+    "nears:cinder_seeds"
+  ]
+}

@@ -3,10 +3,11 @@
   "values": [
     "minecraft:soul_sand",
     "minecraft:soul_soil",
-    "#minecraft:nylium",
     "minecraft:basalt",
     "minecraft:blackstone",
     "minecraft:netherrack",
-    "#nears:cinder_wheat_plantable_on"
+    "#minecraft:nylium",
+    "#nears:cinder_wheat_plantable_on",
+    "#c:netherrack"
   ]
 }

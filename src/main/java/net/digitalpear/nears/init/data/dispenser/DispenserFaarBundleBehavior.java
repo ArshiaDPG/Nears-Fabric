@@ -21,12 +21,12 @@ public class DispenserFaarBundleBehavior extends FallibleItemDispenserBehavior {
         BlockPos blockPos = pointer.getPos().offset(direction);
         World world = pointer.getWorld();
         Random random = world.getRandom();
-        if (world.getBlockState(blockPos).isAir()){
+        if (world.getBlockState(blockPos).isAir() || world.getBlockState(blockPos).isLiquid()){
             stack.split(1);
             world.setBlockState(blockPos, NBlocks.FAAR_BUNDLE.getDefaultState(), 3);
             this.setSuccess(true);
         }
-        else if (!world.getBlockState(blockPos).isLiquid()){
+        else if (!world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite())){
             int faarNumber = random.nextBetween(3, 7);
             Position position = DispenserBlock.getOutputLocation(pointer);
             stack.split(1);
