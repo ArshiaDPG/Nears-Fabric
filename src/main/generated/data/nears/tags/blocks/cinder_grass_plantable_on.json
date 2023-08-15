@@ -8,6 +8,6 @@
     "minecraft:netherrack",
     "#minecraft:nylium",
     "#nears:cinder_wheat_plantable_on",
-    "#c:netherrack"
+    "minecraft:netherrack"
   ]
 }

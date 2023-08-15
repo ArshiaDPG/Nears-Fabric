@@ -1,6 +1,5 @@
 package net.digitalpear.nears.common.datagen.worldgen;
 
-import net.digitalpear.nears.init.NConfiguredFeatures;
 import net.digitalpear.nears.init.NPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -9,7 +8,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class NPlacedFeatureProvider extends FabricDynamicRegistryProvider {
@@ -22,10 +20,14 @@ public class NPlacedFeatureProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        add(registries, entries, NPlacedFeatures.PATCH_NEARS);
-        add(registries, entries, NPlacedFeatures.PATCH_FAAR_GROWTH);
-        add(registries, entries, NPlacedFeatures.PATCH_SOUL_BERRY_BUSH);
-        add(registries, entries, NPlacedFeatures.PATCH_CINDER_GRASS);
+//        add(registries, entries, NPlacedFeatures.PATCH_NEARS);
+//        add(registries, entries, NPlacedFeatures.PATCH_FAAR_GROWTH);
+//        add(registries, entries, NPlacedFeatures.PATCH_SOUL_BERRY_BUSH);
+//        add(registries, entries, NPlacedFeatures.PATCH_CINDER_GRASS);
+
+        NPlacedFeatures.features.forEach(placedFeatureRegistryKey -> {
+            add(registries, entries, placedFeatureRegistryKey);
+        });
     }
 
 

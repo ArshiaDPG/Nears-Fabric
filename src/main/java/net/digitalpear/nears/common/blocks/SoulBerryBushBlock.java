@@ -70,7 +70,7 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
     }
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state.get(AGE) == MAX_AGE) {
+        if (state.get(AGE) > 1) {
             int j = 2 + world.random.nextInt(2);
             dropStack(world, pos, new ItemStack(NItems.SOUL_BERRIES, j));
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);

@@ -1,9 +1,9 @@
 package net.digitalpear.nears;
 
 import net.digitalpear.nears.common.datagen.*;
-import net.digitalpear.nears.common.datagen.tags.NearsBiomeTagGen;
-import net.digitalpear.nears.common.datagen.tags.NearsBlockTagGen;
-import net.digitalpear.nears.common.datagen.tags.NearsItemTagGen;
+import net.digitalpear.nears.common.datagen.tags.NearsBiomeTagProvider;
+import net.digitalpear.nears.common.datagen.tags.NearsBlockTagProvider;
+import net.digitalpear.nears.common.datagen.tags.NearsItemTagProvider;
 import net.digitalpear.nears.common.datagen.worldgen.NConfiguredFeatureProvider;
 import net.digitalpear.nears.common.datagen.worldgen.NPlacedFeatureProvider;
 import net.digitalpear.nears.init.NConfiguredFeatures;
@@ -17,15 +17,15 @@ public class NearsDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 
-        fabricDataGenerator.createPack().addProvider(NearsModelGen::new);
-        fabricDataGenerator.createPack().addProvider(NearsBlockLootTables::new);
+        fabricDataGenerator.createPack().addProvider(NearsModelProvider::new);
+        fabricDataGenerator.createPack().addProvider(NearsBlockLootTableProvider::new);
         fabricDataGenerator.createPack().addProvider(NearsLanguageProvider::new);
-        fabricDataGenerator.createPack().addProvider(NearsRecipeGen::new);
-        fabricDataGenerator.createPack().addProvider(NearsAdvancementGen::new);
+        fabricDataGenerator.createPack().addProvider(NearsRecipeProvider::new);
+        fabricDataGenerator.createPack().addProvider(NearsAdvancementProvider::new);
 
-        fabricDataGenerator.createPack().addProvider(NearsBlockTagGen::new);
-        fabricDataGenerator.createPack().addProvider(NearsItemTagGen::new);
-        fabricDataGenerator.createPack().addProvider(NearsBiomeTagGen::new);
+        fabricDataGenerator.createPack().addProvider(NearsBlockTagProvider::new);
+        fabricDataGenerator.createPack().addProvider(NearsItemTagProvider::new);
+        fabricDataGenerator.createPack().addProvider(NearsBiomeTagProvider::new);
 
         fabricDataGenerator.createPack().addProvider(NConfiguredFeatureProvider::new);
         fabricDataGenerator.createPack().addProvider(NPlacedFeatureProvider::new);

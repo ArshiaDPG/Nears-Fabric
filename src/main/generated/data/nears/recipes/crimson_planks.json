@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "nears:near_twig_block"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "minecraft:crimson_planks"
+  }
+}

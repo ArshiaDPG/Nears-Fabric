@@ -20,7 +20,7 @@ public class NData {
 
         compostingChanceRegistry.add(NItems.FAAR_SEEDS, 0.3f);
         compostingChanceRegistry.add(NItems.SOUL_BERRY_PIPS, 0.3f);
-        compostingChanceRegistry.add(NItems.NEAR_SEEDS, 0.3f);
+        compostingChanceRegistry.add(NItems.NEAR_SPORES, 0.3f);
         compostingChanceRegistry.add(NItems.CINDER_SEEDS, 0.3f);
 
         compostingChanceRegistry.add(NBlocks.FAAR_BUNDLE, 1.0f);

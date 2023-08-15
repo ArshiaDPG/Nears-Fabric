@@ -1,0 +1,40 @@
+{
+  "parent": "nears:nether/symbiotic",
+  "criteria": {
+    "cinder_seeds": {
+      "conditions": {
+        "location": [
+          {
+            "block": "nears:cinder_wheat",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.nether.volcanic_botany.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "nears:cinder_seeds"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.nether.volcanic_botany.title"
+    }
+  },
+  "requirements": [
+    [
+      "cinder_seeds"
+    ]
+  ],
+  "rewards": {
+    "experience": 2
+  },
+  "sends_telemetry_event": true
+}

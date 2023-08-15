@@ -2,20 +2,15 @@ package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 
 
 public class FaarBundleBlock extends FallingBlock {
@@ -49,6 +44,11 @@ public class FaarBundleBlock extends FallingBlock {
         }
     }
 
+    @Override
+    public float getJumpVelocityMultiplier() {
+        return 1.0F;
+    }
+
     private void bounceEntity(Entity entity) {
         World world = entity.getWorld();
         BlockPos pos = entity.getSteppingPos();
@@ -58,22 +58,9 @@ public class FaarBundleBlock extends FallingBlock {
             entity.setVelocity(vec3d.x, -vec3d.y * 0.6600000262260437D * d, vec3d.z);
         }
         if (vec3d.y < -0.8D){
-            world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-
-            this.spawnBreakParticles(world, entity instanceof PlayerEntity ? (PlayerEntity) entity : null, pos, this.getDefaultState());
-            world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(entity, this.getDefaultState()));
-
-            combust(entity, pos);
+            world.breakBlock(pos, true);
         }
     }
 
-    public static SoundEvent getPopSound(){
-        return Blocks.PUMPKIN.getDefaultState().getSoundGroup().getBreakSound();
-    }
 
-    public void combust(Entity entity, BlockPos pos) {
-        World world = entity.getWorld();
-        world.playSound(null, pos, getPopSound(), SoundCategory.BLOCKS, 1F, 2F * world.getRandom().nextFloat());
-        dropStacks(this.getDefaultState(), world, pos);
-    }
 }

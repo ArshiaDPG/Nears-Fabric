@@ -1,0 +1,9 @@
+{
+  "parent": "nears:block/template_near_hang",
+  "textures": {
+    "cap_bottom": "nears:block/near_hang_cap_bottom",
+    "cap_side": "nears:block/near_hang_cap_side",
+    "cap_top": "nears:block/near_hang_cap_top",
+    "stem": "nears:block/near_hang_stem"
+  }
+}

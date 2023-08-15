@@ -1,5 +1,6 @@
 package net.digitalpear.nears;
 
+import net.digitalpear.nears.common.worldgen.NFeature;
 import net.digitalpear.nears.init.*;
 import net.digitalpear.nears.init.data.NData;
 import net.fabricmc.api.ModInitializer;
@@ -17,6 +18,7 @@ public class Nears implements ModInitializer {
         NBlocks.init();
         NItems.init();
         NData.init();
+        NFeature.init();
 
         NPlacedFeatures.init();
     }

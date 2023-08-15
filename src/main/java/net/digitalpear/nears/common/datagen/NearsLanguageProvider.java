@@ -17,8 +17,8 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
             Near Plants
          */
         translationBuilder.add(NItems.NEAR, "Near");
-        translationBuilder.add(NItems.NEAR_SEEDS, "Near Seeds");
-        translationBuilder.add(NBlocks.NEAR_BULB, "Near Bulb");
+        translationBuilder.add(NItems.NEAR_SPORES, "Near Spores");
+        translationBuilder.add(NBlocks.NEAR_HANG, "Near Bulb");
 
 
         /*
@@ -43,6 +43,7 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
             Cinder Plants
          */
         translationBuilder.add(NItems.CINDER_GRAIN, "Cinder Grain");
+        translationBuilder.add(NItems.CINDER_SANGAK, "Cinder Sangak");
         translationBuilder.add(NItems.CINDER_SEEDS, "Cinder Seeds");
         translationBuilder.add(NBlocks.CINDER_GRASS, "Cinder Grass");
         translationBuilder.add(NBlocks.POTTED_CINDER_GRASS, "Potted Cinder Grass");
@@ -54,6 +55,7 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
          */
         translationBuilder.add(NItems.SOULLESS_PASTRY, "Soulless Pastry");
         translationBuilder.add(NItems.NETHER_STEW, "Nether Stew");
+        translationBuilder.add(NItems.GLOW_SALAD, "Glow Salad");
 
 
 
@@ -69,5 +71,8 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
 
         translationBuilder.add("advancements.nether.a_pie_for_the_soul.title", "A Pie For the Soul");
         translationBuilder.add("advancements.nether.a_pie_for_the_soul.description", "Craft a Soulless Pastry.");
+
+        translationBuilder.add("advancements.nether.volcanic_botany.title", "Volcanic Botany");
+        translationBuilder.add("advancements.nether.volcanic_botany.description", "Plant some Cinder Seeds.");
     }
 }

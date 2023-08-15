@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "nears:block/near_hang_stem_supported0"
+  }
+}

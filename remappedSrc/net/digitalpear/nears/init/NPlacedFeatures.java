@@ -9,12 +9,14 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
-import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
-import net.minecraft.world.gen.placementmodifier.RarityFilterPlacementModifier;
+import net.minecraft.world.gen.placementmodifier.*;
+
+import java.util.List;
 
 public class NPlacedFeatures {
 
@@ -34,11 +36,14 @@ public class NPlacedFeatures {
         RegistryEntry<ConfiguredFeature<?, ?>> patchSoulBerries = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_SOUL_BERRY_BUSH);
         RegistryEntry<ConfiguredFeature<?, ?>> patchCinderGrass = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_CINDER_GRASS);
 
-        PlacedFeatures.register(featureRegisterable, PATCH_NEARS, patchNears, PlacedFeatures.BOTTOM_TO_TOP_RANGE, RarityFilterPlacementModifier.of(4), BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, patchFaars, PlacedFeatures.BOTTOM_TO_TOP_RANGE, RarityFilterPlacementModifier.of(4), BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, PATCH_FAAR_GROWTH, patchSoulBerries, PlacedFeatures.BOTTOM_TO_TOP_RANGE, RarityFilterPlacementModifier.of(4), BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, PATCH_CINDER_GRASS, patchCinderGrass, PlacedFeatures.BOTTOM_TO_TOP_RANGE, RarityFilterPlacementModifier.of(4), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_NEARS, patchNears, makePatchPlacements(RarityFilterPlacementModifier.of(3)));
+        PlacedFeatures.register(featureRegisterable, PATCH_FAAR_GROWTH, patchFaars, makePatchPlacements(CountPlacementModifier.of(UniformIntProvider.create(0, 5))));
+        PlacedFeatures.register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, patchSoulBerries, makePatchPlacements(CountPlacementModifier.of(UniformIntProvider.create(0, 3))));
+        PlacedFeatures.register(featureRegisterable, PATCH_CINDER_GRASS, patchCinderGrass, makePatchPlacements(CountPlacementModifier.of(UniformIntProvider.create(0, 4))));
+    }
 
+    public static List<PlacementModifier> makePatchPlacements(PlacementModifier countOrRarity){
+        return List.of(countOrRarity, SquarePlacementModifier.of(), PlacedFeatures.FOUR_ABOVE_AND_BELOW_RANGE, BiomePlacementModifier.of());
     }
 
     public static void init() {

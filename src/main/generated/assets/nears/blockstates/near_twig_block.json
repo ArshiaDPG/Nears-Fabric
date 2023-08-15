@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "nears:block/near_twig_block"
+    }
+  }
+}

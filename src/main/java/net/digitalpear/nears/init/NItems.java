@@ -1,7 +1,7 @@
 package net.digitalpear.nears.init;
 
 import net.digitalpear.nears.Nears;
-import net.digitalpear.nears.common.datagen.NearsRecipeGen;
+import net.digitalpear.nears.common.datagen.NearsRecipeProvider;
 import net.digitalpear.nears.common.items.FaarItem;
 import net.digitalpear.nears.common.items.NetherStewItem;
 import net.digitalpear.nears.init.data.NFoodComponents;
@@ -31,21 +31,25 @@ public class NItems {
     public static final Item SOULLESS_PASTRY = createItem("soulless_pastry", new Item(new Item.Settings().food(NFoodComponents.SOULLESS_PASTRY)));
     public static final Item NETHER_STEW = createItem("nether_stew", new NetherStewItem(new Item.Settings().food(NFoodComponents.NETHER_STEW).maxCount(1)));
     public static final Item CINDER_SANGAK = createItem("cinder_sangak", new Item(new Item.Settings().food(NFoodComponents.CINDER_SANGAK)));
-    public static final Item GLOW_SALAD = createItem("glow_salad", new Item(new Item.Settings().food(NFoodComponents.GLOW_SALAD).maxCount(1)));
+    public static final Item GLOW_SALAD = createItem("glow_salad", new StewItem(new Item.Settings().food(NFoodComponents.GLOW_SALAD).maxCount(1)));
 
     /*
         Seeds
      */
     public static final Item SOUL_BERRY_PIPS = createItem("soul_berry_pips", new AliasedBlockItem(NBlocks.SOUL_BERRY_BUSH, new Item.Settings()));
     public static final Item FAAR_SEEDS = createItem("faar_seeds", new AliasedBlockItem(NBlocks.FAAR_GROWTH, new Item.Settings()));
-    public static final Item NEAR_SEEDS = createItem("near_seeds", new AliasedBlockItem(NBlocks.NEAR_BULB, new Item.Settings()));
+    public static final Item NEAR_SPORES = createItem("near_spores", new AliasedBlockItem(NBlocks.NEAR_HANG, new Item.Settings()));
     public static final Item CINDER_SEEDS = createItem("cinder_seeds", new AliasedBlockItem(NBlocks.CINDER_WHEAT, new Item.Settings()));
 
+    /*
+        Misc
+     */
+    public static final Item NEAR_TWIG = createItem("near_twig", new Item(new Item.Settings()));
 
     public static void init() {
-        NearsRecipeGen.COLOR_MELTING_MAP.put(NEAR, Items.ORANGE_DYE);
-        NearsRecipeGen.COLOR_MELTING_MAP.put(FAAR, Items.CYAN_DYE);
-        NearsRecipeGen.COLOR_MELTING_MAP.put(SOUL_BERRIES, Items.LIGHT_BLUE_DYE);
+        NearsRecipeProvider.COLOR_MELTING_MAP.put(NEAR, Items.ORANGE_DYE);
+        NearsRecipeProvider.COLOR_MELTING_MAP.put(FAAR, Items.CYAN_DYE);
+        NearsRecipeProvider.COLOR_MELTING_MAP.put(SOUL_BERRIES, Items.LIGHT_BLUE_DYE);
 
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
@@ -55,11 +59,12 @@ public class NItems {
             entries.addAfter(Items.PUMPKIN_PIE, SOULLESS_PASTRY);
 
             entries.addAfter(Items.BREAD, CINDER_SANGAK);
+            entries.addBefore(Items.MUSHROOM_STEW, GLOW_SALAD);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> {
-            entries.addAfter(Items.BEETROOT_SEEDS, NEAR_SEEDS);
-            entries.addAfter(NEAR_SEEDS, FAAR_SEEDS);
+            entries.addAfter(Items.BEETROOT_SEEDS, NEAR_SPORES);
+            entries.addAfter(NEAR_SPORES, FAAR_SEEDS);
             entries.addAfter(FAAR_SEEDS, SOUL_BERRY_PIPS);
             entries.addAfter(SOUL_BERRY_PIPS, CINDER_SEEDS);
 

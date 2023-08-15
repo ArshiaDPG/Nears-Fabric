@@ -43,10 +43,12 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
             Cinder Plants
          */
         translationBuilder.add(NItems.CINDER_GRAIN, "Cinder Grain");
+        translationBuilder.add(NItems.CINDER_SANGAK, "Cinder Sangak");
         translationBuilder.add(NItems.CINDER_SEEDS, "Cinder Seeds");
         translationBuilder.add(NBlocks.CINDER_GRASS, "Cinder Grass");
         translationBuilder.add(NBlocks.POTTED_CINDER_GRASS, "Potted Cinder Grass");
         translationBuilder.add(NBlocks.CINDER_WHEAT, "Cinder Wheat");
+        translationBuilder.add(NBlocks.CINDER_BALE, "Bale of Cinder");
 
         /*
             Foods
@@ -68,5 +70,8 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
 
         translationBuilder.add("advancements.nether.a_pie_for_the_soul.title", "A Pie For the Soul");
         translationBuilder.add("advancements.nether.a_pie_for_the_soul.description", "Craft a Soulless Pastry.");
+
+        translationBuilder.add("advancements.nether.volcanic_botany.title", "Volcanic Botany");
+        translationBuilder.add("advancements.nether.volcanic_botany.description", "Plant some Cinder Seeds.");
     }
 }

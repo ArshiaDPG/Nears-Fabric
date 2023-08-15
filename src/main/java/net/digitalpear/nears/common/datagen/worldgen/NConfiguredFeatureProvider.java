@@ -17,10 +17,14 @@ public class NConfiguredFeatureProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        add(registries, entries, NConfiguredFeatures.PATCH_NEARS);
-        add(registries, entries, NConfiguredFeatures.PATCH_FAAR_GROWTH);
-        add(registries, entries, NConfiguredFeatures.PATCH_SOUL_BERRY_BUSH);
-        add(registries, entries, NConfiguredFeatures.PATCH_CINDER_GRASS);
+//        add(registries, entries, NConfiguredFeatures.PATCH_NEARS);
+//        add(registries, entries, NConfiguredFeatures.PATCH_FAAR_GROWTH);
+//        add(registries, entries, NConfiguredFeatures.PATCH_SOUL_BERRY_BUSH);
+//        add(registries, entries, NConfiguredFeatures.PATCH_CINDER_GRASS);
+//
+        NConfiguredFeatures.features.forEach(configuredFeatureRegistryKey -> {
+            add(registries, entries, configuredFeatureRegistryKey);
+        });
     }
 
 

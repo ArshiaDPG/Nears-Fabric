@@ -23,15 +23,18 @@ public class NBlocks {
         return Registry.register(Registries.BLOCK, new Identifier(Nears.MOD_ID, blockID), block);
     }
 
+    public static final Block NEAR_HANG_STEM = createBlockWithoutItem("near_hang_stem",
+            new NearHangStemBlock(AbstractBlock.Settings.create().ticksRandomly().strength(0.8f, 0.6f).sounds(BlockSoundGroup.NETHER_STEM)
+                    .noCollision().nonOpaque()));
 
-    public static final Block SOUL_BERRY_BUSH = createBlockWithoutItem("soul_berry_bush",
-            new SoulBerryBushBlock(AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH)
-                    .mapColor(state -> state.get(SoulBerryBushBlock.AGE) == 3 ? MapColor.ORANGE : MapColor.TERRACOTTA_BROWN)
-                    .ticksRandomly()
-                    .noCollision()
-                    .sounds(BlockSoundGroup.SWEET_BERRY_BUSH)
-                    .offset(AbstractBlock.OffsetType.XZ)
-                    .luminance(state -> state.get(SoulBerryBushBlock.AGE) * 2)));
+    public static final Block NEAR_HANG = createBlockWithoutItem("near_hang",
+            new NearHangBlock(AbstractBlock.Settings.create().ticksRandomly().strength(0.8f, 0.6f).sounds(BlockSoundGroup.WART_BLOCK)
+                    .noCollision().nonOpaque()));
+
+    public static final Block NEAR_TWIG_BLOCK = createBlockWithItem("near_twig_block", new Block(AbstractBlock.Settings.copy(Blocks.CRIMSON_HYPHAE)));
+
+
+
 
 
     public static final Block FAAR_GROWTH = createBlockWithoutItem("faar_growth",
@@ -42,11 +45,17 @@ public class NBlocks {
 
 
 
-    public static final Block NEAR_BULB = createBlockWithoutItem("near_bulb",
-            new NearBulbBlock(AbstractBlock.Settings.create()
-                    .mapColor(state -> state.get(NearBulbBlock.AGE) < NearBulbBlock.MAX_AGE ? MapColor.RED : MapColor.PURPLE)
-                    .ticksRandomly().strength(0.8f, 0.6f).sounds(BlockSoundGroup.NETHER_STEM).noCollision().nonOpaque()
-            ));
+
+
+    public static final Block SOUL_BERRY_BUSH = createBlockWithoutItem("soul_berry_bush",
+            new SoulBerryBushBlock(AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH)
+                    .mapColor(state -> state.get(SoulBerryBushBlock.AGE) == 3 ? MapColor.ORANGE : MapColor.TERRACOTTA_BROWN)
+                    .ticksRandomly()
+                    .noCollision()
+                    .sounds(BlockSoundGroup.SWEET_BERRY_BUSH)
+                    .offset(AbstractBlock.OffsetType.XZ)
+                    .luminance(state -> state.get(SoulBerryBushBlock.AGE) * 2)));
+
 
 
 

@@ -1,5 +1,5 @@
 {
-  "parent": "nears:block/cinder_grass_base",
+  "parent": "nears:block/template_cinder_wheat",
   "textures": {
     "all": "nears:block/cinder_wheat1"
   }

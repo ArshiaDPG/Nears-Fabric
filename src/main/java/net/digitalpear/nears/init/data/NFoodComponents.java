@@ -6,7 +6,7 @@ public class NFoodComponents {
 
 
 
-    public static final FoodComponent NEAR = new FoodComponent.Builder().hunger(4).saturationModifier(0.3F).build();
+    public static final FoodComponent NEAR = new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).build();
     public static final FoodComponent FAAR = new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).build();
     public static final FoodComponent SOUL_BERRIES = new FoodComponent.Builder().hunger(2).saturationModifier(0.2F).build();
 

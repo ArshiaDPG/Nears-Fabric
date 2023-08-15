@@ -2,27 +2,36 @@ package net.digitalpear.nears.init;
 
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.common.blocks.FaarGrowthBlock;
-import net.digitalpear.nears.common.blocks.NearBulbBlock;
 import net.digitalpear.nears.common.blocks.SoulBerryBushBlock;
+import net.digitalpear.nears.common.worldgen.NFeature;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NConfiguredFeatures {
 
-    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_NEARS = of("patch_nears");
+    public static List<RegistryKey<ConfiguredFeature<?, ?>>> features = new ArrayList<>();
+
+
+
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_NEAR_HANG = of("patch_near_hang");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SOUL_BERRY_BUSH = of("patch_soul_berry_bush");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FAAR_GROWTH = of("patch_faar_growth");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_CINDER_GRASS = of("patch_cinder_grass");
 
     public static RegistryKey<ConfiguredFeature<?, ?>> of(String id) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Nears.id(id));
+        RegistryKey<ConfiguredFeature<?, ?>> feature = RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Nears.id(id));
+        features.add(feature);
+        return feature;
     }
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
-        register(featureRegisterable, PATCH_NEARS, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.NEAR_BULB.getDefaultState().with(NearBulbBlock.AGE, 3)), 96));
+        register(featureRegisterable, PATCH_NEAR_HANG, NFeature.NEAR_HANG, new DefaultFeatureConfig());
         register(featureRegisterable, PATCH_FAAR_GROWTH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.FAAR_GROWTH.getDefaultState().with(FaarGrowthBlock.AGE, 3)), 96));
         register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.SOUL_BERRY_BUSH.getDefaultState().with(SoulBerryBushBlock.AGE, 3)), 96));
         register(featureRegisterable, PATCH_CINDER_GRASS, Feature.RANDOM_PATCH, createCinderGrassPatchFeatureConfig(BlockStateProvider.of(NBlocks.CINDER_GRASS), 120));

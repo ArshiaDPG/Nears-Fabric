@@ -1,14 +1,14 @@
 package net.digitalpear.nears.init;
 
 import net.digitalpear.nears.Nears;
+import net.digitalpear.nears.common.blocks.FaarGrowthBlock;
 import net.digitalpear.nears.common.blocks.NearBulbBlock;
+import net.digitalpear.nears.common.blocks.SoulBerryBushBlock;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-
-import java.util.List;
 
 public class NConfiguredFeatures {
 
@@ -23,8 +23,8 @@ public class NConfiguredFeatures {
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         register(featureRegisterable, PATCH_NEARS, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.NEAR_BULB.getDefaultState().with(NearBulbBlock.AGE, 3)), 96));
-        register(featureRegisterable, PATCH_FAAR_GROWTH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.FAAR_GROWTH.getDefaultState().with(NearBulbBlock.AGE, 3)), 96));
-        register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.SOUL_BERRY_BUSH.getDefaultState().with(NearBulbBlock.AGE, 3)), 96));
+        register(featureRegisterable, PATCH_FAAR_GROWTH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.FAAR_GROWTH.getDefaultState().with(FaarGrowthBlock.AGE, 3)), 96));
+        register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.SOUL_BERRY_BUSH.getDefaultState().with(SoulBerryBushBlock.AGE, 3)), 96));
         register(featureRegisterable, PATCH_CINDER_GRASS, Feature.RANDOM_PATCH, createCinderGrassPatchFeatureConfig(BlockStateProvider.of(NBlocks.CINDER_GRASS), 120));
     }
     private static RandomPatchFeatureConfig createCinderGrassPatchFeatureConfig(BlockStateProvider block, int tries) {

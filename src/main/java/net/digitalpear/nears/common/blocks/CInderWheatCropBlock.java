@@ -16,8 +16,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.Nullable;
 
 public class CInderWheatCropBlock extends CropBlock {
 
@@ -34,12 +34,27 @@ public class CInderWheatCropBlock extends CropBlock {
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(AGE, 0));
     }
 
-    @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState()
-                .with(FACING, ctx.getHorizontalPlayerFacing());
+        BlockState blockState = this.getDefaultState();
+        WorldView worldView = ctx.getWorld();
+        BlockPos blockPos = ctx.getBlockPos();
+        Direction[] directions = ctx.getPlacementDirections();
+
+        for (Direction direction : directions) {
+            if (direction.getAxis().isHorizontal()) {
+                Direction direction2 = direction.getOpposite();
+                blockState = blockState.with(FACING, direction2);
+                if (blockState.canPlaceAt(worldView, blockPos) && worldView.getFluidState(blockPos).isEmpty()) {
+                    return blockState;
+                }
+            }
+        }
+
+        return null;
     }
+
+
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
@@ -47,10 +62,60 @@ public class CInderWheatCropBlock extends CropBlock {
         if (i < this.getMaxAge()) {
             float f = getAvailableMoisture(this, world, pos);
             if (random.nextInt((int)(25.0F / f) + 1) == 0) {
-                world.setBlockState(pos, this.withAge(i + 1), 2);
+                world.setBlockState(pos, this.withAge(i + 1).with(FACING, state.get(FACING)), 2);
             }
         }
 
+    }
+
+    protected static float getAvailableMoisture(Block block, BlockView world, BlockPos pos) {
+        float f = 1.0F;
+        BlockPos blockPos = pos.down();
+
+        for(int i = -1; i <= 1; ++i) {
+            for (int j = -1; j <= 1; ++j) {
+                for (int y = -1; y <= 1; ++y) {
+                    float g = 0.0F;
+                    BlockState blockState = world.getBlockState(blockPos.add(i, y, j));
+                    if (blockState.isIn(NBlockTags.CINDER_WHEAT_PLANTABLE_ON)) {
+                        g = 0.75F;
+                    }
+
+                    if (i != 0 || j != 0 || y != 0) {
+                        g /= 4.0F;
+                    }
+                    f += g;
+                }
+            }
+        }
+
+        BlockPos blockPos2 = pos.north();
+        BlockPos blockPos3 = pos.south();
+        BlockPos blockPos4 = pos.west();
+        BlockPos blockPos5 = pos.east();
+        boolean bl = world.getBlockState(blockPos4).isOf(block) || world.getBlockState(blockPos5).isOf(block);
+        boolean bl2 = world.getBlockState(blockPos2).isOf(block) || world.getBlockState(blockPos3).isOf(block);
+        if (bl && bl2) {
+            f /= 2.0F;
+        } else {
+            boolean bl3 = world.getBlockState(blockPos4.north()).isOf(block) || world.getBlockState(blockPos5.north()).isOf(block) || world.getBlockState(blockPos5.south()).isOf(block) || world.getBlockState(blockPos4.south()).isOf(block);
+            if (bl3) {
+                f /= 2.0F;
+            }
+        }
+
+        return f;
+    }
+
+    @Override
+    public void applyGrowth(World world, BlockPos pos, BlockState state) {
+        int i = this.getAge(state) + this.getGrowthAmount(world);
+        int j = this.getMaxAge();
+        if (i > j) {
+            i = j;
+        }
+
+        world.setBlockState(pos, this.withAge(i).with(FACING, state.get(FACING)), 2);
     }
 
     @Override
@@ -81,5 +146,4 @@ public class CInderWheatCropBlock extends CropBlock {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, AGE);
     }
-
 }
