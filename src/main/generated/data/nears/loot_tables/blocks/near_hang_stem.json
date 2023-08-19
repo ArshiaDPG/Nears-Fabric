@@ -2,6 +2,14 @@
   "type": "minecraft:block",
   "functions": [
     {
+      "enchantment": "minecraft:fortune",
+      "formula": "minecraft:uniform_bonus_count",
+      "function": "minecraft:apply_bonus",
+      "parameters": {
+        "bonusMultiplier": 1
+      }
+    },
+    {
       "function": "minecraft:explosion_decay"
     }
   ],
@@ -64,13 +72,10 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "condition": "minecraft:inverted",
-          "term": {
-            "block": "nears:near_hang_stem",
-            "condition": "minecraft:block_state_property",
-            "properties": {
-              "age": "3"
-            }
+          "block": "nears:near_hang_stem",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "age": "2"
           }
         }
       ],
@@ -85,14 +90,6 @@
           "add": false,
           "count": 1.0,
           "function": "minecraft:set_count"
-        },
-        {
-          "enchantment": "minecraft:fortune",
-          "formula": "minecraft:uniform_bonus_count",
-          "function": "minecraft:apply_bonus",
-          "parameters": {
-            "bonusMultiplier": 1
-          }
         }
       ],
       "rolls": 1.0

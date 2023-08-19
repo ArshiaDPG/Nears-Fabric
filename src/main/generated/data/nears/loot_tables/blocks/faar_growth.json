@@ -10,7 +10,7 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "nears:soul_berry_bush",
+          "block": "nears:faar_growth",
           "condition": "minecraft:block_state_property",
           "properties": {
             "age": "3"

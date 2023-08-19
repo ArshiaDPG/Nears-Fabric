@@ -65,7 +65,7 @@ public class NearHangStemBlock extends PlantBlock {
     }
 
     private static int getNearCount(int age, Random random){
-        if (age == 1 || age == 2){
+        if (age == 2){
             return 1;
         }
         return random.nextBetween(2, 3);
