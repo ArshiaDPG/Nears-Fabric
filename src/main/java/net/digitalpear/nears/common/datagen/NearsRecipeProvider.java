@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 
@@ -108,6 +109,8 @@ public class NearsRecipeProvider extends FabricRecipeProvider {
                 .input(NBlocks.NEAR_TWIG_BLOCK).group("planks")
                 .criterion(hasItem(NBlocks.NEAR_TWIG_BLOCK), conditionsFromItem(NBlocks.NEAR_TWIG_BLOCK))
                 .offerTo(exporter);
+
+
     }
 
 

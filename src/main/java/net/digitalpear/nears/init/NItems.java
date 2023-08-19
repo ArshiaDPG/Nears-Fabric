@@ -46,6 +46,7 @@ public class NItems {
      */
     public static final Item NEAR_TWIG = createItem("near_twig", new Item(new Item.Settings()));
 
+
     public static void init() {
         NearsRecipeProvider.COLOR_MELTING_MAP.put(NEAR, Items.ORANGE_DYE);
         NearsRecipeProvider.COLOR_MELTING_MAP.put(FAAR, Items.CYAN_DYE);
@@ -60,6 +61,7 @@ public class NItems {
 
             entries.addAfter(Items.BREAD, CINDER_SANGAK);
             entries.addBefore(Items.MUSHROOM_STEW, GLOW_SALAD);
+            entries.addAfter(Items.RABBIT_STEW, NETHER_STEW);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> {
