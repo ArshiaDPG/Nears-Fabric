@@ -1,6 +1,6 @@
 {
   "parent": "nears:block/template_cinder_wheat",
   "textures": {
-    "all": "nears:block/cinder_wheat6"
+    "all": "nears:block/cinder_grain1"
   }
 }

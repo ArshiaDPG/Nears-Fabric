@@ -28,7 +28,7 @@ public class NearsBlockTagProvider extends FabricTagProvider<Block> {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(NBlocks.FAAR_BUNDLE);
-        getOrCreateTagBuilder(BlockTags.CROPS).add(NBlocks.CINDER_WHEAT);
+        getOrCreateTagBuilder(BlockTags.CROPS).add(NBlocks.CINDER_GRAIN);
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(NBlocks.POTTED_CINDER_GRASS);
         getOrCreateTagBuilder(BlockTags.PIGLIN_REPELLENTS).add(NBlocks.SOUL_BERRY_BUSH);
 

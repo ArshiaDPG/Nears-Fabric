@@ -79,7 +79,7 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
                 "volcanic_botany",
                 NItems.CINDER_SEEDS,
                 AdvancementFrame.TASK,
-                ItemCriterion.Conditions.createPlacedBlock(NBlocks.CINDER_WHEAT),
+                ItemCriterion.Conditions.createPlacedBlock(NBlocks.CINDER_GRAIN),
                 "cinder_seeds",
                 2, symbiotic);
     }

@@ -1,9 +1,9 @@
-// 1.20.1	2023-08-15T13:50:25.0208387	Nears/Block Loot Tables
+// 1.20.1	2023-08-19T00:26:14.2911826	Nears/Block Loot Tables
 6f69cdac317c965079c79adae02ef9b7ba8e85be data\nears\loot_tables\blocks\cinder_bale.json
 bc1a7d404826caca3892a05520906e7c9da53745 data\nears\loot_tables\blocks\cinder_grass.json
-79ab15b0fb684bbdd1275748b6a903594d6a5283 data\nears\loot_tables\blocks\faar_growth.json
+f7d91a599a5d52cebed537bd5cc23c5a60111b10 data\nears\loot_tables\blocks\cinder_grain.json
 24d5837ce1968ef401daf3ecbb38a21346555eb3 data\nears\loot_tables\blocks\soul_berry_bush.json
+79ab15b0fb684bbdd1275748b6a903594d6a5283 data\nears\loot_tables\blocks\faar_growth.json
 f9e221314bffa74fd130070cadc0447a905d458d data\nears\loot_tables\blocks\faar_bundle.json
-b89e2433a7030b64e4d91caa9edd3900b8eafa65 data\nears\loot_tables\blocks\cinder_wheat.json
-6692d3a827b96038becdf3064378ea7033b0d0e9 data\nears\loot_tables\blocks\near_hang_stem.json
-1d4929d7d6176f60e5ea991a577527ed251ef375 data\nears\loot_tables\blocks\near_hang.json
+c5ef3ed4420d09546a053cdda5fcba28db7fa63c data\nears\loot_tables\blocks\near_hang_stem.json
+90a184df5a1e278122edf08724e19b15dd761bbd data\nears\loot_tables\blocks\near_hang.json

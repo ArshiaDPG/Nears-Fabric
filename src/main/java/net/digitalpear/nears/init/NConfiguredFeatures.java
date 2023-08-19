@@ -24,6 +24,7 @@ public class NConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FAAR_GROWTH = of("patch_faar_growth");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_CINDER_GRASS = of("patch_cinder_grass");
 
+
     public static RegistryKey<ConfiguredFeature<?, ?>> of(String id) {
         RegistryKey<ConfiguredFeature<?, ?>> feature = RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Nears.id(id));
         features.add(feature);

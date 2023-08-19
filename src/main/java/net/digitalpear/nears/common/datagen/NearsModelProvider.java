@@ -111,7 +111,7 @@ public class NearsModelProvider extends FabricModelProvider {
         /*
             This one block took 3 hours. I still don't understand most of it.
          */
-        registerHorizontallyRotatingCrop(blockStateModelGenerator, NBlocks.CINDER_WHEAT, Properties.AGE_7);
+        registerHorizontallyRotatingCrop(blockStateModelGenerator, NBlocks.CINDER_GRAIN, Properties.AGE_7);
 
 
         blockStateModelGenerator.registerFlowerPotPlant(NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS, BlockStateModelGenerator.TintType.NOT_TINTED);

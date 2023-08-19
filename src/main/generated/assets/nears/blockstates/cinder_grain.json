@@ -1,123 +1,123 @@
 {
   "variants": {
     "age=0,facing=east": {
-      "model": "nears:block/cinder_wheat0",
+      "model": "nears:block/cinder_grain0",
       "y": 90
     },
     "age=0,facing=north": {
-      "model": "nears:block/cinder_wheat0"
+      "model": "nears:block/cinder_grain0"
     },
     "age=0,facing=south": {
-      "model": "nears:block/cinder_wheat0",
+      "model": "nears:block/cinder_grain0",
       "y": 180
     },
     "age=0,facing=west": {
-      "model": "nears:block/cinder_wheat0",
+      "model": "nears:block/cinder_grain0",
       "y": 270
     },
     "age=1,facing=east": {
-      "model": "nears:block/cinder_wheat1",
+      "model": "nears:block/cinder_grain1",
       "y": 90
     },
     "age=1,facing=north": {
-      "model": "nears:block/cinder_wheat1"
+      "model": "nears:block/cinder_grain1"
     },
     "age=1,facing=south": {
-      "model": "nears:block/cinder_wheat1",
+      "model": "nears:block/cinder_grain1",
       "y": 180
     },
     "age=1,facing=west": {
-      "model": "nears:block/cinder_wheat1",
+      "model": "nears:block/cinder_grain1",
       "y": 270
     },
     "age=2,facing=east": {
-      "model": "nears:block/cinder_wheat2",
+      "model": "nears:block/cinder_grain2",
       "y": 90
     },
     "age=2,facing=north": {
-      "model": "nears:block/cinder_wheat2"
+      "model": "nears:block/cinder_grain2"
     },
     "age=2,facing=south": {
-      "model": "nears:block/cinder_wheat2",
+      "model": "nears:block/cinder_grain2",
       "y": 180
     },
     "age=2,facing=west": {
-      "model": "nears:block/cinder_wheat2",
+      "model": "nears:block/cinder_grain2",
       "y": 270
     },
     "age=3,facing=east": {
-      "model": "nears:block/cinder_wheat3",
+      "model": "nears:block/cinder_grain3",
       "y": 90
     },
     "age=3,facing=north": {
-      "model": "nears:block/cinder_wheat3"
+      "model": "nears:block/cinder_grain3"
     },
     "age=3,facing=south": {
-      "model": "nears:block/cinder_wheat3",
+      "model": "nears:block/cinder_grain3",
       "y": 180
     },
     "age=3,facing=west": {
-      "model": "nears:block/cinder_wheat3",
+      "model": "nears:block/cinder_grain3",
       "y": 270
     },
     "age=4,facing=east": {
-      "model": "nears:block/cinder_wheat4",
+      "model": "nears:block/cinder_grain4",
       "y": 90
     },
     "age=4,facing=north": {
-      "model": "nears:block/cinder_wheat4"
+      "model": "nears:block/cinder_grain4"
     },
     "age=4,facing=south": {
-      "model": "nears:block/cinder_wheat4",
+      "model": "nears:block/cinder_grain4",
       "y": 180
     },
     "age=4,facing=west": {
-      "model": "nears:block/cinder_wheat4",
+      "model": "nears:block/cinder_grain4",
       "y": 270
     },
     "age=5,facing=east": {
-      "model": "nears:block/cinder_wheat5",
+      "model": "nears:block/cinder_grain5",
       "y": 90
     },
     "age=5,facing=north": {
-      "model": "nears:block/cinder_wheat5"
+      "model": "nears:block/cinder_grain5"
     },
     "age=5,facing=south": {
-      "model": "nears:block/cinder_wheat5",
+      "model": "nears:block/cinder_grain5",
       "y": 180
     },
     "age=5,facing=west": {
-      "model": "nears:block/cinder_wheat5",
+      "model": "nears:block/cinder_grain5",
       "y": 270
     },
     "age=6,facing=east": {
-      "model": "nears:block/cinder_wheat6",
+      "model": "nears:block/cinder_grain6",
       "y": 90
     },
     "age=6,facing=north": {
-      "model": "nears:block/cinder_wheat6"
+      "model": "nears:block/cinder_grain6"
     },
     "age=6,facing=south": {
-      "model": "nears:block/cinder_wheat6",
+      "model": "nears:block/cinder_grain6",
       "y": 180
     },
     "age=6,facing=west": {
-      "model": "nears:block/cinder_wheat6",
+      "model": "nears:block/cinder_grain6",
       "y": 270
     },
     "age=7,facing=east": {
-      "model": "nears:block/cinder_wheat7",
+      "model": "nears:block/cinder_grain7",
       "y": 90
     },
     "age=7,facing=north": {
-      "model": "nears:block/cinder_wheat7"
+      "model": "nears:block/cinder_grain7"
     },
     "age=7,facing=south": {
-      "model": "nears:block/cinder_wheat7",
+      "model": "nears:block/cinder_grain7",
       "y": 180
     },
     "age=7,facing=west": {
-      "model": "nears:block/cinder_wheat7",
+      "model": "nears:block/cinder_grain7",
       "y": 270
     }
   }

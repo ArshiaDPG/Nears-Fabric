@@ -19,7 +19,9 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-public class CInderWheatCropBlock extends CropBlock {
+import java.util.stream.Stream;
+
+public class CInderGrainCropBlock extends CropBlock {
 
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
@@ -29,25 +31,37 @@ public class CInderWheatCropBlock extends CropBlock {
             .put(Direction.EAST, Block.createCuboidShape(12.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D))
             .put(Direction.WEST, Block.createCuboidShape(0.0D, 0.0D, 0.0D, 4.0D, 16.0D, 16.0D)).build());
 
-    public CInderWheatCropBlock(Settings settings) {
+    public CInderGrainCropBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(AGE, 0));
     }
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState blockState = this.getDefaultState();
         WorldView worldView = ctx.getWorld();
         BlockPos blockPos = ctx.getBlockPos();
-        Direction[] directions = ctx.getPlacementDirections();
+        Direction direction = ctx.getHorizontalPlayerFacing();
+        BlockState blockState = this.getDefaultState().with(FACING, direction);
 
-        for (Direction direction : directions) {
-            if (direction.getAxis().isHorizontal()) {
-                Direction direction2 = direction.getOpposite();
-                blockState = blockState.with(FACING, direction2);
-                if (blockState.canPlaceAt(worldView, blockPos) && worldView.getFluidState(blockPos).isEmpty()) {
-                    return blockState;
-                }
+
+        if (!worldView.getFluidState(blockPos).isEmpty()){
+            return null;
+        }
+
+        if (blockState.canPlaceAt(worldView, blockPos)) {
+            return blockState.with(FACING, direction);
+        }
+
+
+        Stream<Direction> directionStream = Direction.stream()
+                .filter(direction1 -> direction1.getAxis().isHorizontal())
+                .filter(direction1 -> direction1 != direction);
+
+
+        for (Direction direction1 : directionStream.toList()){
+            BlockState state = blockState.with(FACING, direction1);
+            if (state.canPlaceAt(worldView, blockPos)) {
+                return blockState.with(FACING, direction1);
             }
         }
 

@@ -1,5 +1,6 @@
 package net.digitalpear.nears.common.datagen;
 
+import net.digitalpear.nears.common.blocks.NearHangBlock;
 import net.digitalpear.nears.common.blocks.SoulBerryBushBlock;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
@@ -35,7 +36,7 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        LootCondition.Builder cropAgeConditionBuilder = BlockStatePropertyLootCondition.builder(NBlocks.CINDER_WHEAT)
+        LootCondition.Builder cropAgeConditionBuilder = BlockStatePropertyLootCondition.builder(NBlocks.CINDER_GRAIN)
                 .properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(CropBlock.AGE, 7));
 
         addDrop(NBlocks.NEAR_HANG, cropDrops(NBlocks.NEAR_HANG, NItems.NEAR, NItems.NEAR_SPORES, cropAgeConditionBuilder));
@@ -45,14 +46,19 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
         addDrop(NBlocks.SOUL_BERRY_BUSH, makeBushDrops(NBlocks.SOUL_BERRY_BUSH, NItems.SOUL_BERRIES));
 
-        addDrop(NBlocks.CINDER_WHEAT, cropDrops(NBlocks.CINDER_WHEAT, NItems.CINDER_GRAIN, NItems.CINDER_SEEDS, cropAgeConditionBuilder));
+        addDrop(NBlocks.CINDER_GRAIN, cropDrops(NBlocks.CINDER_GRAIN, NItems.CINDER_GRAIN, NItems.CINDER_SEEDS, cropAgeConditionBuilder));
         addDrop(NBlocks.CINDER_GRASS, cinderGrassDrops(NBlocks.CINDER_GRASS));
 
 
         addDrop(NBlocks.CINDER_BALE);
 
         addDrop(NBlocks.NEAR_HANG_STEM, makeNearStemDrops(NBlocks.NEAR_HANG_STEM, NItems.NEAR, NItems.NEAR_TWIG));
-        addDrop(NBlocks.NEAR_HANG, dropsNothing());
+        addDrop(NBlocks.NEAR_HANG, LootTable.builder()
+                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(BlockStatePropertyLootCondition.builder(NBlocks.NEAR_HANG).properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(NearHangBlock.AGE, NearHangBlock.MAX_AGE)))
+                        .with(this.applyExplosionDecay(NItems.NEAR_SPORES, ItemEntry.builder(NItems.NEAR_SPORES).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2F, 3F))))))
+                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(BlockStatePropertyLootCondition.builder(NBlocks.NEAR_HANG).properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(NearHangBlock.AGE, NearHangBlock.MAX_AGE)).invert())
+                        .with(this.applyExplosionDecay(NItems.NEAR_SPORES, ItemEntry.builder(NItems.NEAR_SPORES))))
+        );
     }
 
 
@@ -73,7 +79,10 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
     public LootTable.Builder makeNearStemDrops(Block block, Item fruit, Item twig){
         return this.applyExplosionDecay(block, LootTable.builder()
-                        .pool(LootPool.builder().conditionally(RandomChanceLootCondition.builder(0.7f)).with(ItemEntry.builder(twig)).build())
+                /*
+                    Near Twig
+                 */
+                .pool(LootPool.builder().conditionally(RandomChanceLootCondition.builder(0.7f)).with(ItemEntry.builder(twig)).build())
 
 
                 /*
@@ -83,12 +92,8 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
                                 .exactMatch(SoulBerryBushBlock.AGE, 3))).with(ItemEntry.builder(fruit))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2.0F, 3.0F)))
                         .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE)))
-                .pool(LootPool.builder().conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create()
-                                .exactMatch(SoulBerryBushBlock.AGE, 2))).with(ItemEntry.builder(fruit))
-                        .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1)))
-                        .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE)))
                 .pool(LootPool.builder().conditionally(BlockStatePropertyLootCondition.builder(block).properties(net.minecraft.predicate.StatePredicate.Builder.create()
-                        .exactMatch(SoulBerryBushBlock.AGE, 1))).with(ItemEntry.builder(fruit))
+                        .exactMatch(SoulBerryBushBlock.AGE, 3)).invert()).with(ItemEntry.builder(fruit))
                 .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1)))
                 .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE))));
     }

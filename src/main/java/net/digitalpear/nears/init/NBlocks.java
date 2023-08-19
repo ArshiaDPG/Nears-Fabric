@@ -36,7 +36,6 @@ public class NBlocks {
 
 
 
-
     public static final Block FAAR_GROWTH = createBlockWithoutItem("faar_growth",
             new FaarGrowthBlock(AbstractBlock.Settings.copy(Blocks.TWISTING_VINES)));
 
@@ -72,8 +71,8 @@ public class NBlocks {
             AbstractBlock.Settings.copy(Blocks.GRASS).breakInstantly().nonOpaque()));
 
 
-    public static final Block CINDER_WHEAT = createBlockWithoutItem("cinder_wheat",
-            new CInderWheatCropBlock(AbstractBlock.Settings.create()
+    public static final Block CINDER_GRAIN = createBlockWithoutItem("cinder_grain",
+            new CInderGrainCropBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.GRAY).noCollision().breakInstantly().sounds(BlockSoundGroup.ROOTS)));
 
     public static final Block CINDER_BALE = createBlockWithItem("cinder_bale",

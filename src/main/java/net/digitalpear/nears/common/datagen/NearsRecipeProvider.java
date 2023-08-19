@@ -11,9 +11,11 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.Registries;
 
 import java.util.HashMap;
 import java.util.List;
@@ -93,8 +95,7 @@ public class NearsRecipeProvider extends FabricRecipeProvider {
                 "");
         });
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, Blocks.TARGET).input('H', NBlocks.CINDER_BALE).input('R', Items.REDSTONE).pattern(" R ").pattern("RHR").pattern(" R ").criterion("has_redstone", conditionsFromItem(Items.REDSTONE)).criterion("has_cinder_bale", conditionsFromItem(NBlocks.CINDER_BALE)).offerTo(exporter, "target_from_cinder_bale");
-
+        makeVanillaWheatRecipes(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, NBlocks.NEAR_TWIG_BLOCK, 1)
                 .input('#', NItems.NEAR_TWIG)
@@ -107,5 +108,22 @@ public class NearsRecipeProvider extends FabricRecipeProvider {
                 .input(NBlocks.NEAR_TWIG_BLOCK).group("planks")
                 .criterion(hasItem(NBlocks.NEAR_TWIG_BLOCK), conditionsFromItem(NBlocks.NEAR_TWIG_BLOCK))
                 .offerTo(exporter);
+    }
+
+
+    public void makeVanillaWheatRecipes(Consumer<RecipeJsonProvider> exporter){
+        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, Blocks.TARGET).input('H', NBlocks.CINDER_BALE).input('R', Items.REDSTONE).pattern(" R ").pattern("RHR").pattern(" R ").criterion("has_redstone", conditionsFromItem(Items.REDSTONE)).criterion("has_cinder_bale", conditionsFromItem(NBlocks.CINDER_BALE)).offerTo(exporter, fromBale(Blocks.TARGET));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_MUD, 1).input(Blocks.MUD).input(NItems.CINDER_GRAIN).criterion("has_mud", conditionsFromItem(Blocks.MUD)).offerTo(exporter, fromGrain(Items.PACKED_MUD));
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Blocks.CAKE).input('A', Items.MILK_BUCKET).input('B', Items.SUGAR).input('C', NItems.CINDER_GRAIN).input('E', Items.EGG).pattern("AAA").pattern("BEB").pattern("CCC").criterion("has_egg", conditionsFromItem(Items.EGG)).offerTo(exporter, fromGrain(Items.CAKE));
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.COOKIE, 8).input('#', NItems.CINDER_GRAIN).input('X', Items.COCOA_BEANS).pattern("#X#").criterion("has_cocoa", conditionsFromItem(Items.COCOA_BEANS)).offerTo(exporter, fromGrain(Items.COOKIE));
+
+    }
+
+    public String fromGrain(ItemConvertible itemConvertible){
+        return Registries.ITEM.getId(itemConvertible.asItem()).getPath() + "_from_cinder_grain";
+    }
+    public String fromBale(ItemConvertible itemConvertible){
+        return Registries.ITEM.getId(itemConvertible.asItem()).getPath() + "_from_cinder_bale";
     }
 }

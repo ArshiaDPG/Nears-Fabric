@@ -53,11 +53,11 @@ public class NearHangStemBlock extends PlantBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state.get(AGE) > 0){
+        if (state.get(AGE) > 1){
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
             player.swingHand(hand);
             dropStack(world, pos, new ItemStack(NItems.NEAR, getNearCount(state.get(AGE), world.getRandom())));
-            world.setBlockState(pos.down(), state.with(AGE, 1), 3);
+            world.setBlockState(pos, state.with(AGE, 1), 3);
 
             return ActionResult.SUCCESS;
         }

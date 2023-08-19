@@ -39,7 +39,7 @@ public class NItems {
     public static final Item SOUL_BERRY_PIPS = createItem("soul_berry_pips", new AliasedBlockItem(NBlocks.SOUL_BERRY_BUSH, new Item.Settings()));
     public static final Item FAAR_SEEDS = createItem("faar_seeds", new AliasedBlockItem(NBlocks.FAAR_GROWTH, new Item.Settings()));
     public static final Item NEAR_SPORES = createItem("near_spores", new AliasedBlockItem(NBlocks.NEAR_HANG, new Item.Settings()));
-    public static final Item CINDER_SEEDS = createItem("cinder_seeds", new AliasedBlockItem(NBlocks.CINDER_WHEAT, new Item.Settings()));
+    public static final Item CINDER_SEEDS = createItem("cinder_seeds", new AliasedBlockItem(NBlocks.CINDER_GRAIN, new Item.Settings()));
 
     /*
         Misc

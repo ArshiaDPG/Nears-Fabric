@@ -29,6 +29,7 @@ public class NPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PATCH_FAAR_GROWTH = of("patch_faar_growth");
     public static final RegistryKey<PlacedFeature> PATCH_CINDER_GRASS = of("patch_cinder_grass");
 
+
     public static RegistryKey<PlacedFeature> of(String id) {
         RegistryKey<PlacedFeature> feature = RegistryKey.of(RegistryKeys.PLACED_FEATURE, Nears.id(id));
         features.add(feature);
@@ -41,6 +42,7 @@ public class NPlacedFeatures {
         RegistryEntry<ConfiguredFeature<?, ?>> patchFaars = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_FAAR_GROWTH);
         RegistryEntry<ConfiguredFeature<?, ?>> patchSoulBerries = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_SOUL_BERRY_BUSH);
         RegistryEntry<ConfiguredFeature<?, ?>> patchCinderGrass = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_CINDER_GRASS);
+
 
         PlacedFeatures.register(featureRegisterable, PATCH_NEAR_HANG, patchNears, makePatchPlacements(RarityFilterPlacementModifier.of(1)));
         PlacedFeatures.register(featureRegisterable, PATCH_FAAR_GROWTH, patchFaars, makePatchPlacements(CountPlacementModifier.of(UniformIntProvider.create(0, 5))));
