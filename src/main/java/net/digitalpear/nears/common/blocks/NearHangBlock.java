@@ -3,10 +3,7 @@ package net.digitalpear.nears.common.blocks;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
@@ -30,11 +27,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 
-public class NearHangBlock extends PlantBlock {
+public class NearHangBlock extends PlantBlock implements Fertilizable{
 
     public static final int MAX_AGE = 5;
     public static final IntProperty AGE = Properties.AGE_5;
     public static final BooleanProperty MATURED = BooleanProperty.of("matured");
+
     private Block stemBlock = NBlocks.NEAR_HANG_STEM;
 
 
@@ -93,9 +91,14 @@ public class NearHangBlock extends PlantBlock {
     }
 
     @Override
+    public boolean hasRandomTicks(BlockState state) {
+        return !state.get(MATURED);
+    }
+
+    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack stack = player.getStackInHand(hand);
-        if (stack.getItem() instanceof ShearsItem){
+        if (stack.getItem() instanceof ShearsItem && !state.get(MATURED)){
             BlockState finalState = state.with(MATURED, true);
             if (stack.isDamageable()){
                 stack.damage(1, player, player1 -> player1.sendToolBreakStatus(hand));
@@ -117,5 +120,30 @@ public class NearHangBlock extends PlantBlock {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(AGE);
         builder.add(MATURED);
+    }
+
+    @Override
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+        return true;
+    }
+
+    @Override
+    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+        return world.getBlockState(pos.down()).isAir() && !state.get(MATURED);
+    }
+
+    @Override
+    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+        if (state.get(AGE) < MAX_AGE){
+            int growth = random.nextBetween(1, 3);
+            if (state.get(AGE) + growth > MAX_AGE){
+                growth = state.get(AGE) - growth;
+            }
+            world.setBlockState(pos, state.with(AGE, state.get(AGE) + growth));
+        }
+        else{
+            world.setBlockState(pos, stemBlock.getDefaultState().with(NearHangStemBlock.SUPPORTED, world.getBlockState(pos.up()).isOf(stemBlock)), 3);
+            world.setBlockState(pos.down(), state.with(AGE, 0), 3);
+        }
     }
 }

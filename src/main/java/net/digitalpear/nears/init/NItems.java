@@ -53,6 +53,10 @@ public class NItems {
         NearsRecipeProvider.COLOR_MELTING_MAP.put(SOUL_BERRIES, Items.LIGHT_BLUE_DYE);
 
 
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
+            entries.add(NBlocks.NEAR_TWIG_BLOCK);
+        });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.addAfter(Items.ENCHANTED_GOLDEN_APPLE, NEAR);
             entries.addAfter(NEAR, FAAR);
@@ -77,8 +81,11 @@ public class NItems {
             entries.add(NBlocks.FAAR_BUNDLE);
 
             entries.addAfter(Items.NETHER_SPROUTS, NBlocks.CINDER_GRASS);
+            entries.addAfter(Items.BAMBOO, NEAR_TWIG);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> entries.addAfter(Items.WHEAT, CINDER_GRAIN));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.addAfter(Items.WHEAT, CINDER_GRAIN);
+        });
     }
 }

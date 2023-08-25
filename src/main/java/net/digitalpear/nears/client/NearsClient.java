@@ -11,7 +11,7 @@ import net.minecraft.client.render.RenderLayer;
 public class NearsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
-                NBlocks.NEAR_HANG, NBlocks.SOUL_BERRY_BUSH, NBlocks.FAAR_GROWTH, NBlocks.CINDER_GRAIN, NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), NBlocks.SOUL_BERRY_BUSH, NBlocks.FAAR_GROWTH, NBlocks.CINDER_GRAIN, NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), NBlocks.NEAR_HANG, NBlocks.NEAR_HANG_STEM);
     }
 }

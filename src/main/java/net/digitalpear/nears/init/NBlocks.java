@@ -31,7 +31,7 @@ public class NBlocks {
             new NearHangBlock(AbstractBlock.Settings.create().ticksRandomly().strength(0.8f, 0.6f).sounds(BlockSoundGroup.WART_BLOCK)
                     .noCollision().nonOpaque()));
 
-    public static final Block NEAR_TWIG_BLOCK = createBlockWithItem("near_twig_block", new Block(AbstractBlock.Settings.copy(Blocks.CRIMSON_HYPHAE)));
+    public static final Block NEAR_TWIG_BLOCK = createBlockWithItem("near_twig_block", new Block(AbstractBlock.Settings.copy(Blocks.CRIMSON_HYPHAE).mapColor(MapColor.PALE_PURPLE)));
 
 
 
@@ -65,7 +65,7 @@ public class NBlocks {
                     .noCollision()
                     .breakInstantly()
                     .sounds(BlockSoundGroup.ROOTS)
-                    .offset(AbstractBlock.OffsetType.XZ)));
+                    .offset(AbstractBlock.OffsetType.XZ).replaceable()));
 
     public static final Block POTTED_CINDER_GRASS = createBlockWithoutItem("potted_cinder_grass", new FlowerPotBlock(CINDER_GRASS,
             AbstractBlock.Settings.copy(Blocks.GRASS).breakInstantly().nonOpaque()));

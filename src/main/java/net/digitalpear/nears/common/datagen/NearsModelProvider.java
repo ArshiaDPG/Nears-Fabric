@@ -76,24 +76,31 @@ public class NearsModelProvider extends FabricModelProvider {
                 .put(CAP_TOP, getId(NBlocks.NEAR_HANG).withSuffixedPath("_cap_top"))
                 .put(CAP_SIDE, getId(NBlocks.NEAR_HANG).withSuffixedPath("_cap_side"))
                 .put(CAP_BOTTOM, getId(NBlocks.NEAR_HANG).withSuffixedPath("_cap_bottom"))
-                .put(TextureKey.STEM, getId(NBlocks.NEAR_HANG).withSuffixedPath("_stem")),
+                .put(TextureKey.STEM, getId(NBlocks.NEAR_HANG).withSuffixedPath("_base")),
                 TEMPLATE_NEAR_HANG);
 
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(NBlocks.NEAR_HANG_STEM)
                 .coordinate(BlockStateVariantMap.create(NearHangStemBlock.SUPPORTED, NearHangStemBlock.AGE)
-                        .register((aBoolean, stage) -> {
+                        .register((supported, stage) -> {
 
-                            String name = (aBoolean ? "_supported" : "") + stage;
+                            String name = (supported ? "" : "_base") + stage;
 
-                            Identifier var2 = ModelIds.getBlockSubModelId(NBlocks.NEAR_HANG_STEM, name);
+                            Identifier modelName = ModelIds.getBlockSubModelId(NBlocks.NEAR_HANG_STEM, name);
                             /*
                                 Register model
                              */
+                            if (supported){
                                 Models.CROSS.upload(NBlocks.NEAR_HANG_STEM, name,
-                                    TextureMap.cross(getId(NBlocks.NEAR_HANG_STEM).withSuffixedPath(name)),
-                                    blockStateModelGenerator.modelCollector);
+                                        TextureMap.cross(getId(NBlocks.NEAR_HANG_STEM).withSuffixedPath(name)),
+                                        blockStateModelGenerator.modelCollector);
+                            }
+                            else{
+                                Models.CROSS.upload(NBlocks.NEAR_HANG_STEM, name,
+                                        TextureMap.cross(getId(NBlocks.NEAR_HANG_STEM).withSuffixedPath("_base")),
+                                        blockStateModelGenerator.modelCollector);
+                            }
 
-                            return BlockStateVariant.create().put(VariantSettings.MODEL, var2);
+                            return BlockStateVariant.create().put(VariantSettings.MODEL, modelName);
                         })));
     }
 

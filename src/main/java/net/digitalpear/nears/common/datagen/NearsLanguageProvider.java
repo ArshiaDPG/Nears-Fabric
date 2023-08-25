@@ -18,7 +18,11 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
          */
         translationBuilder.add(NItems.NEAR, "Near");
         translationBuilder.add(NItems.NEAR_SPORES, "Near Spores");
-        translationBuilder.add(NBlocks.NEAR_HANG, "Near Bulb");
+        translationBuilder.add(NBlocks.NEAR_HANG, "Near Hang");
+        translationBuilder.add(NBlocks.NEAR_HANG_STEM, "Near Hang Stem");
+        translationBuilder.add(NBlocks.NEAR_TWIG_BLOCK, "Block of Near Twigs");
+        translationBuilder.add(NItems.NEAR_TWIG, "Near Twig");
+
 
 
         /*

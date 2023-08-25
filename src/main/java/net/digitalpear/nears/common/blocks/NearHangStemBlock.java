@@ -2,13 +2,11 @@ package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -27,7 +25,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class NearHangStemBlock extends PlantBlock {
+public class NearHangStemBlock extends PlantBlock implements Fertilizable {
     public static final BooleanProperty SUPPORTED = BooleanProperty.of("supported");
     public static final IntProperty AGE = Properties.AGE_3;
 
@@ -36,6 +34,11 @@ public class NearHangStemBlock extends PlantBlock {
     public NearHangStemBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0).with(SUPPORTED, false));
+    }
+
+    @Override
+    public boolean hasRandomTicks(BlockState state) {
+        return state.get(SUPPORTED);
     }
 
     @Nullable
@@ -53,7 +56,9 @@ public class NearHangStemBlock extends PlantBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state.get(AGE) > 1){
+        if (state.get(AGE) < 3 && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) {
+            return ActionResult.PASS;
+        } if (state.get(AGE) > 1){
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
             player.swingHand(hand);
             dropStack(world, pos, new ItemStack(NItems.NEAR, getNearCount(state.get(AGE), world.getRandom())));
@@ -73,10 +78,11 @@ public class NearHangStemBlock extends PlantBlock {
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!world.isClient() && random.nextInt(100) < 10 && state.get(AGE) < 3){
+        if (!world.isClient() && random.nextInt(100) < 50 && state.get(AGE) < 3){
             world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
         }
     }
+
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
@@ -92,5 +98,20 @@ public class NearHangStemBlock extends PlantBlock {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(SUPPORTED);
         builder.add(AGE);
+    }
+
+    @Override
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+        return state.get(SUPPORTED);
+    }
+
+    @Override
+    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+        return state.get(SUPPORTED);
+    }
+
+    @Override
+    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+        world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
     }
 }

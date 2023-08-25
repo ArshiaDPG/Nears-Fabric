@@ -1,6 +1,7 @@
 package net.digitalpear.nears.common.datagen;
 
 import net.digitalpear.nears.common.blocks.NearHangBlock;
+import net.digitalpear.nears.common.blocks.NearHangStemBlock;
 import net.digitalpear.nears.common.blocks.SoulBerryBushBlock;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
@@ -89,12 +90,18 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
                 /*
                     Nears
                  */
-                .pool(LootPool.builder().conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create()
-                                .exactMatch(SoulBerryBushBlock.AGE, 3))).with(ItemEntry.builder(fruit))
+                .pool(LootPool.builder()
+                        .conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create()
+                                .exactMatch(SoulBerryBushBlock.AGE, 3)
+                                .exactMatch(NearHangStemBlock.SUPPORTED, true))).with(ItemEntry.builder(fruit))
+
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2.0F, 3.0F)))
                         .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE)))
-                .pool(LootPool.builder().conditionally(BlockStatePropertyLootCondition.builder(block).properties(net.minecraft.predicate.StatePredicate.Builder.create()
-                        .exactMatch(SoulBerryBushBlock.AGE, 2))).with(ItemEntry.builder(fruit))
+                .pool(LootPool.builder()
+                        .conditionally(BlockStatePropertyLootCondition.builder(block).properties(net.minecraft.predicate.StatePredicate.Builder.create()
+                        .exactMatch(SoulBerryBushBlock.AGE, 2)
+                                .exactMatch(NearHangStemBlock.SUPPORTED, true))).with(ItemEntry.builder(fruit))
+
                 .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1))))
                 .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE))
 
