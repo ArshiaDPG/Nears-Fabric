@@ -54,6 +54,8 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
         addDrop(NBlocks.CINDER_BALE);
 
+        addDrop(NBlocks.NEAR_TWIG_BLOCK);
+
         addDrop(NBlocks.NEAR_HANG_STEM, makeNearStemDrops(NBlocks.NEAR_HANG_STEM, NItems.NEAR, NItems.NEAR_TWIG));
         addDrop(NBlocks.NEAR_HANG, LootTable.builder()
                 .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(BlockStatePropertyLootCondition.builder(NBlocks.NEAR_HANG).properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(NearHangBlock.AGE, NearHangBlock.MAX_AGE)))
