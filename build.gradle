@@ -112,45 +112,9 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}" // Optional, name of the file
         changelog = '''<ul>
-   <li>[Changed and Removed Features]</li>
-
-   <li>Removed Faar Bush, and Near Bush.</li>
-   <li>Removed Nearade.</li>
-   <li>Removed Soul Juice.</li>
-   <li>Removed Faar Slices.</li>
-   <li>Removed Faar Sandwich.</li>
-   <li>Removed Soul Sundae.</li>
-   <li>Removed Fungus and Faar.</li>
-    
-   <li>Removed Faar Bush, and Near Bush.</li>
-   <li>Removed Nearade. -Removed Soul Juice.</li>
-   <li>Removed Faar Slices.</li>
-   <li>Removed Faar Sandwich.</li>
-   <li>Removed Soul Sundae.</li>
-   <li>Removed Fungus and Faar.</li>
-   <li>All textures have been revamped by IssysArt and KingRolly.</li>
-   <li>Nears now restore 1.5 bars of hunger instead of two.</li>
-   <li>Piglins now pick up nears.</li>
-   <li>Glowy Snack has been renamed to Glow Salad, and is crafted with Glow Berries and Soul Berries.</li>
-    
-   <li>[Additions]</li>
-    
-   <li>Added Faar Growth.</li>
-   <li>Added Near Hang.</li>
-   <li>Added Cinder Grass.</li>
-   <li>Added Cinder Grain, with Cinder Grain crop and seeds.</li>
-   <li>Added Cinder Sangak.</li>
-   <li>Added Cinder Bale.</li>
-   <li>Added Nether Stew.</li>
-   <li>Added Soulless Pastry.</li>
-   <li>Added Near Twig and Near Twig block.</li>
-    
-   <li>Added advancement "Symbiotic", unlocked by obtaining any nether fruit.</li>
-   <li>Added advancement "Oh How Faar We Go", unlocked by collecting all nether fruit.</li>
-   <li>Added advancement "A Pie For the Soul", unlocked by obtaining a Soulless Pastry.</li>
-   <li>Added advancement "Volcanic Botany", unlocked by planting Cinder Wheat.</li>
+   <li>Cinder Sangak can now be used as bread in Sandwichable's sandwiches (thanks to minorm for the suggestion).</li>
 </ul> '''
-        releaseType = "beta" // Optional, use "release", "beta" or "alpha"
+        releaseType = "release" // Optional, use "release", "beta" or "alpha"
         gameVersions = ["${project.minecraft_version}", "1.20"]
         gameLoaders = ["fabric"]
 
@@ -174,7 +138,6 @@ unifiedPublishing {
         modrinth {
             token = System.getenv("MODRINTH_TOKEN")
             id = "2PL7NFzr" // Required, must be a string, ID of Modrinth project
-
         }
     }
 }

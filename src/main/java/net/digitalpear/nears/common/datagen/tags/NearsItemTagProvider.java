@@ -28,6 +28,7 @@ public class NearsItemTagProvider extends FabricTagProvider<Item> {
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(NItemTags.NETHER_FRUITS).add(NItems.NEAR, NItems.FAAR, NItems.SOUL_BERRIES);
 
+        getOrCreateTagBuilder(NItemTags.SANDWICHABLE_BREAD_SLICES).add(NItems.CINDER_SANGAK);
 
         getOrCreateTagBuilder(NItemTags.FRUITS).forceAddTag(NItemTags.NETHER_FRUITS);
         getOrCreateTagBuilder(NItemTags.FRUIT_SALADS).add(NItems.GLOW_SALAD);

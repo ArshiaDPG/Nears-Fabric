@@ -24,6 +24,7 @@ public class NData {
         compostingChanceRegistry.add(NItems.CINDER_SEEDS, 0.3f);
 
         compostingChanceRegistry.add(NBlocks.FAAR_BUNDLE, 1.0f);
+        compostingChanceRegistry.add(NItems.SOULLESS_PASTRY, 1.0f);
 
         compostingChanceRegistry.add(NItems.SOUL_BERRIES, 0.5f);
         compostingChanceRegistry.add(NItems.FAAR, 0.2f);
@@ -33,6 +34,7 @@ public class NData {
         compostingChanceRegistry.add(NBlocks.CINDER_GRASS, 0.4f);
         compostingChanceRegistry.add(NItems.CINDER_GRAIN, 0.4f);
         compostingChanceRegistry.add(NItems.CINDER_SANGAK, 0.6f);
+        compostingChanceRegistry.add(NBlocks.CINDER_BALE, 1.0f);
     }
 
 

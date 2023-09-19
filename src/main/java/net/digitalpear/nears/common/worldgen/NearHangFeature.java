@@ -50,7 +50,7 @@ public class NearHangFeature extends Feature<DefaultFeatureConfig> {
             if (world.getBlockState(pos.down(i + 1)).isAir() && (pos.down().getY() > world.getBottomY())){
                 world.setBlockState(pos.down(i), NBlocks.NEAR_HANG_STEM.getDefaultState()
                         .with(NearHangStemBlock.AGE, random.nextInt(3))
-                        .with(NearHangStemBlock.SUPPORTED, world.getBlockState(pos.down(i)).isOf(NBlocks.NEAR_HANG_STEM)), 3);
+                        .with(NearHangStemBlock.SUPPORTED, world.getBlockState(pos.down(i-1)).isOf(NBlocks.NEAR_HANG_STEM)), 3);
             }
             else{
                 world.setBlockState(pos.down(i), NBlocks.NEAR_HANG.getDefaultState().with(NearHangBlock.MATURED, true).with(NearHangBlock.AGE, 5), 3);

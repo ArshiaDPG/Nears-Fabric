@@ -1,11 +1,11 @@
-// 1.20.1	2023-08-27T23:36:54.6105802	Nears/Recipes
+// 1.20.1	2023-09-18T23:56:45.9146856	Nears/Recipes
 c6b9a780925aeb343fbfc0b06b3f53e5be697329 data\nears\recipes\soul_berry_pips.json
 22de28e8c6cc9f655debc8beca8f8145ba1b5a2f data\nears\recipes\faar_seeds.json
 140b49857583e7256eafd7a0cb61e6892d75b7a2 data\nears\advancements\recipes\misc\cinder_grain.json
 a89d6e2512e55df54dbe432873ef0471ce49fb41 data\nears\recipes\cinder_bale.json
 746a47e3426af28254af41273d01c0ce5326e3be data\nears\advancements\recipes\building_blocks\packed_mud_from_cinder_grain.json
-b18f5295a832b2fa8930a7a8ba9684ddc6fac0ab data\nears\recipes\orange_dye_from_smelting_near.json
 dcf6418914a983d07aa342d5533b3f612a7b5df9 data\nears\advancements\recipes\building_blocks\cinder_bale.json
+b18f5295a832b2fa8930a7a8ba9684ddc6fac0ab data\nears\recipes\orange_dye_from_smelting_near.json
 e6f4a674804d107bf1d16b46c2e99b978fd243bd data\nears\advancements\recipes\food\cookie_from_cinder_grain.json
 f56787e373e98f58ef124e5ce27bf8f01307dc58 data\nears\advancements\recipes\decorations\cyan_dye_from_smelting_faar.json
 a143f31209f30487393962f62b4d9869ff666bf3 data\nears\recipes\target_from_cinder_bale.json
