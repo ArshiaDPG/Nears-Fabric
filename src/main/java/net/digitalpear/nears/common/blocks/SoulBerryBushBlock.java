@@ -87,7 +87,7 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
         builder.add(AGE);
     }
 
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return state.get(AGE) < MAX_AGE;
     }
 

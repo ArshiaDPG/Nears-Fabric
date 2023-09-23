@@ -13,12 +13,16 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class DispenserFaarBundleBehavior extends FallibleItemDispenserBehavior {
+
+
     @Override
     protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-        Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
-        BlockPos blockPos = pointer.getPos().offset(direction);
-        World world = pointer.getWorld();
+        Direction direction = pointer.state().get(DispenserBlock.FACING);
+        BlockPos blockPos = pointer.pos().offset(direction);
+        World world = pointer.world();
         Random random = world.getRandom();
+
+
         if (world.getBlockState(blockPos).isAir() || world.getBlockState(blockPos).isLiquid()){
             stack.split(1);
             world.setBlockState(blockPos, NBlocks.FAAR_BUNDLE.getDefaultState(), 3);
@@ -29,7 +33,7 @@ public class DispenserFaarBundleBehavior extends FallibleItemDispenserBehavior {
             Position position = DispenserBlock.getOutputLocation(pointer);
             stack.split(1);
             ItemStack output = new ItemStack(NItems.FAAR, faarNumber);
-            spawnItem(pointer.getWorld(), output, 6, direction, position);
+            spawnItem(world, output, 6, direction, position);
             this.setSuccess(true);
         }
 

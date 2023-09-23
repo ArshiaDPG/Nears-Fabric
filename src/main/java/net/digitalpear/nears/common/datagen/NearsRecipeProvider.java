@@ -7,21 +7,19 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class NearsRecipeProvider extends FabricRecipeProvider {
     public static Map<Item, Item> COLOR_MELTING_MAP = new HashMap<>();
@@ -29,8 +27,9 @@ public class NearsRecipeProvider extends FabricRecipeProvider {
         super(output);
     }
 
+
     @Override
-    public void generate(Consumer<RecipeJsonProvider> exporter) {
+    public void generate(RecipeExporter exporter) {
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, NItems.SOUL_BERRY_PIPS)
                 .input(NItems.SOUL_BERRIES)
@@ -114,7 +113,7 @@ public class NearsRecipeProvider extends FabricRecipeProvider {
     }
 
 
-    public void makeVanillaWheatRecipes(Consumer<RecipeJsonProvider> exporter){
+    public void makeVanillaWheatRecipes(RecipeExporter exporter){
         ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, Blocks.TARGET).input('H', NBlocks.CINDER_BALE).input('R', Items.REDSTONE).pattern(" R ").pattern("RHR").pattern(" R ").criterion("has_redstone", conditionsFromItem(Items.REDSTONE)).criterion("has_cinder_bale", conditionsFromItem(NBlocks.CINDER_BALE)).offerTo(exporter, fromBale(Blocks.TARGET));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_MUD, 1).input(Blocks.MUD).input(NItems.CINDER_GRAIN).criterion("has_mud", conditionsFromItem(Blocks.MUD)).offerTo(exporter, fromGrain(Items.PACKED_MUD));

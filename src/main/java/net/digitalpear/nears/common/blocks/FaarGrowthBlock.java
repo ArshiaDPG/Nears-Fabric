@@ -58,7 +58,8 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
         builder.add(AGE);
     }
 
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    @Override
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return true;
     }
 

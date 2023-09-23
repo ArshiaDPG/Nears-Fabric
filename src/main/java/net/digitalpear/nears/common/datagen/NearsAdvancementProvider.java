@@ -6,11 +6,8 @@ import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.advancement.AdvancementRewards;
+import net.minecraft.advancement.*;
 import net.minecraft.advancement.criterion.ChangedDimensionCriterion;
-import net.minecraft.advancement.criterion.CriterionConditions;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.advancement.criterion.ItemCriterion;
 import net.minecraft.block.Blocks;
@@ -30,12 +27,15 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
         super(output);
     }
 
+
     @Override
-    public void generateAdvancement(Consumer<Advancement> consumer) {
+    public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
 
 
-        Advancement dummy = Advancement.Builder.create().display(Blocks.RED_NETHER_BRICKS, Text.translatable("advancements.nether.root.title"), Text.translatable("advancements.nether.root.description"), new Identifier("textures/gui/advancements/backgrounds/nether.png"), AdvancementFrame.TASK, false, false, false).criterion("entered_nether", ChangedDimensionCriterion.Conditions.to(World.NETHER)).build(consumer, "nether/root");
-        Advancement symbiotic = Advancement.Builder.create().parent(dummy)
+        AdvancementEntry dummy = Advancement.Builder.create().display(Blocks.RED_NETHER_BRICKS, Text.translatable("advancements.nether.root.title"), Text.translatable("advancements.nether.root.description"), new Identifier("textures/gui/advancements/backgrounds/nether.png"), AdvancementFrame.TASK, false, false, false).criterion("entered_nether", ChangedDimensionCriterion.Conditions.to(World.NETHER)).build(consumer, "nether/root");
+
+
+        AdvancementEntry symbiotic = Advancement.Builder.create().parent(dummy)
                 .display(
                         NItems.NEAR,
                         Text.translatable("advancements.nether.symbiotic.title"),
@@ -50,7 +50,7 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
                 .criterion("got_nether_fruit", InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(NItemTags.NETHER_FRUITS).build()))
                 .build(consumer, Nears.MOD_ID + ":nether/symbiotic");
 
-        Advancement ohHowFaarWeGo = Advancement.Builder.create().parent(symbiotic)
+        AdvancementEntry ohHowFaarWeGo = Advancement.Builder.create().parent(symbiotic)
                 .display(
                         NItems.FAAR,
                         Text.translatable("advancements.nether.oh_how_faar_we_go.title"),
@@ -67,15 +67,15 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
                 .criterion("get_soul_berries", InventoryChangedCriterion.Conditions.items(NItems.SOUL_BERRIES))
                 .build(consumer,  Nears.MOD_ID + ":nether/oh_how_faar_we_go");
 
-        Advancement aPieForTheSoul = makeAdvancement(consumer,
+        AdvancementEntry aPieForTheSoul = makeItemBasedAdvancement(consumer,
                 "a_pie_for_the_soul",
                 NItems.SOULLESS_PASTRY,
                 AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(NItems.SOULLESS_PASTRY),
                 "get_soulless_pastry",
-                2, symbiotic);
+                2, symbiotic, false);
 
-        Advancement volcanicBotany = makeAdvancement(consumer,
+        AdvancementEntry volcanicBotany = makeAdvancement(consumer,
                 "volcanic_botany",
                 NItems.CINDER_SEEDS,
                 AdvancementFrame.TASK,
@@ -84,8 +84,7 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
                 2, symbiotic);
     }
 
-
-    public Advancement makeAdvancement(Consumer<Advancement> consumer, String name, Item icon, AdvancementFrame frame, CriterionConditions conditions, String criterionNames, int reward, Advancement parent, boolean hidden){
+    public AdvancementEntry makeItemBasedAdvancement(Consumer<AdvancementEntry> consumer, String name, Item icon, AdvancementFrame frame, AdvancementCriterion<InventoryChangedCriterion.Conditions> conditions, String criterionNames, int reward, AdvancementEntry parent, boolean hidden){
         return Advancement.Builder.create().parent(parent)
                 .display(
                         icon,
@@ -101,7 +100,25 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
                 .criterion(criterionNames, conditions)
                 .build(consumer, Nears.MOD_ID + ":nether/" + name);
     }
-    public Advancement makeAdvancement(Consumer<Advancement> consumer, String name, Item icon, AdvancementFrame frame, CriterionConditions conditions, String criterionNames, int reward, Advancement parent){
+
+
+    public AdvancementEntry makeAdvancement(Consumer<AdvancementEntry> consumer, String name, Item icon, AdvancementFrame frame, AdvancementCriterion<ItemCriterion.Conditions> conditions, String criterionNames, int reward, AdvancementEntry parent, boolean hidden){
+        return Advancement.Builder.create().parent(parent)
+                .display(
+                        icon,
+                        Text.translatable("advancements.nether." + name + ".title"),
+                        Text.translatable("advancements.nether." + name + ".description"),
+                        null,
+                        frame,
+                        true,
+                        true,
+                        hidden
+                )
+                .rewards(AdvancementRewards.Builder.experience(reward))
+                .criterion(criterionNames, conditions)
+                .build(consumer, Nears.MOD_ID + ":nether/" + name);
+    }
+    public AdvancementEntry makeAdvancement(Consumer<AdvancementEntry> consumer, String name, Item icon, AdvancementFrame frame, AdvancementCriterion<ItemCriterion.Conditions> conditions, String criterionNames, int reward, AdvancementEntry parent){
         return makeAdvancement(consumer, name, icon, frame, conditions, criterionNames, reward, parent, false);
     }
 }

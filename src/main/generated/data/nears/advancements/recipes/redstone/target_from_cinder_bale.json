@@ -34,9 +34,9 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_redstone",
-      "has_cinder_bale",
-      "has_the_recipe"
+      "has_cinder_bale"
     ]
   ],
   "rewards": {

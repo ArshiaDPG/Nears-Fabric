@@ -21,10 +21,8 @@ public class CinderGrassBlock extends RootsBlock implements Fertilizable {
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
         return floor.isIn(NBlockTags.CINDER_GRASS_PLANTABLE_ON);
     }
-
-
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return true;
     }
 
