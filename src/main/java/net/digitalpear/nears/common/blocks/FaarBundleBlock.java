@@ -2,10 +2,11 @@ package net.digitalpear.nears.common.blocks;
 
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FallingBlock;
+import net.minecraft.block.ColoredFallingBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ColorCode;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
@@ -13,10 +14,11 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 
-public class FaarBundleBlock extends FallingBlock {
+public class FaarBundleBlock extends ColoredFallingBlock {
 
-    public FaarBundleBlock(Settings settings) {
-        super(settings);
+
+    public FaarBundleBlock(ColorCode color, Settings settings) {
+        super(color, settings);
     }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {

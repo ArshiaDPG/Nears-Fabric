@@ -1,5 +1,6 @@
 package net.digitalpear.nears.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.*;
@@ -25,6 +26,8 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 
 public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
+    public static final MapCodec<SoulBerryBushBlock> CODEC = createCodec(SoulBerryBushBlock::new);
+
     public static final int MAX_AGE = 3;
     public static final IntProperty AGE = Properties.AGE_3;
     private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
@@ -34,6 +37,11 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
     public SoulBerryBushBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
+    }
+
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return CODEC;
     }
 
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {

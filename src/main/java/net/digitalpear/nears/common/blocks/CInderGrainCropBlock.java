@@ -149,7 +149,7 @@ public class CInderGrainCropBlock extends CropBlock {
     }
 
     @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         return new ItemStack(NItems.CINDER_SEEDS);
     }
 

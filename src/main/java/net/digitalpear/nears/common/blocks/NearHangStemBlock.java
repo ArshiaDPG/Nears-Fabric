@@ -1,5 +1,6 @@
 package net.digitalpear.nears.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.*;
@@ -26,6 +27,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class NearHangStemBlock extends PlantBlock implements Fertilizable {
+    public static final MapCodec<NearHangStemBlock> CODEC = createCodec(NearHangStemBlock::new);
     public static final BooleanProperty SUPPORTED = BooleanProperty.of("supported");
     public static final IntProperty AGE = Properties.AGE_3;
 
@@ -34,6 +36,11 @@ public class NearHangStemBlock extends PlantBlock implements Fertilizable {
     public NearHangStemBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0).with(SUPPORTED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return CODEC;
     }
 
     @Override

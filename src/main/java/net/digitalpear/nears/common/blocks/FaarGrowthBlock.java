@@ -1,5 +1,6 @@
 package net.digitalpear.nears.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
@@ -19,6 +20,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 
 public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
+    public static final MapCodec<FaarGrowthBlock> CODEC = createCodec(FaarGrowthBlock::new);
     public static final int MAX_AGE = 3;
     public static final IntProperty AGE = Properties.AGE_3;
     private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(1.0D, 8.0D, 1.0D, 15.0D, 16.0D, 15.0D);
@@ -30,7 +32,13 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
     }
 
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         return new ItemStack(NItems.FAAR_SEEDS);
     }
 

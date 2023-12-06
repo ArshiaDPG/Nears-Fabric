@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
 
 public class NBlocks {
@@ -39,7 +40,7 @@ public class NBlocks {
     public static final Block FAAR_GROWTH = createBlockWithoutItem("faar_growth",
             new FaarGrowthBlock(AbstractBlock.Settings.copy(Blocks.TWISTING_VINES)));
 
-    public static final Block FAAR_BUNDLE = createBlockWithItem("faar_bundle", new FaarBundleBlock(AbstractBlock.Settings.create()
+    public static final Block FAAR_BUNDLE = createBlockWithItem("faar_bundle", new FaarBundleBlock(new ColorCode(1622415),AbstractBlock.Settings.create()
             .mapColor(MapColor.BRIGHT_TEAL).strength(0.7F, 0.4F).jumpVelocityMultiplier(1.5f).sounds(BlockSoundGroup.WART_BLOCK)));
 
 
@@ -68,7 +69,7 @@ public class NBlocks {
                     .offset(AbstractBlock.OffsetType.XZ).replaceable()));
 
     public static final Block POTTED_CINDER_GRASS = createBlockWithoutItem("potted_cinder_grass", new FlowerPotBlock(CINDER_GRASS,
-            AbstractBlock.Settings.copy(Blocks.GRASS).breakInstantly().nonOpaque()));
+            AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).breakInstantly().nonOpaque()));
 
 
     public static final Block CINDER_GRAIN = createBlockWithoutItem("cinder_grain",
