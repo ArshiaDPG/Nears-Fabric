@@ -112,10 +112,10 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}" // Optional, name of the file
         changelog = '''<ul>
-   <li>Updated to 1.20.2.</li>
+   <li>Updated to 1.20.4.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
-        gameVersions = ["${project.minecraft_version}"]
+        gameVersions = ["${project.minecraft_version}", "1.20.3"]
         gameLoaders = ["fabric"]
 
         mainPublication tasks.remapJar // Declares the publicated jar
