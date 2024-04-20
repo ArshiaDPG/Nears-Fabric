@@ -14,7 +14,6 @@ public class Nears implements ModInitializer {
     public static Identifier id(String name){return new Identifier(MOD_ID, name);}
     public static String idString(String name){return MOD_ID + ":" + name;}
 
-
     @Override
     public void onInitialize() {
         NBlocks.init();
@@ -22,8 +21,5 @@ public class Nears implements ModInitializer {
         NData.init();
         NFeature.init();
         NPlacedFeatures.init();
-
-
-
     }
 }

@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:target_from_cinder_bale"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

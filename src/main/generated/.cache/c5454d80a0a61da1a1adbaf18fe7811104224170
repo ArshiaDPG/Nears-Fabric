@@ -1,8 +1,8 @@
-// 1.20.2	2023-09-22T20:05:31.9194383	Nears/Block Loot Tables
+// 1.20.4	2024-04-20T09:35:39.2467862	Nears/Block Loot Tables
 6f69cdac317c965079c79adae02ef9b7ba8e85be data\nears\loot_tables\blocks\cinder_bale.json
 bc1a7d404826caca3892a05520906e7c9da53745 data\nears\loot_tables\blocks\cinder_grass.json
-d75409289ff6381b52cd9457d6e444893c35a68a data\nears\loot_tables\blocks\near_twig_block.json
 f7d91a599a5d52cebed537bd5cc23c5a60111b10 data\nears\loot_tables\blocks\cinder_grain.json
+d75409289ff6381b52cd9457d6e444893c35a68a data\nears\loot_tables\blocks\near_twig_block.json
 12f24456dda10b2ea58df4c50aa3150b09b484f3 data\nears\loot_tables\blocks\faar_growth.json
 24d5837ce1968ef401daf3ecbb38a21346555eb3 data\nears\loot_tables\blocks\soul_berry_bush.json
 f9e221314bffa74fd130070cadc0447a905d458d data\nears\loot_tables\blocks\faar_bundle.json

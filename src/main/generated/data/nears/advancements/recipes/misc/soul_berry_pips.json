@@ -30,6 +30,5 @@
     "recipes": [
       "nears:soul_berry_pips"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

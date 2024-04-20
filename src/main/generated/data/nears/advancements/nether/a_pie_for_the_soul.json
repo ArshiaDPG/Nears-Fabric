@@ -15,16 +15,12 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.nether.a_pie_for_the_soul.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "nears:soulless_pastry"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.nether.a_pie_for_the_soul.title"
     }

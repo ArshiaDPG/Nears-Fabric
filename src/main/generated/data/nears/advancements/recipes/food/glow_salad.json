@@ -30,6 +30,5 @@
     "recipes": [
       "nears:glow_salad"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

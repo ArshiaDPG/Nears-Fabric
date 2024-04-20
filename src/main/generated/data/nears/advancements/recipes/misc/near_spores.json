@@ -30,6 +30,5 @@
     "recipes": [
       "nears:near_spores"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -3,6 +3,7 @@ package net.digitalpear.nears.init;
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.common.blocks.*;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -69,7 +70,7 @@ public class NBlocks {
                     .offset(AbstractBlock.OffsetType.XZ).replaceable()));
 
     public static final Block POTTED_CINDER_GRASS = createBlockWithoutItem("potted_cinder_grass", new FlowerPotBlock(CINDER_GRASS,
-            AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).breakInstantly().nonOpaque()));
+            AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
 
 
     public static final Block CINDER_GRAIN = createBlockWithoutItem("cinder_grain",

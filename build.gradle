@@ -112,7 +112,10 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}" // Optional, name of the file
         changelog = '''<ul>
-   <li>Updated to 1.20.4.</li>
+   <li>Changed the textures of some blocks to fix mipmap issues.</li>
+   <li>The Volcanic Botany advancement is now a child of the base nether advancement.</li>
+   <li>Changed the Volcanic Botany advancement's description to be more clear.</li>
+   <li>Potted Cinder Grass now uses the same settings as other potted blocks as opposed to short grass.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
         gameVersions = ["${project.minecraft_version}", "1.20.3"]

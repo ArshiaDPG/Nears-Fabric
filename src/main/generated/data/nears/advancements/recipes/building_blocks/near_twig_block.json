@@ -30,6 +30,5 @@
     "recipes": [
       "nears:near_twig_block"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -77,6 +77,6 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("advancements.nether.a_pie_for_the_soul.description", "Craft a Soulless Pastry.");
 
         translationBuilder.add("advancements.nether.volcanic_botany.title", "Volcanic Botany");
-        translationBuilder.add("advancements.nether.volcanic_botany.description", "Plant some Cinder Seeds.");
+        translationBuilder.add("advancements.nether.volcanic_botany.description", "Plant some Cinder Seeds against magma blocks or basalt.");
     }
 }

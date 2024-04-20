@@ -30,6 +30,5 @@
     "recipes": [
       "minecraft:cookie_from_cinder_grain"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

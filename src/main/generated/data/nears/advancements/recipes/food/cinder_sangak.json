@@ -30,6 +30,5 @@
     "recipes": [
       "nears:cinder_sangak"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

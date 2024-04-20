@@ -39,16 +39,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.nether.oh_how_faar_we_go.description"
     },
     "frame": "challenge",
-    "hidden": false,
     "icon": {
       "item": "nears:faar"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.nether.oh_how_faar_we_go.title"
     }

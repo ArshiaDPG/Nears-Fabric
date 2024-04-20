@@ -30,6 +30,5 @@
     "recipes": [
       "nears:soulless_pastry"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

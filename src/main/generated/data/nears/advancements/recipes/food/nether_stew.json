@@ -28,6 +28,5 @@
     "recipes": [
       "nears:nether_stew"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

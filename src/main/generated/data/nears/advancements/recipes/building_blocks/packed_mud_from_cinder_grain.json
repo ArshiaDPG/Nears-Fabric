@@ -30,6 +30,5 @@
     "recipes": [
       "minecraft:packed_mud_from_cinder_grain"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

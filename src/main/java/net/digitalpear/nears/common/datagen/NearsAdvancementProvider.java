@@ -81,7 +81,7 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
                 AdvancementFrame.TASK,
                 ItemCriterion.Conditions.createPlacedBlock(NBlocks.CINDER_GRAIN),
                 "cinder_seeds",
-                2, symbiotic);
+                2, dummy);
     }
 
     public AdvancementEntry makeItemBasedAdvancement(Consumer<AdvancementEntry> consumer, String name, Item icon, AdvancementFrame frame, AdvancementCriterion<InventoryChangedCriterion.Conditions> conditions, String criterionNames, int reward, AdvancementEntry parent, boolean hidden){
