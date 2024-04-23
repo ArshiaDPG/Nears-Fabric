@@ -5,6 +5,7 @@ import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
@@ -102,13 +103,15 @@ public class NearHangBlock extends PlantBlock implements Fertilizable{
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Hand hand = player.getActiveHand();
         ItemStack stack = player.getStackInHand(hand);
         if (stack.getItem() instanceof ShearsItem && !state.get(MATURED)){
             BlockState finalState = state.with(MATURED, true);
             if (stack.isDamageable()){
-                stack.damage(1, player, player1 -> player1.sendToolBreakStatus(hand));
+                stack.damage(1, player, LivingEntity.getSlotForHand(hand));
             }
+
             if (player instanceof ServerPlayerEntity) {
                 Criteria.ITEM_USED_ON_BLOCK.trigger((ServerPlayerEntity)player, pos, stack);
             }
@@ -119,8 +122,10 @@ public class NearHangBlock extends PlantBlock implements Fertilizable{
 
             return ActionResult.success(world.isClient());
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.onUse(state, world, pos, player, hit);
     }
+
+
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

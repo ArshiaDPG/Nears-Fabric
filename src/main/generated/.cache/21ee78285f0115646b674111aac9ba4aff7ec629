@@ -1,5 +1,5 @@
-// 1.20.4	2024-04-20T09:35:39.2507758	Nears/Tags for minecraft:worldgen/biome
-e1c68db131bb6e95e587abee48f5d52971cf226a data\nears\tags\worldgen\biome\can_cinder_grass_spawn.json
-2ebd83139988003e7e09aa944a90ac44d84f31a4 data\nears\tags\worldgen\biome\can_faars_spawn.json
-8a578dfa084bf34bf5302f6094007922c8b95a82 data\nears\tags\worldgen\biome\can_nears_spawn.json
-70edcad348bbf1f3045a57c8fee9d989b6cb1d5f data\nears\tags\worldgen\biome\can_soul_berries_spawn.json
+// 1.20.5	2024-04-23T08:43:08.967281	Nears/Tags for minecraft:worldgen/biome
+04ac0a28392a7ff31602fa82ebe378e64220b060 data\nears\tags\worldgen\biome\can_cinder_grass_spawn.json
+45a7fce7990fceb93e22529d0a7ef778bfac4a99 data\nears\tags\worldgen\biome\can_faars_spawn.json
+4fbb0af45e1e5a687057a85506cdd8b4acae6fde data\nears\tags\worldgen\biome\can_nears_spawn.json
+dcaf8f7256c631b0addd3421e5d74f3ce2b5e817 data\nears\tags\worldgen\biome\can_soul_berries_spawn.json

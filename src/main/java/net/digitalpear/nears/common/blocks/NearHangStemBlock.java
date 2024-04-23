@@ -62,7 +62,9 @@ public class NearHangStemBlock extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Hand hand = player.getActiveHand();
+
         if (state.get(AGE) < 3 && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) {
             return ActionResult.PASS;
         } if (state.get(AGE) > 1){
@@ -73,8 +75,9 @@ public class NearHangStemBlock extends PlantBlock implements Fertilizable {
 
             return ActionResult.SUCCESS;
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.onUse(state, world, pos, player, hit);
     }
+
 
     private static int getNearCount(int age, Random random){
         if (age == 2){

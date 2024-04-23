@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "nears:soulless_pastry"
-            ]
+            "items": "nears:soulless_pastry"
           }
         ]
       },
@@ -19,7 +17,8 @@
       "translate": "advancements.nether.a_pie_for_the_soul.description"
     },
     "icon": {
-      "item": "nears:soulless_pastry"
+      "count": 1,
+      "id": "nears:soulless_pastry"
     },
     "title": {
       "translate": "advancements.nether.a_pie_for_the_soul.title"

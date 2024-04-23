@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "nears:near"
-            ]
+            "items": "nears:near"
           }
         ]
       },

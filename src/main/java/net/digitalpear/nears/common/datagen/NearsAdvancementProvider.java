@@ -13,25 +13,25 @@ import net.minecraft.advancement.criterion.ItemCriterion;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 
 @SuppressWarnings("unused")
 public class NearsAdvancementProvider extends FabricAdvancementProvider {
 
-    public NearsAdvancementProvider(FabricDataOutput output) {
-        super(output);
+
+    public NearsAdvancementProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(output, registryLookup);
     }
 
-
     @Override
-    public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
-
-
+    public void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
         AdvancementEntry dummy = Advancement.Builder.create().display(Blocks.RED_NETHER_BRICKS, Text.translatable("advancements.nether.root.title"), Text.translatable("advancements.nether.root.description"), new Identifier("textures/gui/advancements/backgrounds/nether.png"), AdvancementFrame.TASK, false, false, false).criterion("entered_nether", ChangedDimensionCriterion.Conditions.to(World.NETHER)).build(consumer, "nether/root");
 
 
@@ -121,4 +121,6 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
     public AdvancementEntry makeAdvancement(Consumer<AdvancementEntry> consumer, String name, Item icon, AdvancementFrame frame, AdvancementCriterion<ItemCriterion.Conditions> conditions, String criterionNames, int reward, AdvancementEntry parent){
         return makeAdvancement(consumer, name, icon, frame, conditions, criterionNames, reward, parent, false);
     }
+
+
 }

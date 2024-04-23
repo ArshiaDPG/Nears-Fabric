@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "nears:near_twig"
-            ]
+            "items": "nears:near_twig"
           }
         ]
       },

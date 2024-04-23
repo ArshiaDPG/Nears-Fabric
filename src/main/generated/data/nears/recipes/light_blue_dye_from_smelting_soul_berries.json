@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "nears:soul_berries"
   },
-  "result": "minecraft:light_blue_dye"
+  "result": {
+    "id": "minecraft:light_blue_dye"
+  }
 }

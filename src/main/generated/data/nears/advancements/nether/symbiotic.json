@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "nears:nether_fruits"
+            "items": "#nears:nether_fruits"
           }
         ]
       },
@@ -17,7 +17,8 @@
       "translate": "advancements.nether.symbiotic.description"
     },
     "icon": {
-      "item": "nears:near"
+      "count": 1,
+      "id": "nears:near"
     },
     "title": {
       "translate": "advancements.nether.symbiotic.title"

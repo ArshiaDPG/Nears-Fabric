@@ -1,10 +1,10 @@
-// 1.20.4	2024-04-20T09:35:39.2458215	Nears/Tags for minecraft:block
-a2560dfae27ddc4ecbf4f9d320589f246dc2ca2f data\minecraft\tags\blocks\crops.json
-03ad0841a0fb072ad87a525efe0dc0e6d7c1c3a0 data\nears\tags\blocks\cinder_wheat_plantable_on.json
-0fa57827c49406df122c6cc4277e170edf13ed59 data\nears\tags\blocks\cinder_grass_plantable_on.json
-3a3ae8eed814ae06779d9be23d81c2dd77bc4d7a data\minecraft\tags\blocks\flower_pots.json
-bc40e0500b77dec2f929fc220371bd35f6d53743 data\nears\tags\blocks\faar_growth_plantable_on.json
-98cd58849cbd16789829c7438fc3d6eca79f8c71 data\nears\tags\blocks\soul_berry_bush_plantable_on.json
-afe79db3f4174e9f62c4872267e1f7a4db595024 data\minecraft\tags\blocks\mineable\hoe.json
-fcdbc143a6a71f5d7d4b93f829739706f05e1d22 data\minecraft\tags\blocks\piglin_repellents.json
-c40d20b01a452bbbc49e8804b536119c96bdfd7d data\nears\tags\blocks\near_hang_plantable_on.json
+// 1.20.5	2024-04-23T08:43:08.9597231	Nears/Tags for minecraft:block
+36b815fb44b86626443cab29d001f8d919f8e12a data\minecraft\tags\blocks\crops.json
+57f8280e693c1b17aeb0bd3d7816cfae4c5ea13e data\nears\tags\blocks\cinder_wheat_plantable_on.json
+d26f8de598e3a66d3b3ec483234885472968313b data\nears\tags\blocks\cinder_grass_plantable_on.json
+88989800fcc294d3bd232171114a26466ae8daf3 data\minecraft\tags\blocks\flower_pots.json
+64fc2a0009e810d35f3dcb26fdba845b89be963f data\nears\tags\blocks\faar_growth_plantable_on.json
+d5aebde1fd1141df86b6ed4ace3f720504b32ab2 data\nears\tags\blocks\soul_berry_bush_plantable_on.json
+9432daf28bda4ff4db493bdf77c6ceaadf94e966 data\minecraft\tags\blocks\piglin_repellents.json
+021c8aec32bee74fe355f1dbd5b980745b373c45 data\nears\tags\blocks\near_hang_plantable_on.json
+9a80cae43feb0f49f439c3d0f4b6bd5e01b6e6f4 data\minecraft\tags\blocks\mineable\hoe.json

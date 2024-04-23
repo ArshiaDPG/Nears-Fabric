@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "nears:faar"
-            ]
+            "items": "nears:faar"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "nears:near"
-            ]
+            "items": "nears:near"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "nears:soul_berries"
-            ]
+            "items": "nears:soul_berries"
           }
         ]
       },
@@ -44,7 +38,8 @@
     },
     "frame": "challenge",
     "icon": {
-      "item": "nears:faar"
+      "count": 1,
+      "id": "nears:faar"
     },
     "title": {
       "translate": "advancements.nether.oh_how_faar_we_go.title"

@@ -27,13 +27,15 @@ import net.minecraft.loot.operator.BoundedIntUnaryOperator;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.state.property.Properties;
+
+import java.util.concurrent.CompletableFuture;
 
 public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
-
-    public NearsBlockLootTableProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    public NearsBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override

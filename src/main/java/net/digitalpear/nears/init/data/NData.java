@@ -40,17 +40,17 @@ public class NData {
 
     public static void registerLootTableModifications(){
 
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (LootTables.BASTION_HOGLIN_STABLE_CHEST.equals(id) && source.isBuiltin()) {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+            if (LootTables.BASTION_HOGLIN_STABLE_CHEST.equals(key) && source.isBuiltin()) {
                 tableBuilder.modifyPools(context -> context.with(ItemEntry.builder(NItems.NEAR).weight(6).quality(Rarity.COMMON.ordinal() + 1))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 4.0F))));
             }
-            else if (LootTables.BASTION_OTHER_CHEST.equals(id) && source.isBuiltin()) {
+            else if (LootTables.BASTION_OTHER_CHEST.equals(key) && source.isBuiltin()) {
                 tableBuilder.modifyPools(context -> context.with(ItemEntry.builder(NItems.NEAR).weight(2).quality(Rarity.COMMON.ordinal() + 1))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F))));
 
             }
-            else if (LootTables.NETHER_BRIDGE_CHEST.equals(id) && source.isBuiltin()) {
+            else if (LootTables.NETHER_BRIDGE_CHEST.equals(key) && source.isBuiltin()) {
                 LootPool.Builder poolBuilder = LootPool.builder().with(ItemEntry.builder(NItems.SOUL_BERRIES).weight(1).quality(Rarity.COMMON.ordinal() + 1)
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0F, 6.0F))));
                 tableBuilder.pool(poolBuilder);

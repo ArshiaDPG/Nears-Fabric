@@ -16,15 +16,18 @@ import net.minecraft.item.Items;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class NearsRecipeProvider extends FabricRecipeProvider {
     public static Map<Item, Item> COLOR_MELTING_MAP = new HashMap<>();
-    public NearsRecipeProvider(FabricDataOutput output) {
-        super(output);
+
+    public NearsRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture);
     }
 
 

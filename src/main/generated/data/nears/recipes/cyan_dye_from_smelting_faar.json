@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "nears:faar"
   },
-  "result": "minecraft:cyan_dye"
+  "result": {
+    "id": "minecraft:cyan_dye"
+  }
 }

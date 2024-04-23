@@ -18,7 +18,8 @@
       "translate": "advancements.nether.volcanic_botany.description"
     },
     "icon": {
-      "item": "nears:cinder_seeds"
+      "count": 1,
+      "id": "nears:cinder_seeds"
     },
     "title": {
       "translate": "advancements.nether.volcanic_botany.title"

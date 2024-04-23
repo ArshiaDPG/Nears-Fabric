@@ -4,16 +4,20 @@ import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.concurrent.CompletableFuture;
 
 public class NearsLanguageProvider extends FabricLanguageProvider {
-    public NearsLanguageProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+
+    public NearsLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
-    @Override
-    public void generateTranslations(TranslationBuilder translationBuilder) {
 
-        /*
+    @Override
+    public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
+                /*
             Near Plants
          */
         translationBuilder.add(NItems.NEAR, "Near");

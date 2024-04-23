@@ -8,10 +8,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "nears:faar_growth",
-              "Properties": {
-                "age": "3"
-              }
+              "Name": "nears:faar_bundle"
             }
           }
         }
