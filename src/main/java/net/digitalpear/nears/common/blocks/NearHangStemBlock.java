@@ -88,7 +88,7 @@ public class NearHangStemBlock extends PlantBlock implements Fertilizable {
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!world.isClient() && random.nextInt(100) < 50 && state.get(AGE) < 3){
+        if (!world.isClient() && random.nextInt(100) < 12 && state.get(AGE) < 3){
             world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
         }
     }

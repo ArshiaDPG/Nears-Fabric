@@ -36,5 +36,7 @@ public class NearsItemTagProvider extends FabricTagProvider<Item> {
 
         getOrCreateTagBuilder(ItemTags.PIGLIN_FOOD).add(NItems.NEAR);
 
+        getOrCreateTagBuilder(NItemTags.SUMMER_CROPS_COMPAT).add(NItems.NEAR_SPORES).add(NItems.FAAR_SEEDS).add(NItems.FAAR_SEEDS).add(NItems.CINDER_SEEDS);
+
     }
 }
