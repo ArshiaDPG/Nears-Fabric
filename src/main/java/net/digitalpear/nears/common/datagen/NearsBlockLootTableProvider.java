@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.CropBlock;
-import net.minecraft.data.server.loottable.BlockLootTableGenerator;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootPool;
@@ -27,15 +27,17 @@ import net.minecraft.loot.operator.BoundedIntUnaryOperator;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.state.property.Properties;
 
 import java.util.concurrent.CompletableFuture;
 
 public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
-
+    private RegistryWrapper.WrapperLookup registryLookup;
     public NearsBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
+        this.registryLookup = registryLookup.join();
     }
 
     @Override
@@ -69,21 +71,21 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
 
     public net.minecraft.loot.LootTable.Builder cinderGrassDrops(Block dropWithShears) {
-        return dropsWithShears(dropWithShears, (LootPoolEntry.Builder)this.applyExplosionDecay(dropWithShears,
-                ((LeafEntry.Builder)ItemEntry.builder(NItems.CINDER_SEEDS)
-                        .conditionally(RandomChanceLootCondition.builder(0.125F)))
-                        .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE, 2))));
+        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        return this.dropsWithShears(dropWithShears, (LootPoolEntry.Builder)this.applyExplosionDecay(dropWithShears, ((LeafEntry.Builder)ItemEntry.builder(NItems.CINDER_SEEDS).conditionally(RandomChanceLootCondition.builder(0.125F))).apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE), 2))));
     }
 
     public net.minecraft.loot.LootTable.Builder faarBundle(Block drop) {
-        return BlockLootTableGenerator.dropsWithSilkTouch(drop, this.applyExplosionDecay(drop,
+        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        return this.dropsWithSilkTouch(drop, this.applyExplosionDecay(drop,
                 ItemEntry.builder(NItems.FAAR)
                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3.0F, 7.0F))).apply(
-                        ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE))
+                        ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
                         .apply(LimitCountLootFunction.builder(BoundedIntUnaryOperator.createMax(9)))));
     }
 
     public LootTable.Builder makeNearStemDrops(Block block, Item fruit, Item twig){
+        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
         return this.applyExplosionDecay(block, LootTable.builder()
                 /*
                     Near Twig
@@ -100,14 +102,14 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
                                 .exactMatch(NearHangStemBlock.SUPPORTED, true))).with(ItemEntry.builder(fruit))
 
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2.0F, 3.0F)))
-                        .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE)))
+                        .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE))))
                 .pool(LootPool.builder()
                         .conditionally(BlockStatePropertyLootCondition.builder(block).properties(net.minecraft.predicate.StatePredicate.Builder.create()
                         .exactMatch(SoulBerryBushBlock.AGE, 2)
                                 .exactMatch(NearHangStemBlock.SUPPORTED, true))).with(ItemEntry.builder(fruit))
 
                 .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1))))
-                .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE))
+                .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
 
         );
     }
@@ -115,15 +117,16 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
 
     public LootTable.Builder makeBushDrops(Block block, Item fruit){
+        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
         return this.applyExplosionDecay(block, LootTable.builder().pool(LootPool.builder()
                 .conditionally(BlockStatePropertyLootCondition.builder(block).properties(net.minecraft.predicate.StatePredicate.Builder.create()
                         .exactMatch(Properties.AGE_3, 3))).with(ItemEntry.builder(fruit))
                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2.0F, 3.0F)))
-                .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE)))
+                .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE))))
                 .pool(LootPool.builder().conditionally(BlockStatePropertyLootCondition.builder(NBlocks.SOUL_BERRY_BUSH).properties(net.minecraft.predicate.StatePredicate.Builder.create()
                         .exactMatch(Properties.AGE_3, 2))).with(ItemEntry.builder(fruit))
                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F)))
-                .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE))));
+                .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))));
     }
 
 

@@ -26,9 +26,9 @@ public class NearsBiomeTagProvider extends FabricTagProvider<Biome> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(NBiomeTags.CAN_NEARS_SPAWN).add(BiomeKeys.CRIMSON_FOREST).addOptional(new Identifier("gardens_of_the_dead", "whistling_woods"));
+        getOrCreateTagBuilder(NBiomeTags.CAN_NEARS_SPAWN).add(BiomeKeys.CRIMSON_FOREST).addOptional(Identifier.of("gardens_of_the_dead", "whistling_woods"));
         getOrCreateTagBuilder(NBiomeTags.CAN_FAARS_SPAWN).add(BiomeKeys.WARPED_FOREST);
-        getOrCreateTagBuilder(NBiomeTags.CAN_SOUL_BERRIES_SPAWN).add(BiomeKeys.SOUL_SAND_VALLEY).addOptional(new Identifier("gardens_of_the_dead", "soulblight_forest"));
+        getOrCreateTagBuilder(NBiomeTags.CAN_SOUL_BERRIES_SPAWN).add(BiomeKeys.SOUL_SAND_VALLEY).addOptional(Identifier.of("gardens_of_the_dead", "soulblight_forest"));
         getOrCreateTagBuilder(NBiomeTags.CAN_CINDER_GRASS_SPAWN).add(BiomeKeys.BASALT_DELTAS);
     }
 }

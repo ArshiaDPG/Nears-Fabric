@@ -11,8 +11,7 @@ import net.minecraft.util.Identifier;
 public class Nears implements ModInitializer {
 
     public static final String MOD_ID = "nears";
-    public static Identifier id(String name){return new Identifier(MOD_ID, name);}
-    public static String idString(String name){return MOD_ID + ":" + name;}
+    public static Identifier id(String name){return Identifier.of(MOD_ID, name);}
 
     @Override
     public void onInitialize() {

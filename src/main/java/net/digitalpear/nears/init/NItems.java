@@ -6,15 +6,17 @@ import net.digitalpear.nears.common.items.FaarItem;
 import net.digitalpear.nears.common.items.NetherStewItem;
 import net.digitalpear.nears.init.data.NFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.*;
+import net.minecraft.item.AliasedBlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
 
 public class NItems {
     public static Item createItem(String name, Item item){
-        return Registry.register(Registries.ITEM, new Identifier(Nears.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Nears.id(name), item);
     }
 
     /*
@@ -31,7 +33,7 @@ public class NItems {
     public static final Item SOULLESS_PASTRY = createItem("soulless_pastry", new Item(new Item.Settings().food(NFoodComponents.SOULLESS_PASTRY)));
     public static final Item NETHER_STEW = createItem("nether_stew", new NetherStewItem(new Item.Settings().food(NFoodComponents.NETHER_STEW).maxCount(1)));
     public static final Item CINDER_SANGAK = createItem("cinder_sangak", new Item(new Item.Settings().food(NFoodComponents.CINDER_SANGAK)));
-    public static final Item GLOW_SALAD = createItem("glow_salad", new StewItem(new Item.Settings().food(NFoodComponents.GLOW_SALAD).maxCount(1)));
+    public static final Item GLOW_SALAD = createItem("glow_salad", new Item(new Item.Settings().food(NFoodComponents.GLOW_SALAD).maxCount(1)));
 
     /*
         Seeds

@@ -1,8 +1,8 @@
-// 1.20.5	2024-05-09T12:53:15.4637524	Nears/Tags for minecraft:item
-c5ded479bd71b39035b1f241d2cba457a61b78c3 data\sandwichable\tags\items\bread_slices.json
-54aa38e27e906726a83ad2f4589b68b3b1a2e010 data\minecraft\tags\items\piglin_food.json
-dcc2215a9d80fd8ad95765041c72f99f38b95033 data\c\tags\items\seeds.json
-4a81f660dfd5282a323ce4058c8c021cf0c527e5 data\sereneseasons\tags\items\summer_crops.json
-51fad3021decbf826381968d3f3946632688a6da data\nears\tags\items\nether_fruits.json
-e3bf4224110f3297366ecdd331ac632e1fd1d6b4 data\c\tags\items\fruits.json
-6bc4a181388b9aa98599d772f955da1e8c80b2e3 data\c\tags\items\fruit_salads.json
+// 1.21	2024-06-13T12:18:57.7509897	Nears/Tags for minecraft:item
+4a81f660dfd5282a323ce4058c8c021cf0c527e5 data\sereneseasons\tags\item\summer_crops.json
+dcc2215a9d80fd8ad95765041c72f99f38b95033 data\c\tags\item\seeds.json
+54aa38e27e906726a83ad2f4589b68b3b1a2e010 data\minecraft\tags\item\piglin_food.json
+51fad3021decbf826381968d3f3946632688a6da data\nears\tags\item\nether_fruits.json
+e3bf4224110f3297366ecdd331ac632e1fd1d6b4 data\c\tags\item\fruits.json
+6bc4a181388b9aa98599d772f955da1e8c80b2e3 data\c\tags\item\fruit_salads.json
+c5ded479bd71b39035b1f241d2cba457a61b78c3 data\sandwichable\tags\item\bread_slices.json

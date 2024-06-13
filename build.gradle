@@ -112,6 +112,7 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}" // Optional, name of the file
         changelog = '''<ul>
+   <li>Updated to 1.21.</li>
    <li>Nears Stems now grow nears much slower.</li>
    <li>All nether crops are in the summer_crops tag of the Serene Seasons mod.</li>
 </ul> '''

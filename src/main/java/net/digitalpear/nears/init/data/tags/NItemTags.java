@@ -26,6 +26,6 @@ public class NItemTags {
     }
 
     private static TagKey<Item> compatTag(String modid,String id) {
-        return TagKey.of(RegistryKeys.ITEM, new Identifier(modid, id));
+        return TagKey.of(RegistryKeys.ITEM, Identifier.of(modid, id));
     }
 }

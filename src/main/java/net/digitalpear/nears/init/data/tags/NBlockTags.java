@@ -14,13 +14,13 @@ public class NBlockTags {
     public static final TagKey<Block> SOUL_BERRY_BUSH_PLANTABLE_ON = of("soul_berry_bush_plantable_on");
     public static final TagKey<Block> CINDER_WHEAT_PLANTABLE_ON = of("cinder_wheat_plantable_on");
 
-    public static final TagKey<Block> SUMMER_CROPS_COMPAT = compatTag(new Identifier("sereneseasons", "summer_crops"));
+    public static final TagKey<Block> SUMMER_CROPS_COMPAT = compatTag(Identifier.of("sereneseasons", "summer_crops"));
 
     private static TagKey<Block> of(String id) {
         return compatTag(Nears.id(id));
     }
     private static TagKey<Block> commonTag(String id) {
-        return compatTag(new Identifier("c", id));
+        return compatTag(Identifier.of("c", id));
     }
     private static TagKey<Block> compatTag(Identifier id){
         return TagKey.of(RegistryKeys.BLOCK, id);

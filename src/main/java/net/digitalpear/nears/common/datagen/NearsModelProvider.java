@@ -106,7 +106,7 @@ public class NearsModelProvider extends FabricModelProvider {
 
 
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(new Identifier(Nears.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
+        return new Model(Optional.of(Nears.id("block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
     public static final Model TEMPLATE_CINDER_WHEAT = block("template_cinder_wheat", TextureKey.ALL);
 
