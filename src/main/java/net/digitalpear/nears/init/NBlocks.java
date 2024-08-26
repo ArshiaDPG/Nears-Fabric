@@ -57,9 +57,6 @@ public class NBlocks {
                     .luminance(state -> state.get(SoulBerryBushBlock.AGE) * 2)));
 
 
-
-
-
     public static final Block CINDER_GRASS = createBlockWithItem("cinder_grass",
             new CinderGrassBlock(AbstractBlock.Settings.create()
                     .mapColor(MapColor.GRAY)

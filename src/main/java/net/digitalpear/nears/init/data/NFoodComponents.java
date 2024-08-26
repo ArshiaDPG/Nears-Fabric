@@ -6,8 +6,6 @@ import net.minecraft.item.Items;
 
 public class NFoodComponents {
 
-
-
     public static final FoodComponent NEAR = new FoodComponent.Builder().nutrition(3).saturationModifier(0.3F).build();
     public static final FoodComponent FAAR = new FoodComponent.Builder().nutrition(3).saturationModifier(0.3F).build();
     public static final FoodComponent SOUL_BERRIES = new FoodComponent.Builder().nutrition(2).saturationModifier(0.2F).build();
@@ -16,4 +14,5 @@ public class NFoodComponents {
     public static final FoodComponent CINDER_SANGAK = new FoodComponent.Builder().nutrition(5).saturationModifier(0.3F).build();
     public static final FoodComponent SOULLESS_PASTRY = new FoodComponent.Builder().nutrition(8).saturationModifier(0.3F).build();
     public static final FoodComponent GLOW_SALAD = new FoodComponent.Builder().nutrition(5).saturationModifier(0.7F).usingConvertsTo(Items.BOWL).build();
+
 }

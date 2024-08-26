@@ -111,8 +111,6 @@ public class NearsRecipeProvider extends FabricRecipeProvider {
                 .input(NBlocks.NEAR_TWIG_BLOCK).group("planks")
                 .criterion(hasItem(NBlocks.NEAR_TWIG_BLOCK), conditionsFromItem(NBlocks.NEAR_TWIG_BLOCK))
                 .offerTo(exporter);
-
-
     }
 
 
@@ -122,7 +120,6 @@ public class NearsRecipeProvider extends FabricRecipeProvider {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_MUD, 1).input(Blocks.MUD).input(NItems.CINDER_GRAIN).criterion("has_mud", conditionsFromItem(Blocks.MUD)).offerTo(exporter, fromGrain(Items.PACKED_MUD));
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Blocks.CAKE).input('A', Items.MILK_BUCKET).input('B', Items.SUGAR).input('C', NItems.CINDER_GRAIN).input('E', Items.EGG).pattern("AAA").pattern("BEB").pattern("CCC").criterion("has_egg", conditionsFromItem(Items.EGG)).offerTo(exporter, fromGrain(Items.CAKE));
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.COOKIE, 8).input('#', NItems.CINDER_GRAIN).input('X', Items.COCOA_BEANS).pattern("#X#").criterion("has_cocoa", conditionsFromItem(Items.COCOA_BEANS)).offerTo(exporter, fromGrain(Items.COOKIE));
-
     }
 
     public String fromGrain(ItemConvertible itemConvertible){

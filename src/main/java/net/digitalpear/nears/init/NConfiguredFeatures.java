@@ -32,7 +32,7 @@ public class NConfiguredFeatures {
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         register(featureRegisterable, PATCH_NEAR_HANG, NFeature.NEAR_HANG, new DefaultFeatureConfig());
-        register(featureRegisterable, PATCH_FAAR_GROWTH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.FAAR_BUNDLE), 96));
+        register(featureRegisterable, PATCH_FAAR_GROWTH, NFeature.FAAR_CLUSTER, new DefaultFeatureConfig());
         register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.SOUL_BERRY_BUSH.getDefaultState().with(SoulBerryBushBlock.AGE, 3)), 96));
         register(featureRegisterable, PATCH_CINDER_GRASS, Feature.RANDOM_PATCH, createCinderGrassPatchFeatureConfig(BlockStateProvider.of(NBlocks.CINDER_GRASS), 120));
     }

@@ -110,14 +110,13 @@ sourceSets {
 }
 unifiedPublishing {
     project {
-        displayName = "${project.minecraft_version}-${project.mod_version}" // Optional, name of the file
+        displayName = "${project.minecraft_version}-${project.mod_version}"
         changelog = '''<ul>
-   <li>Updated to 1.21.</li>
-   <li>Nears Stems now grow nears much slower.</li>
-   <li>All nether crops are in the summer_crops tag of the Serene Seasons mod.</li>
+   <li>Reworked Faar Bundle spawning code to stop them from spawning in the air.</li>
+   <li>Renamed Bale of Cinder to Cinder Bale.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
-        gameVersions = ["${project.minecraft_version}"]
+        gameVersions = ["${project.minecraft_version}", "1.21.1"]
         gameLoaders = ["fabric"]
 
         mainPublication tasks.remapJar // Declares the publicated jar

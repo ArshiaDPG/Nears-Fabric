@@ -9,6 +9,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 
 public class NFeature {
     public static final Feature<DefaultFeatureConfig> NEAR_HANG = register("near_hang", new NearHangFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> FAAR_CLUSTER = register("faar_cluster", new FaarClusterFeature(DefaultFeatureConfig.CODEC));
 
 
     private static <C extends FeatureConfig, F extends Feature<C>> Feature register(String name, F feature) {
