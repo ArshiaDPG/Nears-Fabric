@@ -13,8 +13,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class DispenserFaarBundleBehavior extends FallibleItemDispenserBehavior {
-
-
     @Override
     protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
         Direction direction = pointer.state().get(DispenserBlock.FACING);

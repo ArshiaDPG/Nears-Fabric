@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 
 public class NBlockTags {
 
+    public static final TagKey<Block> FAAR_CLUSTER_REPLACEABLE = of("faar_cluster_replaceable");
     public static final TagKey<Block> FAAR_GROWTH_PLANTABLE_ON = of("faar_growth_plantable_on");
     public static final TagKey<Block> NEAR_HANG_PLANTABLE_ON = of("near_hang_plantable_on");
     public static final TagKey<Block> CINDER_GRASS_PLANTABLE_ON = of("cinder_grass_plantable_on");

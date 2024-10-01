@@ -24,6 +24,8 @@ public class NBlocks {
         return Registry.register(Registries.BLOCK, Nears.id(blockID), block);
     }
 
+
+
     public static final Block NEAR_HANG_STEM = createBlockWithoutItem("near_hang_stem",
             new NearHangStemBlock(AbstractBlock.Settings.create().ticksRandomly().strength(0.8f, 0.6f).sounds(BlockSoundGroup.NETHER_STEM)
                     .noCollision().nonOpaque()));

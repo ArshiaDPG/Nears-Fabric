@@ -112,8 +112,8 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}"
         changelog = '''<ul>
-   <li>Reworked Faar Bundle spawning code to stop them from spawning in the air.</li>
-   <li>Renamed Bale of Cinder to Cinder Bale.</li>
+   <li>Faar clusters will now generate faar growths of a random age or rarely a faar bundle, instead of one or the other.</li>
+   <li>Faar clusters will now replace all blocks within the "faar_cluster_replaceable" block tag.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
         gameVersions = ["${project.minecraft_version}", "1.21.1"]
