@@ -1,4 +1,4 @@
-// 1.21	2024-09-30T23:54:49.8987891	Nears/Recipes
+// 1.21	2024-10-01T00:42:56.1922485	Nears/Recipes
 88454f3e404613a727655269b863dff1cfa65421 data\nears\recipe\faar_bundle.json
 3d56d374fdd5749ec8d97d80a1faefa6b34aa722 data\nears\recipe\cookie_from_cinder_grain.json
 42ad1183c2a5e9be7d71660cd92d97a0e90c63de data\nears\advancement\recipes\decorations\light_blue_dye_from_smelting_soul_berries.json
@@ -23,8 +23,8 @@ dbe2e4c624c722e02af7bf347468ea7d0d607bac data\nears\recipe\cinder_grain.json
 30e44b30c70ee09bed0439d3c12a0aea019ac41d data\nears\advancement\recipes\food\nether_stew.json
 71c7344589518d6a134da584e91d2ac0c7c72c9b data\nears\recipe\cinder_bale.json
 b544e3ebdb412d43f5a6e353e22fa8a2f9b23957 data\nears\recipe\near_twig_block.json
-ab4fd2303d02f9134e710bae71258a16daac9c8b data\nears\recipe\cyan_dye_from_smelting_faar.json
 1dee50a09a27922b7dca4daefceb4d1a4b5787da data\nears\recipe\orange_dye_from_smelting_near.json
+ab4fd2303d02f9134e710bae71258a16daac9c8b data\nears\recipe\cyan_dye_from_smelting_faar.json
 45c179cbe3b7c418cc07c4dee4222ee827e462d5 data\nears\advancement\recipes\building_blocks\cinder_bale.json
 57ff1da6bb4ab6bf4b62db1ce69d905ec9c66ce3 data\nears\advancement\recipes\redstone\target_from_cinder_bale.json
 9e34c3031477acee7941c6621285a1ef785822f3 data\nears\recipe\soulless_pastry.json
