@@ -71,12 +71,12 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
 
     public net.minecraft.loot.LootTable.Builder cinderGrassDrops(Block dropWithShears) {
-        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT);
         return this.dropsWithShears(dropWithShears, (LootPoolEntry.Builder)this.applyExplosionDecay(dropWithShears, ((LeafEntry.Builder)ItemEntry.builder(NItems.CINDER_SEEDS).conditionally(RandomChanceLootCondition.builder(0.125F))).apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE), 2))));
     }
 
     public net.minecraft.loot.LootTable.Builder faarBundle(Block drop) {
-        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT);
         return this.dropsWithSilkTouch(drop, this.applyExplosionDecay(drop,
                 ItemEntry.builder(NItems.FAAR)
                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3.0F, 7.0F))).apply(
@@ -85,7 +85,7 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
     }
 
     public LootTable.Builder makeNearStemDrops(Block block, Item fruit, Item twig){
-        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT);
         return this.applyExplosionDecay(block, LootTable.builder()
                 /*
                     Near Twig
@@ -117,7 +117,7 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
 
 
     public LootTable.Builder makeBushDrops(Block block, Item fruit){
-        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT);
         return this.applyExplosionDecay(block, LootTable.builder().pool(LootPool.builder()
                 .conditionally(BlockStatePropertyLootCondition.builder(block).properties(net.minecraft.predicate.StatePredicate.Builder.create()
                         .exactMatch(Properties.AGE_3, 3))).with(ItemEntry.builder(fruit))

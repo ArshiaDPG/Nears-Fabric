@@ -13,6 +13,8 @@ import net.minecraft.advancement.criterion.ItemCriterion;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -32,6 +34,8 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
+        RegistryEntryLookup<Item> itemRegistry = registryLookup.getOrThrow(RegistryKeys.ITEM);
+
         AdvancementEntry dummy = Advancement.Builder.create().display(Blocks.RED_NETHER_BRICKS, Text.translatable("advancements.nether.root.title"), Text.translatable("advancements.nether.root.description"), Identifier.of("textures/gui/advancements/backgrounds/nether.png"), AdvancementFrame.TASK, false, false, false).criterion("entered_nether", ChangedDimensionCriterion.Conditions.to(World.NETHER)).build(consumer, "nether/root");
 
 
@@ -47,7 +51,7 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
                         false
                 )
                 .rewards(AdvancementRewards.Builder.experience(2))
-                .criterion("got_nether_fruit", InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(NItemTags.NETHER_FRUITS).build()))
+                .criterion("got_nether_fruit", InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(itemRegistry, NItemTags.NETHER_FRUITS).build()))
                 .build(consumer, Nears.MOD_ID + ":nether/symbiotic");
 
         AdvancementEntry ohHowFaarWeGo = Advancement.Builder.create().parent(symbiotic)

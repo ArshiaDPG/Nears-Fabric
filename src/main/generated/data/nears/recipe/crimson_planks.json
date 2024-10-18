@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "item": "nears:near_twig_block"
-    }
+    "nears:near_twig_block"
   ],
   "result": {
     "count": 2,

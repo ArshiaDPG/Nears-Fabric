@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "nears:cinder_bale"
-    }
+    "nears:cinder_bale"
   ],
   "result": {
     "count": 9,

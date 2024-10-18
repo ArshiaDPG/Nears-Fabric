@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.15,
-  "ingredient": {
-    "item": "nears:soul_berries"
-  },
+  "ingredient": "nears:soul_berries",
   "result": {
     "id": "minecraft:light_blue_dye"
   }

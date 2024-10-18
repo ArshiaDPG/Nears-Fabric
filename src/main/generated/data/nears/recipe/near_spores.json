@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "nears:near"
-    }
+    "nears:near"
   ],
   "result": {
     "count": 1,

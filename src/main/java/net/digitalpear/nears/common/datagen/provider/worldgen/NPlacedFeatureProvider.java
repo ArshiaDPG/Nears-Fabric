@@ -1,4 +1,4 @@
-package net.digitalpear.nears.common.datagen.worldgen;
+package net.digitalpear.nears.common.datagen.provider.worldgen;
 
 import net.digitalpear.nears.init.NPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -11,8 +11,6 @@ import net.minecraft.world.gen.feature.PlacedFeature;
 import java.util.concurrent.CompletableFuture;
 
 public class NPlacedFeatureProvider extends FabricDynamicRegistryProvider {
-
-
 
     public NPlacedFeatureProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
@@ -32,7 +30,7 @@ public class NPlacedFeatureProvider extends FabricDynamicRegistryProvider {
 
 
     private void add(RegistryWrapper.WrapperLookup registries, Entries entries, RegistryKey<PlacedFeature> resourceKey) {
-        RegistryWrapper.Impl<PlacedFeature> configuredFeatureRegistryLookup = registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE);
+        RegistryWrapper.Impl<PlacedFeature> configuredFeatureRegistryLookup = registries.getOrThrow(RegistryKeys.PLACED_FEATURE);
 
         entries.add(resourceKey, configuredFeatureRegistryLookup.getOrThrow(resourceKey).value());
     }

@@ -8,10 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.consume.UseAction;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
 public class NetherStewItem extends Item {
@@ -45,11 +44,8 @@ public class NetherStewItem extends Item {
         }
     }
 
+    @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.DRINK;
-    }
-
-    public SoundEvent getDrinkSound() {
-        return getEatSound();
     }
 }

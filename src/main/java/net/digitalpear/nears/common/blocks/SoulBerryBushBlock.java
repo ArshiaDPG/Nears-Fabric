@@ -48,7 +48,7 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Vec3d vec3d = state.getModelOffset(world, pos);
+        Vec3d vec3d = state.getModelOffset(pos);
         if (state.get(AGE) <= 1) {
             return SMALL_SHAPE.offset(vec3d.x, vec3d.y, vec3d.z);
         } else {
@@ -85,7 +85,7 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
             BlockState blockState = state.with(AGE, 1);
             world.setBlockState(pos, blockState, 2);
             world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
-            return ActionResult.success(world.isClient);
+            return ActionResult.SUCCESS;
         } else {
             return ActionResult.PASS;
         }

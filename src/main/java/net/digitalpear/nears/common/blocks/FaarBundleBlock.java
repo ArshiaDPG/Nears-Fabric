@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 
 
 public class FaarBundleBlock extends ColoredFallingBlock {
-
-
     public FaarBundleBlock(ColorCode color, Settings settings) {
         super(color, settings);
     }

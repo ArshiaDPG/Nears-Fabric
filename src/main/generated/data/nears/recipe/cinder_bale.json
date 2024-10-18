@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "nears:cinder_grain"
-    }
+    "#": "nears:cinder_grain"
   },
   "pattern": [
     "###",

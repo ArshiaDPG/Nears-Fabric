@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "nears:cinder_grain"
-    },
-    "X": {
-      "item": "minecraft:cocoa_beans"
-    }
+    "#": "nears:cinder_grain",
+    "X": "minecraft:cocoa_beans"
   },
   "pattern": [
     "#X#"

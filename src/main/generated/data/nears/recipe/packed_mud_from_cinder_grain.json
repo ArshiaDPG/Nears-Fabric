@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "item": "minecraft:mud"
-    },
-    {
-      "item": "nears:cinder_grain"
-    }
+    "minecraft:mud",
+    "nears:cinder_grain"
   ],
   "result": {
     "count": 1,

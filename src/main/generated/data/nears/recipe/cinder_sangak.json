@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "item": "nears:cinder_grain"
-    }
+    "G": "nears:cinder_grain"
   },
   "pattern": [
     "GGG"

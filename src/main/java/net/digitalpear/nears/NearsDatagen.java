@@ -1,11 +1,12 @@
 package net.digitalpear.nears;
 
 import net.digitalpear.nears.common.datagen.*;
+import net.digitalpear.nears.common.datagen.provider.NearsRecipeProvider;
 import net.digitalpear.nears.common.datagen.tags.NearsBiomeTagProvider;
 import net.digitalpear.nears.common.datagen.tags.NearsBlockTagProvider;
 import net.digitalpear.nears.common.datagen.tags.NearsItemTagProvider;
-import net.digitalpear.nears.common.datagen.worldgen.NConfiguredFeatureProvider;
-import net.digitalpear.nears.common.datagen.worldgen.NPlacedFeatureProvider;
+import net.digitalpear.nears.common.datagen.provider.worldgen.NConfiguredFeatureProvider;
+import net.digitalpear.nears.common.datagen.provider.worldgen.NPlacedFeatureProvider;
 import net.digitalpear.nears.init.NConfiguredFeatures;
 import net.digitalpear.nears.init.NPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;

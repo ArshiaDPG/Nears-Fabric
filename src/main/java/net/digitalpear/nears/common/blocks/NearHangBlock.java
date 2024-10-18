@@ -120,11 +120,10 @@ public class NearHangBlock extends PlantBlock implements Fertilizable{
             world.setBlockState(pos, finalState);
             world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, finalState));
 
-            return ActionResult.success(world.isClient());
+            return ActionResult.SUCCESS;
         }
         return super.onUse(state, world, pos, player, hit);
     }
-
 
 
     @Override

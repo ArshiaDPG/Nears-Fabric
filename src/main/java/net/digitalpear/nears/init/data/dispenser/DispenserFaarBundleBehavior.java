@@ -20,7 +20,6 @@ public class DispenserFaarBundleBehavior extends FallibleItemDispenserBehavior {
         World world = pointer.world();
         Random random = world.getRandom();
 
-
         if (world.getBlockState(blockPos).isAir() || world.getBlockState(blockPos).isLiquid()){
             stack.split(1);
             world.setBlockState(blockPos, NBlocks.FAAR_BUNDLE.getDefaultState(), 3);

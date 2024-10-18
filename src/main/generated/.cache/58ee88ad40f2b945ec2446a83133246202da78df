@@ -1,4 +1,4 @@
-// 1.21	2024-10-01T00:42:56.2032749	Nears/Model Definitions
+// 1.21.2 Pre-Release 3	2024-10-18T14:22:25.2111034	Nears/Model Definitions
 7da8474049a0adb5d20fc9e57a65d7292aff5f58 assets\nears\models\block\near_hang_stem_base1.json
 e91a6717e06a2f2223c47c6ba15fff1902879585 assets\nears\blockstates\faar_bundle.json
 f1e3e20011132306b4b3085ff06556bde8660168 assets\nears\models\item\glow_salad.json
@@ -54,6 +54,6 @@ fbe781b8b6f196215aa936e1d74161537e26d5b0 assets\nears\models\block\cinder_grain6
 beaffc1ec2bcedfbfbbe154213c81104a102b5e5 assets\nears\blockstates\cinder_grain.json
 49099b94ca66c931ca33514b976fd227c97262ed assets\nears\models\block\soul_berry_bush1.json
 fe68c7ebb892e48958862fa3137adfc4cea65a06 assets\nears\models\block\near_hang_stem0.json
-3f9e9edb4b0a8c3e0e59a39f963268b7640aafe3 assets\nears\models\block\faar_growth0.json
 653bad5a1d272688f34c32de43c3f6624e75eb88 assets\nears\models\block\near_hang_stem3.json
+3f9e9edb4b0a8c3e0e59a39f963268b7640aafe3 assets\nears\models\block\faar_growth0.json
 7f15463f8d1ee8d0d39c5f5b68ce55cb59878337 assets\nears\blockstates\near_hang.json

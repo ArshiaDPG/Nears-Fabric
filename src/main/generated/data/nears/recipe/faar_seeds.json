@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "nears:faar"
-    }
+    "nears:faar"
   ],
   "result": {
     "count": 1,

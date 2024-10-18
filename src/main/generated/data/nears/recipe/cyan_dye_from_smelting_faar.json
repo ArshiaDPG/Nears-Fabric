@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.15,
-  "ingredient": {
-    "item": "nears:faar"
-  },
+  "ingredient": "nears:faar",
   "result": {
     "id": "minecraft:cyan_dye"
   }

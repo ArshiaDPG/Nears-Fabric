@@ -33,7 +33,7 @@ public class NearHangFeature extends Feature<DefaultFeatureConfig> {
                 generateNearHang(world, pos, random);
                 if (!generated){
                     world.getRegistryManager().getOptional(RegistryKeys.CONFIGURED_FEATURE).flatMap((registry) ->
-                            registry.getEntry(NetherConfiguredFeatures.WEEPING_VINES)).ifPresent((reference) ->
+                            registry.getEntry(NetherConfiguredFeatures.WEEPING_VINES.getValue())).ifPresent((reference) ->
                             reference.value().generate(world, context.getGenerator(), random, origin.up()));
                 }
                 generated = true;

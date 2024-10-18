@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.15,
-  "ingredient": {
-    "item": "nears:near"
-  },
+  "ingredient": "nears:near",
   "result": {
     "id": "minecraft:orange_dye"
   }
