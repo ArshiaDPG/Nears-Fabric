@@ -13,7 +13,6 @@ public class NItemTags {
 
     public static final TagKey<Item> SUMMER_CROPS_COMPAT = compatTag("sereneseasons", "summer_crops");
 
-
     public static final TagKey<Item> FRUITS = commonTag("fruits");
     public static final TagKey<Item> FRUIT_SALADS = commonTag("fruit_salads");
     public static final TagKey<Item> SEEDS = commonTag("seeds");

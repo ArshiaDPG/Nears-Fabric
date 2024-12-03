@@ -3,6 +3,7 @@ package net.digitalpear.nears.common.worldgen;
 import com.mojang.serialization.Codec;
 import net.digitalpear.nears.common.blocks.NearHangBlock;
 import net.digitalpear.nears.common.blocks.NearHangStemBlock;
+import net.digitalpear.nears.common.worldgen.config.NearHangFeatureConfig;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.block.Blocks;
@@ -11,29 +12,28 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NetherConfiguredFeatures;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-public class NearHangFeature extends Feature<DefaultFeatureConfig> {
-    public NearHangFeature(Codec<DefaultFeatureConfig> configCodec) {
+public class NearHangFeature extends Feature<NearHangFeatureConfig> {
+    public NearHangFeature(Codec<NearHangFeatureConfig> configCodec) {
         super(configCodec);
     }
 
     @Override
-    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+    public boolean generate(FeatureContext<NearHangFeatureConfig> context) {
+        NearHangFeatureConfig config = context.getConfig();
         BlockPos origin = context.getOrigin();
         StructureWorldAccess world = context.getWorld();
         Random random = context.getRandom();
         boolean generated = false;
-        int radius = 3;
+        int radius = config.radius;
         for (BlockPos pos : BlockPos.iterate(origin.add(-radius, -radius, -radius), origin.add(radius, radius, radius))) {
             if (isSupported(world, pos) && (random.nextFloat() > 0.93)){
                 generateNearHang(world, pos, random);
                 if (!generated){
                     world.getRegistryManager().getOptional(RegistryKeys.CONFIGURED_FEATURE).flatMap((registry) ->
-                            registry.getEntry(NetherConfiguredFeatures.WEEPING_VINES.getValue())).ifPresent((reference) ->
+                            registry.getEntry(config.accompanyingFeature.getKey().get().getValue())).ifPresent((reference) ->
                             reference.value().generate(world, context.getGenerator(), random, origin.up()));
                 }
                 generated = true;
@@ -65,7 +65,7 @@ public class NearHangFeature extends Feature<DefaultFeatureConfig> {
                 return false;
             }
         }
-        return  isBlockStable(world, pos) && isBlockStable(world, pos.up());
+        return isBlockStable(world, pos) && isBlockStable(world, pos.up());
     }
 
     public static boolean isBlockStable(StructureWorldAccess world, BlockPos pos){

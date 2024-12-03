@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:light_blue_dye_from_smelting_soul_berries"
+        "recipe": "nears:light_blue_dye_from_smelting_soul_berries"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:light_blue_dye_from_smelting_soul_berries"
+      "nears:light_blue_dye_from_smelting_soul_berries"
     ]
   }
 }

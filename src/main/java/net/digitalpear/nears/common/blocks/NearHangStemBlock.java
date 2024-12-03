@@ -93,6 +93,10 @@ public class NearHangStemBlock extends PlantBlock implements Fertilizable {
         }
     }
 
+    @Override
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return new ItemStack(NItems.NEAR_SPORES);
+    }
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {

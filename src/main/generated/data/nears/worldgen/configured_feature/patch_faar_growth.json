@@ -1,4 +1,8 @@
 {
   "type": "nears:faar_cluster",
-  "config": {}
+  "config": {
+    "rarity": 5,
+    "spread_horizontal": 12,
+    "spread_vertical": 6
+  }
 }

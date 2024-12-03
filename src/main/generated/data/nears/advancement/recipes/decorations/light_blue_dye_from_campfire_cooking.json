@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_near": {
+    "has_soul_berries": {
       "conditions": {
         "items": [
           {
-            "items": "nears:near"
+            "items": "nears:soul_berries"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nears:orange_dye_from_smelting_near"
+        "recipe": "nears:light_blue_dye_from_campfire_cooking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_near"
+      "has_soul_berries"
     ]
   ],
   "rewards": {
     "recipes": [
-      "nears:orange_dye_from_smelting_near"
+      "nears:light_blue_dye_from_campfire_cooking"
     ]
   }
 }

@@ -38,7 +38,7 @@ public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(NItems.FAAR_SEEDS);
     }
 

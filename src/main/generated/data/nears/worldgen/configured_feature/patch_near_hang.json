@@ -1,4 +1,7 @@
 {
   "type": "nears:near_hang",
-  "config": {}
+  "config": {
+    "accompanying_feature": "minecraft:weeping_vines",
+    "radius": 3
+  }
 }

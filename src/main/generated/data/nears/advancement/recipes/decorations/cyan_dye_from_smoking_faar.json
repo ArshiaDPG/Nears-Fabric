@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_near": {
+    "has_faar": {
       "conditions": {
         "items": [
           {
-            "items": "nears:near"
+            "items": "nears:faar"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nears:orange_dye_from_smelting_near"
+        "recipe": "nears:cyan_dye_from_smoking_faar"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_near"
+      "has_faar"
     ]
   ],
   "rewards": {
     "recipes": [
-      "nears:orange_dye_from_smelting_near"
+      "nears:cyan_dye_from_smoking_faar"
     ]
   }
 }

@@ -1,26 +1,22 @@
 package net.digitalpear.nears.common.datagen;
 
+import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NItemTags;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.RecipeGenerator;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.data.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class NearsRecipeGenerator extends RecipeGenerator {
@@ -88,12 +84,24 @@ public class NearsRecipeGenerator extends RecipeGenerator {
                 .offerTo(exporter);
 
         COLOR_MELTING_MAP.forEach((fruit, dye) -> {
-            offerSmelting(List.of(fruit),
+            CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(fruit),
                     RecipeCategory.DECORATIONS,
                     dye,
                     0.15f,
-                    200,
-                    "");
+                    200).criterion(hasItem(fruit), conditionsFromItem(fruit)).offerTo(exporter, keyOf(getItemPath(dye) + "_from_smelting_" + getItemPath(fruit)));
+
+            CookingRecipeJsonBuilder.createSmoking(Ingredient.ofItems(fruit),
+                    RecipeCategory.DECORATIONS,
+                    dye,
+                    0.15f,
+                    100).criterion(hasItem(fruit), conditionsFromItem(fruit)).offerTo(exporter, keyOf(getItemPath(dye) + "_from_smoking_" + getItemPath(fruit)));
+
+            CookingRecipeJsonBuilder.createCampfireCooking(Ingredient.ofItems(fruit),
+                    RecipeCategory.DECORATIONS,
+                    dye,
+                    0.15f,
+                    600).criterion(hasItem(fruit), conditionsFromItem(fruit)).offerTo(exporter, keyOf(getItemPath(dye) + "_from_campfire_cooking"));
+
         });
 
         makeVanillaWheatRecipes(exporter);
@@ -111,6 +119,9 @@ public class NearsRecipeGenerator extends RecipeGenerator {
                 .offerTo(exporter);
     }
 
+    public RegistryKey<Recipe<?>> keyOf(String name){
+        return RegistryKey.of(RegistryKeys.RECIPE, Nears.id(name));
+    }
     public void makeVanillaWheatRecipes(RecipeExporter exporter){
         ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.REDSTONE, Blocks.TARGET).input('H', NBlocks.CINDER_BALE).input('R', Items.REDSTONE).pattern(" R ").pattern("RHR").pattern(" R ").criterion("has_redstone", conditionsFromItem(Items.REDSTONE)).criterion("has_cinder_bale", conditionsFromItem(NBlocks.CINDER_BALE)).offerTo(exporter, fromBale(Blocks.TARGET));
         ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_MUD, 1).input(Blocks.MUD).input(NItems.CINDER_GRAIN).criterion("has_mud", conditionsFromItem(Blocks.MUD)).offerTo(exporter, fromGrain(Items.PACKED_MUD));

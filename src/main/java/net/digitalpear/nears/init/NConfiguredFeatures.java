@@ -3,9 +3,12 @@ package net.digitalpear.nears.init;
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.common.blocks.SoulBerryBushBlock;
 import net.digitalpear.nears.common.worldgen.NFeature;
+import net.digitalpear.nears.common.worldgen.config.FaarClusterFeatureConfig;
+import net.digitalpear.nears.common.worldgen.config.NearHangFeatureConfig;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
@@ -31,8 +34,10 @@ public class NConfiguredFeatures {
     }
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
-        register(featureRegisterable, PATCH_NEAR_HANG, NFeature.NEAR_HANG, new DefaultFeatureConfig());
-        register(featureRegisterable, PATCH_FAAR_GROWTH, NFeature.FAAR_CLUSTER, new DefaultFeatureConfig());
+        RegistryEntry<ConfiguredFeature<?, ?>> nearHangFeature = featureRegisterable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE).getOrThrow(NetherConfiguredFeatures.WEEPING_VINES);
+
+        register(featureRegisterable, PATCH_NEAR_HANG, NFeature.NEAR_HANG, new NearHangFeatureConfig(3, nearHangFeature));
+        register(featureRegisterable, PATCH_FAAR_GROWTH, NFeature.FAAR_CLUSTER, new FaarClusterFeatureConfig(6, 12, 5));
         register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(NBlocks.SOUL_BERRY_BUSH.getDefaultState().with(SoulBerryBushBlock.AGE, 3)), 96));
         register(featureRegisterable, PATCH_CINDER_GRASS, Feature.RANDOM_PATCH, createCinderGrassPatchFeatureConfig(BlockStateProvider.of(NBlocks.CINDER_GRASS), 120));
     }

@@ -4,10 +4,10 @@ import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.common.blocks.NearHangStemBlock;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
-import net.minecraft.data.client.*;
+import net.minecraft.client.data.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -22,7 +22,6 @@ public class NearsModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-
         registerSoulBerryBush(blockStateModelGenerator);
 
         registerFaarPlants(blockStateModelGenerator);
@@ -30,8 +29,8 @@ public class NearsModelProvider extends FabricModelProvider {
         registerNearPlants(blockStateModelGenerator);
 
         registerCinderPlants(blockStateModelGenerator);
-
     }
+
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
@@ -72,12 +71,11 @@ public class NearsModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerItemModel(NItems.NEAR_TWIG);
         blockStateModelGenerator.registerSimpleCubeAll(NBlocks.NEAR_TWIG_BLOCK);
 
-        blockStateModelGenerator.registerSingleton(NBlocks.NEAR_HANG, new TextureMap()
+        blockStateModelGenerator.registerSingleton(NBlocks.NEAR_HANG, TexturedModel.makeFactory(block -> new TextureMap()
                 .put(CAP_TOP, getId(NBlocks.NEAR_HANG).withSuffixedPath("_cap_top"))
                 .put(CAP_SIDE, getId(NBlocks.NEAR_HANG).withSuffixedPath("_cap_side"))
                 .put(CAP_BOTTOM, getId(NBlocks.NEAR_HANG).withSuffixedPath("_cap_bottom"))
-                .put(TextureKey.STEM, getId(NBlocks.NEAR_HANG).withSuffixedPath("_base")),
-                TEMPLATE_NEAR_HANG);
+                .put(TextureKey.STEM, getId(NBlocks.NEAR_HANG).withSuffixedPath("_base")), TEMPLATE_NEAR_HANG));
 
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(NBlocks.NEAR_HANG_STEM)
                 .coordinate(BlockStateVariantMap.create(NearHangStemBlock.SUPPORTED, NearHangStemBlock.AGE)
@@ -121,7 +119,7 @@ public class NearsModelProvider extends FabricModelProvider {
         registerHorizontallyRotatingCrop(blockStateModelGenerator, NBlocks.CINDER_GRAIN, Properties.AGE_7);
 
 
-        blockStateModelGenerator.registerFlowerPotPlant(NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS, BlockStateModelGenerator.TintType.NOT_TINTED);
+        blockStateModelGenerator.registerFlowerPotPlant(NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
 
         blockStateModelGenerator.registerAxisRotated(NBlocks.CINDER_BALE, TexturedModel.CUBE_COLUMN, TexturedModel.CUBE_COLUMN_HORIZONTAL);
     }
@@ -146,4 +144,5 @@ public class NearsModelProvider extends FabricModelProvider {
     private static Identifier getId(Block block){
         return Registries.BLOCK.getId(block).withPrefixedPath("block/");
     }
+
 }

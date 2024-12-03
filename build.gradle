@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.7-SNAPSHOT'
+    id 'fabric-loom' version '1.9-SNAPSHOT'
     id 'maven-publish'
     id "me.shedaniel.unified-publishing" version "0.1.+"
 }
@@ -112,7 +112,10 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}"
         changelog = '''<ul>
-   <li>Updated to 1.21.2.</li>
+   <li>Updated to 1.21.4.</li>
+   <li>All custom features now use feature configs, so they are now more customizable.</li>
+   <li>Trying to pick block a near hang stem will now give you near spores.</li>
+   <li>Cooking nether fruits into dyes can now be done in a smoker and campfire.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
         gameVersions = ["${project.minecraft_version}"]
