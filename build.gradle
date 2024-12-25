@@ -112,10 +112,7 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}"
         changelog = '''<ul>
-   <li>Updated to 1.21.4.</li>
-   <li>All custom features now use feature configs, so they are now more customizable.</li>
-   <li>Trying to pick block a near hang stem will now give you near spores.</li>
-   <li>Cooking nether fruits into dyes can now be done in a smoker and campfire.</li>
+   <li>Fixed Cinder Grass having an incorrect item model.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
         gameVersions = ["${project.minecraft_version}"]

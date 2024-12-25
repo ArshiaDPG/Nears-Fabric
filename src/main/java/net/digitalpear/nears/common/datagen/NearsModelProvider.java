@@ -38,6 +38,8 @@ public class NearsModelProvider extends FabricModelProvider {
         itemModelGenerator.register(NItems.NETHER_STEW, Models.GENERATED);
         itemModelGenerator.register(NItems.GLOW_SALAD, Models.GENERATED);
 
+        itemModelGenerator.register();
+
     }
 
 
@@ -120,6 +122,7 @@ public class NearsModelProvider extends FabricModelProvider {
 
 
         blockStateModelGenerator.registerFlowerPotPlant(NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        
 
         blockStateModelGenerator.registerAxisRotated(NBlocks.CINDER_BALE, TexturedModel.CUBE_COLUMN, TexturedModel.CUBE_COLUMN_HORIZONTAL);
     }
