@@ -18,5 +18,4 @@ public class FaarItem extends Item {
         }
         return super.finishUsing(stack, world, user);
     }
-
 }

@@ -43,7 +43,9 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
         return CODEC;
     }
 
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+
+    @Override
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(NItems.SOUL_BERRY_PIPS);
     }
 
@@ -72,7 +74,7 @@ public class SoulBerryBushBlock extends PlantBlock implements Fertilizable {
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if (state.get(AGE) == MAX_AGE && !hasRandomTicks(state) && random.nextFloat() > 0.8){
-            world.addParticle(ParticleTypes.SOUL, pos.getX() + world.random.nextFloat(), pos.getY() + world.random.nextFloat(), pos.getZ() + world.random.nextFloat(), 0.0D, 0.2D, 0.0D);
+            world.addParticleClient(ParticleTypes.SOUL, pos.getX() + world.random.nextFloat(), pos.getY() + world.random.nextFloat(), pos.getZ() + world.random.nextFloat(), 0.0D, 0.2D, 0.0D);
         }
     }
 

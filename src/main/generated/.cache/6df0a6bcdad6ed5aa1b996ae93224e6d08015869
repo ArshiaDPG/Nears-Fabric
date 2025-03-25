@@ -1,5 +1,5 @@
-// 1.21.4	2024-12-25T10:31:52.0058635	Nears/worldgen/placed_feature
-d044c6220e99732600eed70068e25355fdebea1c data\nears\worldgen\placed_feature\patch_cinder_grass.json
-44ee3bc463b57c2cd487cdafe4fef2a821108624 data\nears\worldgen\placed_feature\patch_faar_growth.json
-609ea2eb76564369aa84384fa8e688237debbd01 data\nears\worldgen\placed_feature\patch_near_hang.json
-471847a25c49262d569e7d1d364771fc00e3fa7f data\nears\worldgen\placed_feature\patch_soul_berry_bush.json
+// 1.21.5 Release Candidate 1	-999999999-01-01T00:00:00	Nears/worldgen/placed_feature
+d044c6220e99732600eed70068e25355fdebea1c data/nears/worldgen/placed_feature/patch_cinder_grass.json
+44ee3bc463b57c2cd487cdafe4fef2a821108624 data/nears/worldgen/placed_feature/patch_faar_growth.json
+609ea2eb76564369aa84384fa8e688237debbd01 data/nears/worldgen/placed_feature/patch_near_hang.json
+471847a25c49262d569e7d1d364771fc00e3fa7f data/nears/worldgen/placed_feature/patch_soul_berry_bush.json

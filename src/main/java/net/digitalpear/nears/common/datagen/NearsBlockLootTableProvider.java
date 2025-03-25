@@ -128,6 +128,4 @@ public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F)))
                 .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))));
     }
-
-
 }

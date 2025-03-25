@@ -3,7 +3,7 @@ package net.digitalpear.nears.init;
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.common.datagen.NearsRecipeGenerator;
 import net.digitalpear.nears.common.items.FaarItem;
-import net.digitalpear.nears.common.items.NetherStewItem;
+import net.digitalpear.nears.init.data.NConsumableComponents;
 import net.digitalpear.nears.init.data.NFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
@@ -25,7 +25,7 @@ public class NItems {
         return RegistryKey.of(RegistryKeys.ITEM, Nears.id(id));
     }
     public static Item createItem(String id){
-        return createItem(id, settings -> new Item(settings.useItemPrefixedTranslationKey()), new Item.Settings());
+        return createItem(id, new Item.Settings());
     }
     public static Item createItem(String id, Item.Settings settings){
         return createItem(id, Item::new, settings);
@@ -51,7 +51,7 @@ public class NItems {
         Foods
      */
     public static final Item SOULLESS_PASTRY = createItem("soulless_pastry", new Item.Settings().food(NFoodComponents.SOULLESS_PASTRY));
-    public static final Item NETHER_STEW = createItem("nether_stew", NetherStewItem::new, new Item.Settings().food(NFoodComponents.NETHER_STEW).useRemainder(Items.BOWL).maxCount(1));
+    public static final Item NETHER_STEW = createItem("nether_stew", new Item.Settings().food(NFoodComponents.NETHER_STEW, NConsumableComponents.NETHER_STEW).useRemainder(Items.BOWL).maxCount(1));
     public static final Item CINDER_SANGAK = createItem("cinder_sangak", new Item.Settings().food(NFoodComponents.CINDER_SANGAK));
     public static final Item GLOW_SALAD = createItem("glow_salad", new Item.Settings().food(NFoodComponents.GLOW_SALAD).useRemainder(Items.BOWL).maxCount(1));
 

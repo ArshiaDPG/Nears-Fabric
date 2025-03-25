@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'fabric-loom' version '1.10.+'
     id 'maven-publish'
     id "me.shedaniel.unified-publishing" version "0.1.+"
 }
@@ -112,7 +112,7 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}"
         changelog = '''<ul>
-   <li>Fixed Cinder Grass having an incorrect item model.</li>
+   <li>Updated to 1.21.5.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
         gameVersions = ["${project.minecraft_version}"]

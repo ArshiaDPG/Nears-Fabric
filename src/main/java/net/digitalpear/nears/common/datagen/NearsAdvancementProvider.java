@@ -7,18 +7,15 @@ import net.digitalpear.nears.init.data.tags.NItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.*;
-import net.minecraft.advancement.criterion.ChangedDimensionCriterion;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.advancement.criterion.ItemCriterion;
-import net.minecraft.block.Blocks;
+import net.minecraft.data.advancement.AdvancementTabGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -36,8 +33,7 @@ public class NearsAdvancementProvider extends FabricAdvancementProvider {
     public void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
         RegistryEntryLookup<Item> itemRegistry = registryLookup.getOrThrow(RegistryKeys.ITEM);
 
-        AdvancementEntry dummy = Advancement.Builder.create().display(Blocks.RED_NETHER_BRICKS, Text.translatable("advancements.nether.root.title"), Text.translatable("advancements.nether.root.description"), Identifier.of("textures/gui/advancements/backgrounds/nether.png"), AdvancementFrame.TASK, false, false, false).criterion("entered_nether", ChangedDimensionCriterion.Conditions.to(World.NETHER)).build(consumer, "nether/root");
-
+        AdvancementEntry dummy = AdvancementTabGenerator.reference("nether/root");
 
         AdvancementEntry symbiotic = Advancement.Builder.create().parent(dummy)
                 .display(

@@ -13,5 +13,4 @@ public class NFoodComponents {
     public static final FoodComponent CINDER_SANGAK = new FoodComponent.Builder().nutrition(5).saturationModifier(0.3F).build();
     public static final FoodComponent SOULLESS_PASTRY = new FoodComponent.Builder().nutrition(8).saturationModifier(0.3F).build();
     public static final FoodComponent GLOW_SALAD = new FoodComponent.Builder().nutrition(5).saturationModifier(0.7F).build();
-
 }

@@ -17,7 +17,7 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
-                /*
+        /*
             Near Plants
          */
         translationBuilder.add(NItems.NEAR, "Near");

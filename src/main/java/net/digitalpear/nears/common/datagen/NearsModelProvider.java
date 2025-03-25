@@ -1,21 +1,36 @@
 package net.digitalpear.nears.common.datagen;
 
 import net.digitalpear.nears.Nears;
+import net.digitalpear.nears.common.blocks.FaarGrowthBlock;
 import net.digitalpear.nears.common.blocks.NearHangStemBlock;
+import net.digitalpear.nears.common.blocks.SoulBerryBushBlock;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.model.json.ModelVariantOperator;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 
 import java.util.Optional;
 
+import static net.minecraft.client.data.BlockStateModelGenerator.createWeightedVariant;
+
 public class NearsModelProvider extends FabricModelProvider {
+
+    private static final BlockStateVariantMap<ModelVariantOperator> NORTH_DEFAULT_HORIZONTAL_ROTATION_OPERATIONS = BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING)
+            .register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90)
+            .register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_Y_180)
+            .register(Direction.WEST, BlockStateModelGenerator.ROTATE_Y_270)
+            .register(Direction.NORTH, BlockStateModelGenerator.NO_OP);
+
+
+
     public NearsModelProvider(FabricDataOutput output) {
         super(output);
     }
@@ -37,9 +52,6 @@ public class NearsModelProvider extends FabricModelProvider {
         itemModelGenerator.register(NItems.SOULLESS_PASTRY, Models.GENERATED);
         itemModelGenerator.register(NItems.NETHER_STEW, Models.GENERATED);
         itemModelGenerator.register(NItems.GLOW_SALAD, Models.GENERATED);
-
-        itemModelGenerator.register();
-
     }
 
 
@@ -48,17 +60,13 @@ public class NearsModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerItemModel(NItems.FAAR);
         blockStateModelGenerator.registerSimpleCubeAll(NBlocks.FAAR_BUNDLE);
 
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(NBlocks.FAAR_GROWTH)
-                .coordinate(BlockStateVariantMap.create(Properties.AGE_3).register((stage) -> BlockStateVariant.create().put(VariantSettings.MODEL,
-                        blockStateModelGenerator.createSubModel(NBlocks.FAAR_GROWTH, "" + stage, Models.CROSS, TextureMap::cross)))));
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(NBlocks.FAAR_GROWTH).with(BlockStateVariantMap.models(FaarGrowthBlock.AGE).generate((stage) -> createWeightedVariant(blockStateModelGenerator.createSubModel(NBlocks.FAAR_GROWTH, "" + stage, Models.CROSS, TextureMap::cross)))));
     }
 
     private void registerSoulBerryBush(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerItemModel(NItems.SOUL_BERRIES);
         blockStateModelGenerator.registerItemModel(NItems.SOUL_BERRY_PIPS);
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(NBlocks.SOUL_BERRY_BUSH)
-                .coordinate(BlockStateVariantMap.create(Properties.AGE_3).register((stage) -> BlockStateVariant.create().put(VariantSettings.MODEL,
-                        blockStateModelGenerator.createSubModel(NBlocks.SOUL_BERRY_BUSH, "" + stage, Models.CROSS, TextureMap::cross)))));
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(NBlocks.SOUL_BERRY_BUSH).with(BlockStateVariantMap.models(SoulBerryBushBlock.AGE).generate((stage) -> createWeightedVariant(blockStateModelGenerator.createSubModel(NBlocks.SOUL_BERRY_BUSH, "" + stage, Models.CROSS, TextureMap::cross)))));
     }
 
     public static final TextureKey CAP_TOP = TextureKey.of("cap_top");
@@ -79,9 +87,9 @@ public class NearsModelProvider extends FabricModelProvider {
                 .put(CAP_BOTTOM, getId(NBlocks.NEAR_HANG).withSuffixedPath("_cap_bottom"))
                 .put(TextureKey.STEM, getId(NBlocks.NEAR_HANG).withSuffixedPath("_base")), TEMPLATE_NEAR_HANG));
 
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(NBlocks.NEAR_HANG_STEM)
-                .coordinate(BlockStateVariantMap.create(NearHangStemBlock.SUPPORTED, NearHangStemBlock.AGE)
-                        .register((supported, stage) -> {
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(NBlocks.NEAR_HANG_STEM)
+                .with(BlockStateVariantMap.models(NearHangStemBlock.SUPPORTED, NearHangStemBlock.AGE)
+                        .generate((supported, stage) -> {
 
                             String name = (supported ? "" : "_base") + stage;
 
@@ -100,7 +108,7 @@ public class NearsModelProvider extends FabricModelProvider {
                                         blockStateModelGenerator.modelCollector);
                             }
 
-                            return BlockStateVariant.create().put(VariantSettings.MODEL, modelName);
+                            return createWeightedVariant(modelName);
                         })));
     }
 
@@ -120,28 +128,23 @@ public class NearsModelProvider extends FabricModelProvider {
          */
         registerHorizontallyRotatingCrop(blockStateModelGenerator, NBlocks.CINDER_GRAIN, Properties.AGE_7);
 
-
-        blockStateModelGenerator.registerFlowerPotPlant(NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        
-
+        blockStateModelGenerator.registerFlowerPotPlantAndItem(NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerAxisRotated(NBlocks.CINDER_BALE, TexturedModel.CUBE_COLUMN, TexturedModel.CUBE_COLUMN_HORIZONTAL);
     }
 
     public static void registerHorizontallyRotatingCrop(BlockStateModelGenerator blockStateModelGenerator, Block block, IntProperty age){
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
-                .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
-                .coordinate(BlockStateVariantMap.create(age).register((stage) -> {
-
-                    Identifier var2 = ModelIds.getBlockSubModelId(block, "" + stage);
-                /*
-                    Register model
-                 */
-                    TEMPLATE_CINDER_WHEAT.upload(block, "" + stage,
-                            TextureMap.all(getId(block).withSuffixedPath("" + stage)),
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block)
+                .with(BlockStateVariantMap.models(age).generate((stage) -> {
+                    String suffix = "" + stage;
+                    /*
+                        Register model
+                     */
+                    Identifier modelName = TEMPLATE_CINDER_WHEAT.upload(block, suffix,
+                            TextureMap.all(getId(block).withSuffixedPath(suffix)),
                             blockStateModelGenerator.modelCollector);
 
-                    return BlockStateVariant.create().put(VariantSettings.MODEL, var2);
-                })));
+                    return createWeightedVariant(modelName);
+                })).coordinate(NORTH_DEFAULT_HORIZONTAL_ROTATION_OPERATIONS));
     }
 
     private static Identifier getId(Block block){
