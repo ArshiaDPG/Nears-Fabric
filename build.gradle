@@ -112,7 +112,10 @@ unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}"
         changelog = '''<ul>
-   <li>Updated to 1.21.5.</li>
+   <li>Fixed broken tag entries.</li>
+   <li>Added Glow Berries and Glow Salad to the "foods/berry" item tag.</li>
+   <li>Added Cinder Seeds to the "seeds/wheat" item tag.</li>
+   <li>Added Russian translation by Disketaa.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
         gameVersions = ["${project.minecraft_version}"]

@@ -4,6 +4,7 @@ import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -30,9 +31,10 @@ public class NearsItemTagProvider extends FabricTagProvider<Item> {
 
         getOrCreateTagBuilder(NItemTags.SANDWICHABLE_BREAD_SLICES).add(NItems.CINDER_SANGAK);
 
-        getOrCreateTagBuilder(NItemTags.FRUITS).forceAddTag(NItemTags.NETHER_FRUITS);
-        getOrCreateTagBuilder(NItemTags.FRUIT_SALADS).add(NItems.GLOW_SALAD);
-        getOrCreateTagBuilder(NItemTags.SEEDS).add(NItems.NEAR_SPORES, NItems.FAAR_SEEDS, NItems.SOUL_BERRY_PIPS, NItems.CINDER_SEEDS);
+        getOrCreateTagBuilder(ConventionalItemTags.FRUIT_FOODS).forceAddTag(NItemTags.NETHER_FRUITS);
+        getOrCreateTagBuilder(ConventionalItemTags.SEEDS).add(NItems.NEAR_SPORES, NItems.FAAR_SEEDS, NItems.SOUL_BERRY_PIPS, NItems.CINDER_SEEDS);
+        getOrCreateTagBuilder(ConventionalItemTags.BERRY_FOODS).add(NItems.SOUL_BERRIES, NItems.GLOW_SALAD);
+        getOrCreateTagBuilder(ConventionalItemTags.WHEAT_SEEDS).add(NItems.CINDER_SEEDS);
 
         getOrCreateTagBuilder(ItemTags.PIGLIN_FOOD).add(NItems.NEAR);
 

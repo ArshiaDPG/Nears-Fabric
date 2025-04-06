@@ -1,4 +1,4 @@
-// 1.21.5 Release Candidate 1	-999999999-01-01T00:00:00	Nears/Tags for minecraft:block
+// 1.21.5	-999999999-01-01T00:00:00	Nears/Tags for minecraft:block
 36b815fb44b86626443cab29d001f8d919f8e12a data/minecraft/tags/block/crops.json
 88989800fcc294d3bd232171114a26466ae8daf3 data/minecraft/tags/block/flower_pots.json
 9a80cae43feb0f49f439c3d0f4b6bd5e01b6e6f4 data/minecraft/tags/block/mineable/hoe.json

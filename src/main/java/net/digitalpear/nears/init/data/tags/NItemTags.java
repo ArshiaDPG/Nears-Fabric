@@ -13,15 +13,8 @@ public class NItemTags {
 
     public static final TagKey<Item> SUMMER_CROPS_COMPAT = compatTag("sereneseasons", "summer_crops");
 
-    public static final TagKey<Item> FRUITS = commonTag("fruits");
-    public static final TagKey<Item> FRUIT_SALADS = commonTag("fruit_salads");
-    public static final TagKey<Item> SEEDS = commonTag("seeds");
-
     private static TagKey<Item> of(String id) {
         return compatTag(Nears.MOD_ID, id);
-    }
-    private static TagKey<Item> commonTag(String id) {
-        return compatTag("c", id);
     }
 
     private static TagKey<Item> compatTag(String modid,String id) {
