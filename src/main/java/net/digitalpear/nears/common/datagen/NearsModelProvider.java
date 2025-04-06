@@ -31,15 +31,11 @@ public class NearsModelProvider extends FabricModelProvider {
         registerCinderPlants(blockStateModelGenerator);
     }
 
-
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(NItems.SOULLESS_PASTRY, Models.GENERATED);
         itemModelGenerator.register(NItems.NETHER_STEW, Models.GENERATED);
         itemModelGenerator.register(NItems.GLOW_SALAD, Models.GENERATED);
-
-        itemModelGenerator.register();
-
     }
 
 

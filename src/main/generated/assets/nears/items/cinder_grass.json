@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "nears:item/cinder_grass"
+    "model": "nears:block/cinder_grass"
   }
 }
