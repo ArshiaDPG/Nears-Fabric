@@ -113,6 +113,7 @@ unifiedPublishing {
         displayName = "${project.minecraft_version}-${project.mod_version}"
         changelog = '''<ul>
    <li>Updated to 1.21.6.</li>
+   <li>Moved Faar Bundle in the creative inventory.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
         gameVersions = ["${project.minecraft_version}"]

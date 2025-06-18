@@ -99,7 +99,7 @@ public class NItems {
 
             entries.addAfter(Items.HAY_BLOCK, NBlocks.CINDER_BALE);
 
-            entries.add(NBlocks.FAAR_BUNDLE);
+            entries.addBefore(Items.MELON, NBlocks.FAAR_BUNDLE);
 
             entries.addAfter(Items.NETHER_SPROUTS, NBlocks.CINDER_GRASS);
             entries.addAfter(Items.BAMBOO, NEAR_TWIG);
