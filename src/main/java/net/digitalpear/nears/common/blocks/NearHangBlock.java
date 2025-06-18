@@ -35,7 +35,7 @@ public class NearHangBlock extends PlantBlock implements Fertilizable{
     public static final IntProperty AGE = Properties.AGE_5;
     public static final BooleanProperty MATURED = BooleanProperty.of("matured");
 
-    private Block stemBlock = NBlocks.NEAR_HANG_STEM;
+    private final Block STEM_BLOCK = NBlocks.NEAR_HANG_STEM;
 
 
     protected static final VoxelShape COLLISION_SHAPE = Block.createCuboidShape(1.0D, 1.0D, 1.0D, 15.0D, 8.0D, 15.0D);
@@ -70,7 +70,7 @@ public class NearHangBlock extends PlantBlock implements Fertilizable{
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(NBlockTags.NEAR_HANG_PLANTABLE_ON) || floor.isOf(stemBlock);
+        return floor.isIn(NBlockTags.NEAR_HANG_PLANTABLE_ON) || floor.isOf(STEM_BLOCK);
     }
 
     @Override
@@ -81,12 +81,12 @@ public class NearHangBlock extends PlantBlock implements Fertilizable{
                 if (!state.get(MATURED) && world.getBlockState(pos.down()).isAir()) {
                     int growthChance = baseGrowthLength;
                     for (BlockPos pos1 : BlockPos.iterate(pos, pos.add(0, 6, 0))) {
-                        if (world.getBlockState(pos1).isOf(stemBlock)) {
+                        if (world.getBlockState(pos1).isOf(STEM_BLOCK)) {
                             growthChance--;
                         }
                     }
                     if (random.nextInt(baseGrowthLength) < growthChance) {
-                        world.setBlockState(pos, stemBlock.getDefaultState().with(NearHangStemBlock.SUPPORTED, world.getBlockState(pos.up()).isOf(stemBlock)), 3);
+                        world.setBlockState(pos, STEM_BLOCK.getDefaultState().with(NearHangStemBlock.SUPPORTED, world.getBlockState(pos.up()).isOf(STEM_BLOCK)), 3);
                         world.setBlockState(pos.down(), state.with(AGE, random.nextBetween(1, 2)).with(MATURED, random.nextFloat() < 0.1), 3);
                     }
                 }
@@ -152,7 +152,7 @@ public class NearHangBlock extends PlantBlock implements Fertilizable{
             world.setBlockState(pos, state.with(AGE, state.get(AGE) + growth));
         }
         else{
-            world.setBlockState(pos, stemBlock.getDefaultState().with(NearHangStemBlock.SUPPORTED, world.getBlockState(pos.up()).isOf(stemBlock)), 3);
+            world.setBlockState(pos, STEM_BLOCK.getDefaultState().with(NearHangStemBlock.SUPPORTED, world.getBlockState(pos.up()).isOf(STEM_BLOCK)), 3);
             world.setBlockState(pos.down(), state.with(AGE, 0), 3);
         }
     }

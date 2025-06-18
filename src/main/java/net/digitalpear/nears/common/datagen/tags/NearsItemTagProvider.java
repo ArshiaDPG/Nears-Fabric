@@ -6,9 +6,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -27,18 +30,22 @@ public class NearsItemTagProvider extends FabricTagProvider<Item> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(NItemTags.NETHER_FRUITS).add(NItems.NEAR, NItems.FAAR, NItems.SOUL_BERRIES);
+        getTagBuilder(NItemTags.NETHER_FRUITS).add(getId(NItems.NEAR)).add(getId(NItems.FAAR)).add(getId(NItems.SOUL_BERRIES));
 
-        getOrCreateTagBuilder(NItemTags.SANDWICHABLE_BREAD_SLICES).add(NItems.CINDER_SANGAK);
+        getTagBuilder(NItemTags.SANDWICHABLE_BREAD_SLICES).add(getId(NItems.CINDER_SANGAK));
 
-        getOrCreateTagBuilder(ConventionalItemTags.FRUIT_FOODS).forceAddTag(NItemTags.NETHER_FRUITS);
-        getOrCreateTagBuilder(ConventionalItemTags.SEEDS).add(NItems.NEAR_SPORES, NItems.FAAR_SEEDS, NItems.SOUL_BERRY_PIPS, NItems.CINDER_SEEDS);
-        getOrCreateTagBuilder(ConventionalItemTags.BERRY_FOODS).add(NItems.SOUL_BERRIES, NItems.GLOW_SALAD);
-        getOrCreateTagBuilder(ConventionalItemTags.WHEAT_SEEDS).add(NItems.CINDER_SEEDS);
+        getTagBuilder(ConventionalItemTags.FRUIT_FOODS).addTag(NItemTags.NETHER_FRUITS.id());
+        getTagBuilder(ConventionalItemTags.SEEDS).add(getId(NItems.NEAR_SPORES)).add(getId(NItems.FAAR_SEEDS)).add(getId(NItems.SOUL_BERRY_PIPS)).add(getId(NItems.CINDER_SEEDS));
+        getTagBuilder(ConventionalItemTags.BERRY_FOODS).add(getId(NItems.SOUL_BERRIES)).add(getId(NItems.GLOW_SALAD));
+        getTagBuilder(ConventionalItemTags.WHEAT_SEEDS).add(getId(NItems.CINDER_SEEDS));
 
-        getOrCreateTagBuilder(ItemTags.PIGLIN_FOOD).add(NItems.NEAR);
+        getTagBuilder(ItemTags.PIGLIN_FOOD).add(getId(NItems.NEAR));
 
-        getOrCreateTagBuilder(NItemTags.SUMMER_CROPS_COMPAT).add(NItems.NEAR_SPORES).add(NItems.FAAR_SEEDS).add(NItems.FAAR_SEEDS).add(NItems.CINDER_SEEDS);
+        getTagBuilder(NItemTags.SUMMER_CROPS_COMPAT).add(getId(NItems.NEAR_SPORES)).add(getId(NItems.FAAR_SEEDS)).add(getId(NItems.FAAR_SEEDS)).add(getId(NItems.CINDER_SEEDS));
 
+    }
+
+    public static Identifier getId(ItemConvertible itemConvertible){
+        return Registries.ITEM.getId(itemConvertible.asItem());
     }
 }

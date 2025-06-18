@@ -3,7 +3,7 @@ package net.digitalpear.nears.init.data;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.dispenser.DispenserFaarBundleBehavior;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.loot.LootPool;
@@ -39,8 +39,7 @@ public class NData {
 
 
     public static void registerLootTableModifications(){
-
-        LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, wrapperLookup) -> {
             if (LootTables.BASTION_HOGLIN_STABLE_CHEST.equals(key) && source.isBuiltin()) {
                 tableBuilder.modifyPools(context -> context.with(ItemEntry.builder(NItems.NEAR).weight(6).quality(Rarity.COMMON.ordinal() + 1))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 4.0F))));

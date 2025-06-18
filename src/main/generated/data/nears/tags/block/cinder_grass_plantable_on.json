@@ -5,8 +5,10 @@
     "minecraft:basalt",
     "minecraft:blackstone",
     "minecraft:netherrack",
-    "#minecraft:nylium",
-    "#nears:cinder_wheat_plantable_on",
-    "minecraft:netherrack"
+    {
+      "id": "#minecraft:nylium",
+      "required": false
+    },
+    "#nears:cinder_wheat_plantable_on"
   ]
 }
