@@ -12,6 +12,6 @@ public class NearsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, NBlocks.SOUL_BERRY_BUSH, NBlocks.FAAR_GROWTH, NBlocks.CINDER_GRAIN, NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS);
-        BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT_MIPPED, NBlocks.NEAR_HANG, NBlocks.NEAR_HANG_STEM);
+        BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, NBlocks.NEAR_HANG, NBlocks.NEAR_HANG_STEM);
     }
 }

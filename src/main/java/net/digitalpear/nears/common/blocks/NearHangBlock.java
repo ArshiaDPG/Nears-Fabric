@@ -5,6 +5,7 @@ import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -109,7 +110,7 @@ public class NearHangBlock extends PlantBlock implements Fertilizable{
         if (stack.getItem() instanceof ShearsItem && !state.get(MATURED)){
             BlockState finalState = state.with(MATURED, true);
             if (stack.isDamageable()){
-                stack.damage(1, player, LivingEntity.getSlotForHand(hand));
+                stack.damage(1, player, hand == Hand.MAIN_HAND? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
             }
 
             if (player instanceof ServerPlayerEntity) {
