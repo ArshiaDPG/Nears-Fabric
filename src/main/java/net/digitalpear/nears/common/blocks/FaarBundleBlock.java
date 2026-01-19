@@ -50,7 +50,7 @@ public class FaarBundleBlock extends ColoredFallingBlock {
     }
 
     private void bounceEntity(Entity entity) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         BlockPos pos = entity.getSteppingPos();
         Vec3d vec3d = entity.getVelocity();
         if (vec3d.y < 0.0D) {

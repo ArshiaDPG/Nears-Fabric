@@ -144,7 +144,7 @@ public class NearsModelProvider extends FabricModelProvider {
                             blockStateModelGenerator.modelCollector);
 
                     return createWeightedVariant(modelName);
-                })).coordinate(NORTH_DEFAULT_HORIZONTAL_ROTATION_OPERATIONS));
+                })).apply(NORTH_DEFAULT_HORIZONTAL_ROTATION_OPERATIONS));
     }
 
     private static Identifier getId(Block block){
