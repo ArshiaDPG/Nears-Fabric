@@ -5,127 +5,202 @@ import net.digitalpear.nears.common.blocks.NearHangStemBlock;
 import net.digitalpear.nears.common.blocks.SoulBerryBushBlock;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.block.Block;
-import net.minecraft.block.CropBlock;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.function.ApplyBonusLootFunction;
-import net.minecraft.loot.function.LimitCountLootFunction;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.operator.BoundedIntUnaryOperator;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.predicate.StatePredicate;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.state.property.Properties;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.loot.IntRange;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.concurrent.CompletableFuture;
 
-public class NearsBlockLootTableProvider extends FabricBlockLootTableProvider {
-    private RegistryWrapper.WrapperLookup registryLookup;
-    public NearsBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(dataOutput, registryLookup);
+public class NearsBlockLootTableProvider extends FabricBlockLootSubProvider {
+    private final HolderLookup.Provider registryLookup;
+    
+    public NearsBlockLootTableProvider(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(packOutput, registryLookup);
         this.registryLookup = registryLookup.join();
     }
 
     @Override
     public void generate() {
-        LootCondition.Builder cropAgeConditionBuilder = BlockStatePropertyLootCondition.builder(NBlocks.CINDER_GRAIN)
-                .properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(CropBlock.AGE, 7));
+        LootItemCondition.Builder cropAgeConditionBuilder = LootItemBlockStatePropertyCondition
+            .hasBlockStateProperties(NBlocks.CINDER_GRAIN)
+            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7));
 
-        addDrop(NBlocks.NEAR_HANG, cropDrops(NBlocks.NEAR_HANG, NItems.NEAR, NItems.NEAR_SPORES, cropAgeConditionBuilder));
+        add(NBlocks.NEAR_HANG, createCropDrops(NBlocks.NEAR_HANG, NItems.NEAR, NItems.NEAR_SPORES, cropAgeConditionBuilder));
+        
+        add(NBlocks.FAAR_BUNDLE, faarBundle(NBlocks.FAAR_BUNDLE));
+        add(NBlocks.FAAR_GROWTH, makeBushDrops(NBlocks.FAAR_GROWTH, NItems.FAAR_SEEDS));
+        
+        add(NBlocks.SOUL_BERRY_BUSH, makeBushDrops(NBlocks.SOUL_BERRY_BUSH, NItems.SOUL_BERRIES));
 
-        addDrop(NBlocks.FAAR_BUNDLE, faarBundle(NBlocks.FAAR_BUNDLE));
-        addDrop(NBlocks.FAAR_GROWTH, makeBushDrops(NBlocks.FAAR_GROWTH, NItems.FAAR_SEEDS));
+        add(NBlocks.CINDER_GRAIN, createCropDrops(NBlocks.CINDER_GRAIN, NItems.CINDER_GRAIN, NItems.CINDER_SEEDS, cropAgeConditionBuilder));
+        add(NBlocks.CINDER_GRASS, cinderGrassDrops(NBlocks.CINDER_GRASS));
+        
+        
+        dropSelf(NBlocks.CINDER_BALE);
+        
+        dropSelf(NBlocks.NEAR_TWIG_BLOCK);
 
-        addDrop(NBlocks.SOUL_BERRY_BUSH, makeBushDrops(NBlocks.SOUL_BERRY_BUSH, NItems.SOUL_BERRIES));
-
-        addDrop(NBlocks.CINDER_GRAIN, cropDrops(NBlocks.CINDER_GRAIN, NItems.CINDER_GRAIN, NItems.CINDER_SEEDS, cropAgeConditionBuilder));
-        addDrop(NBlocks.CINDER_GRASS, cinderGrassDrops(NBlocks.CINDER_GRASS));
-
-
-        addDrop(NBlocks.CINDER_BALE);
-
-        addDrop(NBlocks.NEAR_TWIG_BLOCK);
-
-        addDrop(NBlocks.NEAR_HANG_STEM, makeNearStemDrops(NBlocks.NEAR_HANG_STEM, NItems.NEAR, NItems.NEAR_TWIG));
-        addDrop(NBlocks.NEAR_HANG, LootTable.builder()
-                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(BlockStatePropertyLootCondition.builder(NBlocks.NEAR_HANG).properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(NearHangBlock.AGE, NearHangBlock.MAX_AGE)))
-                        .with(this.applyExplosionDecay(NItems.NEAR_SPORES, ItemEntry.builder(NItems.NEAR_SPORES).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2F, 3F))))))
-                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(BlockStatePropertyLootCondition.builder(NBlocks.NEAR_HANG).properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(NearHangBlock.AGE, NearHangBlock.MAX_AGE)).invert())
-                        .with(this.applyExplosionDecay(NItems.NEAR_SPORES, ItemEntry.builder(NItems.NEAR_SPORES))))
+        add(NBlocks.NEAR_HANG_STEM, makeNearStemDrops(NBlocks.NEAR_HANG_STEM, NItems.NEAR, NItems.NEAR_TWIG));
+        add(NBlocks.NEAR_HANG, LootTable.lootTable()
+                .pool(
+                    LootPool
+                        .lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(
+                            LootItemBlockStatePropertyCondition
+                                .hasBlockStateProperties(NBlocks.NEAR_HANG)
+                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(NearHangBlock.AGE, NearHangBlock.MAX_AGE))
+                        )
+                        .add(this.applyExplosionDecay(
+                            NItems.NEAR_SPORES,
+                            LootItem
+                                .lootTableItem(NItems.NEAR_SPORES)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2F, 3F)))
+                        ))
+                        .build()
+                )
+                .pool(
+                    LootPool
+                        .lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(
+                            LootItemBlockStatePropertyCondition
+                                .hasBlockStateProperties(NBlocks.NEAR_HANG)
+                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(NearHangBlock.AGE, NearHangBlock.MAX_AGE)).invert()
+                        )
+                        .add(this.applyExplosionDecay(NItems.NEAR_SPORES, LootItem.lootTableItem(NItems.NEAR_SPORES)))
+                        .build()
+                )
         );
     }
 
 
-    public net.minecraft.loot.LootTable.Builder cinderGrassDrops(Block dropWithShears) {
-        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT);
-        return this.dropsWithShears(dropWithShears, (LootPoolEntry.Builder)this.applyExplosionDecay(dropWithShears, ((LeafEntry.Builder)ItemEntry.builder(NItems.CINDER_SEEDS).conditionally(RandomChanceLootCondition.builder(0.125F))).apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE), 2))));
+    public LootTable.Builder cinderGrassDrops(Block dropWithShears) {
+        HolderLookup.RegistryLookup<Enchantment> impl = this.registryLookup.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.createShearsDispatchTable(
+            dropWithShears,
+            this.applyExplosionDecay(
+                dropWithShears,
+                LootItem
+                    .lootTableItem(NItems.CINDER_SEEDS)
+                    .when(LootItemRandomChanceCondition.randomChance(0.125F))
+                    .apply(ApplyBonusCount.addUniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE), 2))
+            )
+        );
     }
 
-    public net.minecraft.loot.LootTable.Builder faarBundle(Block drop) {
-        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT);
-        return this.dropsWithSilkTouch(drop, this.applyExplosionDecay(drop,
-                ItemEntry.builder(NItems.FAAR)
-                .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3.0F, 7.0F))).apply(
-                        ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
-                        .apply(LimitCountLootFunction.builder(BoundedIntUnaryOperator.createMax(9)))));
+    public LootTable.Builder faarBundle(Block drop) {
+        HolderLookup.RegistryLookup<Enchantment> impl = this.registryLookup.lookupOrThrow(Registries.ENCHANTMENT);
+        
+        return this.createSilkTouchDispatchTable(
+            drop,
+            this.applyExplosionDecay(
+                drop,
+                LootItem
+                    .lootTableItem(NItems.FAAR)
+                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0F, 7.0F)))
+                    .apply(ApplyBonusCount.addUniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
+                    .apply(LimitCount.limitCount(IntRange.upperBound(9)))
+            )
+        );
     }
 
     public LootTable.Builder makeNearStemDrops(Block block, Item fruit, Item twig){
-        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT);
-        return this.applyExplosionDecay(block, LootTable.builder()
-                /*
-                    Near Twig
-                 */
-                .pool(LootPool.builder().conditionally(RandomChanceLootCondition.builder(0.7f)).with(ItemEntry.builder(twig)).build())
-
-
-                /*
-                    Nears
-                 */
-                .pool(LootPool.builder()
-                        .conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create()
-                                .exactMatch(SoulBerryBushBlock.AGE, 3)
-                                .exactMatch(NearHangStemBlock.SUPPORTED, true))).with(ItemEntry.builder(fruit))
-
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2.0F, 3.0F)))
-                        .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE))))
-                .pool(LootPool.builder()
-                        .conditionally(BlockStatePropertyLootCondition.builder(block).properties(net.minecraft.predicate.StatePredicate.Builder.create()
-                        .exactMatch(SoulBerryBushBlock.AGE, 2)
-                                .exactMatch(NearHangStemBlock.SUPPORTED, true))).with(ItemEntry.builder(fruit))
-
-                .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1))))
-                .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
-
+        HolderLookup.RegistryLookup<Enchantment> impl = this.registryLookup.lookupOrThrow(Registries.ENCHANTMENT);
+        
+        return this.applyExplosionDecay(block, LootTable.lootTable()
+            //Near Twig
+            .pool(
+                LootPool
+                    .lootPool()
+                    .when(LootItemRandomChanceCondition.randomChance(0.7f))
+                    .add(LootItem.lootTableItem(twig))
+                    .build()
+            )
+            
+            //Nears
+            .pool(
+                LootPool
+                    .lootPool()
+                    .when(
+                        LootItemBlockStatePropertyCondition
+                            .hasBlockStateProperties(block)
+                            .setProperties(
+                                StatePropertiesPredicate.Builder
+                                    .properties()
+                                    .hasProperty(SoulBerryBushBlock.AGE, 3)
+                                    .hasProperty(NearHangStemBlock.SUPPORTED, true)
+                            )
+                    )
+                    .add(LootItem.lootTableItem(fruit))
+                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
+                    .apply(ApplyBonusCount.addUniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
+                    .build()
+            )
+            .pool(
+                LootPool
+                    .lootPool()
+                    .when(
+                        LootItemBlockStatePropertyCondition
+                            .hasBlockStateProperties(block)
+                            .setProperties(
+                                StatePropertiesPredicate.Builder
+                                    .properties()
+                                    .hasProperty(SoulBerryBushBlock.AGE, 2)
+                                    .hasProperty(NearHangStemBlock.SUPPORTED, true)
+                            )
+                    )
+                    .add(LootItem.lootTableItem(fruit))
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))).apply(ApplyBonusCount.addUniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
+                    .build()
+            )
         );
     }
 
-
-
     public LootTable.Builder makeBushDrops(Block block, Item fruit){
-        RegistryWrapper.Impl<Enchantment> impl = this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT);
-        return this.applyExplosionDecay(block, LootTable.builder().pool(LootPool.builder()
-                .conditionally(BlockStatePropertyLootCondition.builder(block).properties(net.minecraft.predicate.StatePredicate.Builder.create()
-                        .exactMatch(Properties.AGE_3, 3))).with(ItemEntry.builder(fruit))
-                .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2.0F, 3.0F)))
-                .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE))))
-                .pool(LootPool.builder().conditionally(BlockStatePropertyLootCondition.builder(NBlocks.SOUL_BERRY_BUSH).properties(net.minecraft.predicate.StatePredicate.Builder.create()
-                        .exactMatch(Properties.AGE_3, 2))).with(ItemEntry.builder(fruit))
-                .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F)))
-                .apply(ApplyBonusLootFunction.uniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))));
+	    HolderLookup.RegistryLookup<Enchantment> impl = this.registryLookup.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.applyExplosionDecay(
+            block,
+            LootTable
+                .lootTable()
+                .pool(
+	                LootPool
+                        .lootPool()
+	                    .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3)))
+	                    .add(LootItem.lootTableItem(fruit))
+	                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
+	                    .apply(ApplyBonusCount.addUniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
+                        .build()
+                )
+                .pool(
+                    LootPool
+                        .lootPool()
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(NBlocks.SOUL_BERRY_BUSH).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2)))
+                        .add(LootItem.lootTableItem(fruit))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
+                        .build()
+                )
+        );
     }
 }

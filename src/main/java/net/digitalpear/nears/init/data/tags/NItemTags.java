@@ -1,10 +1,10 @@
 package net.digitalpear.nears.init.data.tags;
 
 import net.digitalpear.nears.Nears;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 
 public class NItemTags {
     public static final TagKey<Item> NETHER_FRUITS = of("nether_fruits");
@@ -18,6 +18,6 @@ public class NItemTags {
     }
 
     private static TagKey<Item> compatTag(String modid,String id) {
-        return TagKey.of(RegistryKeys.ITEM, Identifier.of(modid, id));
+        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(modid, id));
     }
 }

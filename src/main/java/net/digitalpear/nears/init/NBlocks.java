@@ -2,94 +2,109 @@ package net.digitalpear.nears.init;
 
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.common.blocks.*;
-import net.minecraft.block.*;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.ColorCode;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.ColorRGBA;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Function;
 
 public class NBlocks {
-
+    //TODO: why not call NItems.registerItem?
+    //  because that makes NItems load first which initializes all the seed items with null values (blocks haven't been created yet)
+    //  which in turn crashes the game when you try to place any of the seed items down
+    //  in short: this method shouldn't even exist or be called here, just put a separate field in NItems!
     public static Item createBlockItem(Block block) {
-        return Items.register(block);
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, block.builtInRegistryHolder().key().identifier());
+        BlockItem item = new BlockItem(
+            block,
+            new Item.Properties()
+                .setId(key)
+                .useBlockDescriptionPrefix()
+                .requiredFeatures(block.requiredFeatures())
+        );
+        item.registerBlocks(Item.BY_BLOCK, item);
+        
+        return Registry.register(BuiltInRegistries.ITEM, key, item);
     }
 
-    private static RegistryKey<Block> keyOf(String id) {
-        return RegistryKey.of(RegistryKeys.BLOCK, Nears.id(id));
+    private static ResourceKey<Block> keyOf(String id) {
+        return ResourceKey.create(Registries.BLOCK, Nears.id(id));
     }
-    public static Block createBlockWithItem(String blockID, AbstractBlock.Settings settings) {
-        return createBlockWithItem(blockID, Block::new, settings);
+    public static Block createBlockWithItem(String blockID, BlockBehaviour.Properties properties) {
+        return createBlockWithItem(blockID, Block::new, properties);
     }
-    public static Block createBlockWithItem(String blockID, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        Block block = Blocks.register(keyOf(blockID), factory, settings);
+    public static Block createBlockWithItem(String blockID, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {
+        Block block = Blocks.register(keyOf(blockID), factory, properties);
         createBlockItem(block);
         return block;
     }
 
-    public static Block createBlockWithoutItem(String blockID, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        return Registry.register(Registries.BLOCK, Nears.id(blockID), factory.apply(settings.registryKey(keyOf(blockID))));
+    public static Block createBlockWithoutItem(String blockID, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
+        return Registry.register(BuiltInRegistries.BLOCK, Nears.id(blockID), factory.apply(settings.setId(keyOf(blockID))));
     }
 
     public static final Block NEAR_HANG_STEM = createBlockWithoutItem("near_hang_stem", NearHangStemBlock::new,
-            AbstractBlock.Settings.create().ticksRandomly().strength(0.8f, 0.6f).sounds(BlockSoundGroup.NETHER_STEM)
-                    .noCollision().nonOpaque());
+            BlockBehaviour.Properties.of().randomTicks().strength(0.8f, 0.6f).sound(SoundType.STEM)
+                    .noCollision().noOcclusion());
 
     public static final Block NEAR_HANG = createBlockWithoutItem("near_hang", NearHangBlock::new,
-            AbstractBlock.Settings.create().ticksRandomly().strength(0.8f, 0.6f).sounds(BlockSoundGroup.WART_BLOCK)
-                    .noCollision().nonOpaque());
+            BlockBehaviour.Properties.of().randomTicks().strength(0.8f, 0.6f).sound(SoundType.WART_BLOCK)
+                    .noCollision().noOcclusion());
 
-    public static final Block NEAR_TWIG_BLOCK = createBlockWithItem("near_twig_block", AbstractBlock.Settings.copy(Blocks.CRIMSON_HYPHAE).mapColor(MapColor.PALE_PURPLE));
+    public static final Block NEAR_TWIG_BLOCK = createBlockWithItem("near_twig_block", BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_HYPHAE).mapColor(MapColor.ICE));
 
 
 
 
     public static final Block FAAR_GROWTH = createBlockWithoutItem("faar_growth", FaarGrowthBlock::new,
-            AbstractBlock.Settings.copy(Blocks.TWISTING_VINES));
+            BlockBehaviour.Properties.ofFullCopy(Blocks.TWISTING_VINES));
 
-    public static final Block FAAR_BUNDLE = createBlockWithItem("faar_bundle", settings -> new FaarBundleBlock(new ColorCode(1622415), settings),AbstractBlock.Settings.create()
-            .mapColor(MapColor.BRIGHT_TEAL).strength(0.7F, 0.4F).jumpVelocityMultiplier(1.5f).sounds(BlockSoundGroup.WART_BLOCK));
+    public static final Block FAAR_BUNDLE = createBlockWithItem("faar_bundle", settings -> new FaarBundleBlock(new ColorRGBA(1622415), settings),BlockBehaviour.Properties.of()
+            .mapColor(MapColor.WARPED_WART_BLOCK).strength(0.7F, 0.4F).jumpFactor(1.5f).sound(SoundType.WART_BLOCK));
 
 
 
 
 
     public static final Block SOUL_BERRY_BUSH = createBlockWithoutItem("soul_berry_bush", SoulBerryBushBlock::new,
-            AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH)
-                    .mapColor(state -> state.get(SoulBerryBushBlock.AGE) == 3 ? MapColor.ORANGE : MapColor.TERRACOTTA_BROWN)
-                    .ticksRandomly()
+            BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH)
+                    .mapColor(state -> state.getValue(SoulBerryBushBlock.AGE) == 3 ? MapColor.COLOR_ORANGE : MapColor.TERRACOTTA_BROWN)
+                    .randomTicks()
                     .noCollision()
-                    .sounds(BlockSoundGroup.SWEET_BERRY_BUSH)
-                    .offset(AbstractBlock.OffsetType.XZ)
-                    .luminance(state -> state.get(SoulBerryBushBlock.AGE) * 2));
+                    .sound(SoundType.SWEET_BERRY_BUSH)
+                    .offsetType(BlockBehaviour.OffsetType.XZ)
+                    .lightLevel(state -> state.getValue(SoulBerryBushBlock.AGE) * 2));
 
 
     public static final Block CINDER_GRASS = createBlockWithItem("cinder_grass", CinderGrassBlock::new,
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.GRAY)
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
                     .noCollision()
-                    .breakInstantly()
-                    .sounds(BlockSoundGroup.ROOTS)
-                    .offset(AbstractBlock.OffsetType.XZ).replaceable());
+                    .instabreak()
+                    .sound(SoundType.ROOTS)
+                    .offsetType(BlockBehaviour.OffsetType.XZ).replaceable());
 
     public static final Block POTTED_CINDER_GRASS = createBlockWithoutItem("potted_cinder_grass", settings ->  new FlowerPotBlock(CINDER_GRASS, settings),
-            AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY));
 
 
     public static final Block CINDER_GRAIN = createBlockWithoutItem("cinder_grain", CInderGrainCropBlock::new,
-            AbstractBlock.Settings.create()
-            .mapColor(MapColor.GRAY).noCollision().breakInstantly().sounds(BlockSoundGroup.ROOTS));
+            BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_GRAY).noCollision().instabreak().sound(SoundType.ROOTS));
 
     public static final Block CINDER_BALE = createBlockWithItem("cinder_bale", HayBlock::new,
-            AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).mapColor(MapColor.GRAY));
+            BlockBehaviour.Properties.ofFullCopy(Blocks.HAY_BLOCK).mapColor(MapColor.COLOR_GRAY));
 
-
+    
     public static void init() {
     }
 }

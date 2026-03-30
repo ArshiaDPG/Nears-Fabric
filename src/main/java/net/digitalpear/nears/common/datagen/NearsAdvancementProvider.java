@@ -4,18 +4,17 @@ import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NItemTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.minecraft.advancement.*;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.advancement.criterion.ItemCriterion;
-import net.minecraft.data.advancement.AdvancementTabGenerator;
-import net.minecraft.item.Item;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.text.Text;
+import net.minecraft.advancements.*;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemUsedOnLocationTrigger;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.advancements.AdvancementSubProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -23,104 +22,112 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 public class NearsAdvancementProvider extends FabricAdvancementProvider {
-
-
-    public NearsAdvancementProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public NearsAdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
 
     @Override
-    public void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
-        RegistryEntryLookup<Item> itemRegistry = registryLookup.getOrThrow(RegistryKeys.ITEM);
+    public void generateAdvancement(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
+        HolderLookup.RegistryLookup<Item> itemRegistry = registryLookup.lookupOrThrow(Registries.ITEM);
 
-        AdvancementEntry dummy = AdvancementTabGenerator.reference("nether/root");
+        AdvancementHolder dummy = AdvancementSubProvider.createPlaceholder("nether/root");
+        AdvancementHolder symbiotic = Advancement.Builder
+            .advancement()
+            .parent(dummy)
+            .display(
+                NItems.NEAR,
+                Component.translatable("advancements.nether.symbiotic.title"),
+                Component.translatable("advancements.nether.symbiotic.description"),
+                null, // children to parent advancements don't need a background set
+                AdvancementType.TASK,
+                true,
+                true,
+                false
+            )
+            .rewards(AdvancementRewards.Builder.experience(2))
+            .addCriterion("got_nether_fruit", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(itemRegistry, NItemTags.NETHER_FRUITS).build()))
+            .save(consumer, Nears.MOD_ID + ":nether/symbiotic");
 
-        AdvancementEntry symbiotic = Advancement.Builder.create().parent(dummy)
-                .display(
-                        NItems.NEAR,
-                        Text.translatable("advancements.nether.symbiotic.title"),
-                        Text.translatable("advancements.nether.symbiotic.description"),
-                        null, // children to parent advancements don't need a background set
-                        AdvancementFrame.TASK,
-                        true,
-                        true,
-                        false
-                )
-                .rewards(AdvancementRewards.Builder.experience(2))
-                .criterion("got_nether_fruit", InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(itemRegistry, NItemTags.NETHER_FRUITS).build()))
-                .build(consumer, Nears.MOD_ID + ":nether/symbiotic");
-
-        AdvancementEntry ohHowFaarWeGo = Advancement.Builder.create().parent(symbiotic)
-                .display(
-                        NItems.FAAR,
-                        Text.translatable("advancements.nether.oh_how_faar_we_go.title"),
-                        Text.translatable("advancements.nether.oh_how_faar_we_go.description"),
-                        null, // children to parent advancements don't need a background set
-                        AdvancementFrame.CHALLENGE,
-                        true,
-                        true,
-                        false
-                )
-                .rewards(AdvancementRewards.Builder.experience(69))
-                .criterion("get_near", InventoryChangedCriterion.Conditions.items(NItems.NEAR))
-                .criterion("get_faar", InventoryChangedCriterion.Conditions.items(NItems.FAAR))
-                .criterion("get_soul_berries", InventoryChangedCriterion.Conditions.items(NItems.SOUL_BERRIES))
-                .build(consumer,  Nears.MOD_ID + ":nether/oh_how_faar_we_go");
-
-        AdvancementEntry aPieForTheSoul = makeItemBasedAdvancement(consumer,
-                "a_pie_for_the_soul",
-                NItems.SOULLESS_PASTRY,
-                AdvancementFrame.TASK,
-                InventoryChangedCriterion.Conditions.items(NItems.SOULLESS_PASTRY),
-                "get_soulless_pastry",
-                2, symbiotic, false);
-
-        AdvancementEntry volcanicBotany = makeAdvancement(consumer,
-                "volcanic_botany",
-                NItems.CINDER_SEEDS,
-                AdvancementFrame.TASK,
-                ItemCriterion.Conditions.createPlacedBlock(NBlocks.CINDER_GRAIN),
-                "cinder_seeds",
-                2, dummy);
+        AdvancementHolder ohHowFaarWeGo = Advancement.Builder
+            .advancement()
+            .parent(symbiotic)
+            .display(
+                NItems.FAAR,
+                Component.translatable("advancements.nether.oh_how_faar_we_go.title"),
+                Component.translatable("advancements.nether.oh_how_faar_we_go.description"),
+                null, // children to parent advancements don't need a background set
+                AdvancementType.CHALLENGE,
+                true,
+                true,
+                false
+            )
+            .rewards(AdvancementRewards.Builder.experience(69))
+            .addCriterion("get_near", InventoryChangeTrigger.TriggerInstance.hasItems(NItems.NEAR))
+            .addCriterion("get_faar", InventoryChangeTrigger.TriggerInstance.hasItems(NItems.FAAR))
+            .addCriterion("get_soul_berries", InventoryChangeTrigger.TriggerInstance.hasItems(NItems.SOUL_BERRIES))
+            .save(consumer, Nears.MOD_ID + ":nether/oh_how_faar_we_go");
+        
+        AdvancementHolder aPieForTheSoul = makeItemBasedAdvancement(
+            consumer,
+            "a_pie_for_the_soul",
+            NItems.SOULLESS_PASTRY,
+            AdvancementType.TASK,
+            InventoryChangeTrigger.TriggerInstance.hasItems(NItems.SOULLESS_PASTRY),
+            "get_soulless_pastry",
+            2, symbiotic, false
+        );
+        
+        AdvancementHolder volcanicBotany = makeAdvancement(
+            consumer,
+            "volcanic_botany",
+            NItems.CINDER_SEEDS,
+            AdvancementType.TASK,
+            ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(NBlocks.CINDER_GRAIN),
+            "cinder_seeds",
+            2, dummy
+        );
     }
 
-    public AdvancementEntry makeItemBasedAdvancement(Consumer<AdvancementEntry> consumer, String name, Item icon, AdvancementFrame frame, AdvancementCriterion<InventoryChangedCriterion.Conditions> conditions, String criterionNames, int reward, AdvancementEntry parent, boolean hidden){
-        return Advancement.Builder.create().parent(parent)
-                .display(
-                        icon,
-                        Text.translatable("advancements.nether." + name + ".title"),
-                        Text.translatable("advancements.nether." + name + ".description"),
-                        null,
-                        frame,
-                        true,
-                        true,
-                        hidden
-                )
-                .rewards(AdvancementRewards.Builder.experience(reward))
-                .criterion(criterionNames, conditions)
-                .build(consumer, Nears.MOD_ID + ":nether/" + name);
+    public AdvancementHolder makeItemBasedAdvancement(Consumer<AdvancementHolder> consumer, String name, Item icon, AdvancementType frame, Criterion<InventoryChangeTrigger.TriggerInstance> conditions, String criterionNames, int reward, AdvancementHolder parent, boolean hidden){
+        return Advancement.Builder
+            .advancement()
+            .parent(parent)
+            .display(
+                icon,
+                Component.translatable("advancements.nether." + name + ".title"),
+                Component.translatable("advancements.nether." + name + ".description"),
+                null,
+                frame,
+                true,
+                true,
+                hidden
+            )
+            .rewards(AdvancementRewards.Builder.experience(reward))
+            .addCriterion(criterionNames, conditions)
+            .save(consumer, Nears.MOD_ID + ":nether/" + name);
     }
 
 
-    public AdvancementEntry makeAdvancement(Consumer<AdvancementEntry> consumer, String name, Item icon, AdvancementFrame frame, AdvancementCriterion<ItemCriterion.Conditions> conditions, String criterionNames, int reward, AdvancementEntry parent, boolean hidden){
-        return Advancement.Builder.create().parent(parent)
-                .display(
-                        icon,
-                        Text.translatable("advancements.nether." + name + ".title"),
-                        Text.translatable("advancements.nether." + name + ".description"),
-                        null,
-                        frame,
-                        true,
-                        true,
-                        hidden
-                )
-                .rewards(AdvancementRewards.Builder.experience(reward))
-                .criterion(criterionNames, conditions)
-                .build(consumer, Nears.MOD_ID + ":nether/" + name);
+    public AdvancementHolder makeAdvancement(Consumer<AdvancementHolder> consumer, String name, Item icon, AdvancementType frame, Criterion<ItemUsedOnLocationTrigger.TriggerInstance> conditions, String criterionNames, int reward, AdvancementHolder parent, boolean hidden){
+        return Advancement.Builder
+            .advancement()
+            .parent(parent)
+            .display(
+                icon,
+                Component.translatable("advancements.nether." + name + ".title"),
+                Component.translatable("advancements.nether." + name + ".description"),
+                null,
+                frame,
+                true,
+                true,
+                hidden
+            )
+            .rewards(AdvancementRewards.Builder.experience(reward))
+            .addCriterion(criterionNames, conditions)
+            .save(consumer, Nears.MOD_ID + ":nether/" + name);
     }
-    public AdvancementEntry makeAdvancement(Consumer<AdvancementEntry> consumer, String name, Item icon, AdvancementFrame frame, AdvancementCriterion<ItemCriterion.Conditions> conditions, String criterionNames, int reward, AdvancementEntry parent){
+    
+    public AdvancementHolder makeAdvancement(Consumer<AdvancementHolder> consumer, String name, Item icon, AdvancementType frame, Criterion<ItemUsedOnLocationTrigger.TriggerInstance> conditions, String criterionNames, int reward, AdvancementHolder parent){
         return makeAdvancement(consumer, name, icon, frame, conditions, criterionNames, reward, parent, false);
     }
-
-
 }

@@ -1,9 +1,9 @@
 package net.digitalpear.nears.init.data.tags;
 
 import net.digitalpear.nears.Nears;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
 
 public class NBiomeTags {
 
@@ -14,6 +14,6 @@ public class NBiomeTags {
 
 
     private static TagKey<Biome> of(String id) {
-        return TagKey.of(RegistryKeys.BIOME, Nears.id(id));
+        return TagKey.create(Registries.BIOME, Nears.id(id));
     }
 }

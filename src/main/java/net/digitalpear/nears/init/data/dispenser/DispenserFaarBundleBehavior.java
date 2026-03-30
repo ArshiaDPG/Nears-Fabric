@@ -2,38 +2,38 @@ package net.digitalpear.nears.init.data.dispenser;
 
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Position;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
 
-public class DispenserFaarBundleBehavior extends FallibleItemDispenserBehavior {
+public class DispenserFaarBundleBehavior extends OptionalDispenseItemBehavior {
     @Override
-    protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-        Direction direction = pointer.state().get(DispenserBlock.FACING);
-        BlockPos blockPos = pointer.pos().offset(direction);
-        World world = pointer.world();
-        Random random = world.getRandom();
-
-        if (world.getBlockState(blockPos).isAir() || world.getBlockState(blockPos).isLiquid()){
-            stack.split(1);
-            world.setBlockState(blockPos, NBlocks.FAAR_BUNDLE.getDefaultState(), 3);
+    protected ItemStack execute(BlockSource source, ItemStack dispensed) {
+        Direction direction = source.state().getValue(DispenserBlock.FACING);
+        BlockPos blockPos = source.pos().relative(direction);
+        Level level = source.level();
+        RandomSource random = level.getRandom();
+        
+        if (level.getBlockState(blockPos).isAir() || level.getBlockState(blockPos).liquid()){
+            dispensed.split(1);
+            level.setBlock(blockPos, NBlocks.FAAR_BUNDLE.defaultBlockState(), 3);
             this.setSuccess(true);
         }
-        else if (!world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite())){
-            int faarNumber = random.nextBetween(3, 7);
-            Position position = DispenserBlock.getOutputLocation(pointer);
-            stack.split(1);
+        else if (!level.getBlockState(blockPos).isFaceSturdy(level, blockPos, direction.getOpposite())){
+            int faarNumber = random.nextIntBetweenInclusive(3, 7);
+            Position position = DispenserBlock.getDispensePosition(source);
+            dispensed.split(1);
             ItemStack output = new ItemStack(NItems.FAAR, faarNumber);
-            spawnItem(world, output, 6, direction, position);
+            spawnItem(level, output, 6, direction, position);
             this.setSuccess(true);
         }
-
-        return stack;
+        
+        return dispensed;
     }
 }

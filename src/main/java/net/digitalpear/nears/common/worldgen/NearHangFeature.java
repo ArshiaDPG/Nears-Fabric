@@ -6,14 +6,15 @@ import net.digitalpear.nears.common.blocks.NearHangStemBlock;
 import net.digitalpear.nears.common.worldgen.config.NearHangFeatureConfig;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+
 
 public class NearHangFeature extends Feature<NearHangFeatureConfig> {
     public NearHangFeature(Codec<NearHangFeatureConfig> configCodec) {
@@ -21,20 +22,22 @@ public class NearHangFeature extends Feature<NearHangFeatureConfig> {
     }
 
     @Override
-    public boolean generate(FeatureContext<NearHangFeatureConfig> context) {
-        NearHangFeatureConfig config = context.getConfig();
-        BlockPos origin = context.getOrigin();
-        StructureWorldAccess world = context.getWorld();
-        Random random = context.getRandom();
+    public boolean place(FeaturePlaceContext<NearHangFeatureConfig> context) {
+        NearHangFeatureConfig config = context.config();
+        BlockPos origin = context.origin();
+        WorldGenLevel level = context.level();
+        RandomSource random = context.random();
         boolean generated = false;
         int radius = config.radius;
-        for (BlockPos pos : BlockPos.iterate(origin.add(-radius, -radius, -radius), origin.add(radius, radius, radius))) {
-            if (isSupported(world, pos) && (random.nextFloat() > 0.93)){
-                generateNearHang(world, pos, random);
+        
+        for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-radius, -radius, -radius), origin.offset(radius, radius, radius))) {
+            if (isSupported(level, pos) && (random.nextFloat() > 0.93)){
+                generateNearHang(level, pos, random);
+                //TODO: this cannot be right
                 if (!generated){
-                    world.getRegistryManager().getOptional(RegistryKeys.CONFIGURED_FEATURE).flatMap((registry) ->
-                            registry.getEntry(config.accompanyingFeature.getKey().get().getValue())).ifPresent((reference) ->
-                            reference.value().generate(world, context.getGenerator(), random, origin.up()));
+                    level.registryAccess().get(Registries.CONFIGURED_FEATURE).flatMap((registry) ->
+                            registry.value().get(config.accompanyingFeature.unwrapKey().get().identifier())).ifPresent((reference) ->
+                            reference.value().place(level, context.chunkGenerator(), random, origin.above()));
                 }
                 generated = true;
             }
@@ -43,32 +46,33 @@ public class NearHangFeature extends Feature<NearHangFeatureConfig> {
         return generated;
     }
 
-    public static void generateNearHang(StructureWorldAccess world, BlockPos pos, Random random){
-        int length = random.nextBetween(6, 8);
-        world.setBlockState(pos, Blocks.NETHER_WART_BLOCK.getDefaultState(), 3);
+    public static void generateNearHang(WorldGenLevel level, BlockPos pos, RandomSource random){
+        int length = random.nextIntBetweenInclusive(6, 8);
+        
+        level.setBlock(pos, Blocks.NETHER_WART_BLOCK.defaultBlockState(), 3);
         for (int i = 1; i < length; i++){
-            if (world.getBlockState(pos.down(i + 1)).isAir() && (pos.down().getY() > world.getBottomY())){
-                world.setBlockState(pos.down(i), NBlocks.NEAR_HANG_STEM.getDefaultState()
-                        .with(NearHangStemBlock.AGE, random.nextInt(3))
-                        .with(NearHangStemBlock.SUPPORTED, world.getBlockState(pos.down(i-1)).isOf(NBlocks.NEAR_HANG_STEM)), 3);
+            if (level.getBlockState(pos.below(i + 1)).isAir() && (pos.below().getY() > level.getMinY())){
+                level.setBlock(pos.below(i), NBlocks.NEAR_HANG_STEM.defaultBlockState()
+                        .setValue(NearHangStemBlock.AGE, random.nextInt(3))
+                        .setValue(NearHangStemBlock.SUPPORTED, level.getBlockState(pos.below(i-1)).is(NBlocks.NEAR_HANG_STEM)), 3);
             }
             else{
-                world.setBlockState(pos.down(i), NBlocks.NEAR_HANG.getDefaultState().with(NearHangBlock.MATURED, true).with(NearHangBlock.AGE, 5), 3);
+                level.setBlock(pos.below(i), NBlocks.NEAR_HANG.defaultBlockState().setValue(NearHangBlock.MATURED, true).setValue(NearHangBlock.AGE, 5), 3);
                 return;
             }
         }
-        world.setBlockState(pos.down(length), NBlocks.NEAR_HANG.getDefaultState().with(NearHangBlock.MATURED, true).with(NearHangBlock.AGE, 5), 3);
+        level.setBlock(pos.below(length), NBlocks.NEAR_HANG.defaultBlockState().setValue(NearHangBlock.MATURED, true).setValue(NearHangBlock.AGE, 5), 3);
     }
-    public static boolean isSupported(StructureWorldAccess world, BlockPos pos){
-        for (BlockPos pos1 : BlockPos.iterate(pos.down(), pos.down(5))) {
-            if (!world.getBlockState(pos1).isAir()) {
+    public static boolean isSupported(WorldGenLevel level, BlockPos pos){
+        for (BlockPos pos1 : BlockPos.betweenClosed(pos.below(), pos.below(5))) {
+            if (!level.getBlockState(pos1).isAir()) {
                 return false;
             }
         }
-        return isBlockStable(world, pos) && isBlockStable(world, pos.up());
+        return isBlockStable(level, pos) && isBlockStable(level, pos.above());
     }
 
-    public static boolean isBlockStable(StructureWorldAccess world, BlockPos pos){
-        return (world.getBlockState(pos.up()).isIn(BlockTags.BASE_STONE_NETHER) || world.getBlockState(pos.up()).isIn(NBlockTags.NEAR_HANG_PLANTABLE_ON));
+    public static boolean isBlockStable(WorldGenLevel level, BlockPos pos){
+        return (level.getBlockState(pos.above()).is(BlockTags.BASE_STONE_NETHER) || level.getBlockState(pos.above()).is(NBlockTags.NEAR_HANG_PLANTABLE_ON));
     }
 }

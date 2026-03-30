@@ -3,129 +3,133 @@ package net.digitalpear.nears.common.blocks;
 import com.mojang.serialization.MapCodec;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class NearHangStemBlock extends PlantBlock implements Fertilizable {
-    public static final MapCodec<NearHangStemBlock> CODEC = createCodec(NearHangStemBlock::new);
-    public static final BooleanProperty SUPPORTED = BooleanProperty.of("supported");
-    public static final IntProperty AGE = Properties.AGE_3;
+public class NearHangStemBlock extends VegetationBlock implements BonemealableBlock {
+    public static final MapCodec<NearHangStemBlock> CODEC = simpleCodec(NearHangStemBlock::new);
+    public static final BooleanProperty SUPPORTED = BooleanProperty.create("supported");
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
+    protected static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
 
-    public NearHangStemBlock(Settings settings) {
+    public NearHangStemBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0).with(SUPPORTED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0).setValue(SUPPORTED, false));
     }
 
     @Override
-    protected MapCodec<? extends PlantBlock> getCodec() {
+    protected MapCodec<? extends VegetationBlock> codec() {
         return CODEC;
     }
 
     @Override
-    public boolean hasRandomTicks(BlockState state) {
-        return state.get(SUPPORTED);
+    public boolean isRandomlyTicking(BlockState state) {
+        return state.getValue(SUPPORTED);
     }
-
+    
     @Nullable
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockPos pos = ctx.getBlockPos();
-        World world = ctx.getWorld();
-        return this.getDefaultState().with(SUPPORTED, world.getBlockState(pos.up()).isOf(this));
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockPos pos = ctx.getClickedPos();
+        Level world = ctx.getLevel();
+        return this.defaultBlockState().setValue(SUPPORTED, world.getBlockState(pos.above()).is(this));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
-
+    
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        InteractionHand hand = player.getUsedItemHand();
 
-        if (state.get(AGE) < 3 && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) {
-            return ActionResult.PASS;
-        } if (state.get(AGE) > 1){
-            world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
-            player.swingHand(hand);
-            dropStack(world, pos, new ItemStack(NItems.NEAR, getNearCount(state.get(AGE), world.getRandom())));
-            world.setBlockState(pos, state.with(AGE, 1), 3);
+        if (state.getValue(AGE) < 3 && player.getItemInHand(hand).is(Items.BONE_MEAL)) {
+            return InteractionResult.PASS;
+        } if (state.getValue(AGE) > 1){
+            level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+            player.swing(hand);
+            popResource(level, pos, new ItemStack(NItems.NEAR, getNearCount(state.getValue(AGE), level.getRandom())));
+            level.setBlock(pos, state.setValue(AGE, 1), 3);
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-        return super.onUse(state, world, pos, player, hit);
+        return super.useWithoutItem(state, level, pos, player, hit);
     }
 
 
-    private static int getNearCount(int age, Random random){
+    private static int getNearCount(int age, RandomSource random){
         if (age == 2){
             return 1;
         }
-        return random.nextBetween(2, 3);
+        return random.nextIntBetweenInclusive(2, 3);
     }
-
+    
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!world.isClient() && random.nextInt(100) < 12 && state.get(AGE) < 3){
-            world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!level.isClientSide() && random.nextInt(100) < 12 && state.getValue(AGE) < 3){
+            level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
         }
     }
-
+    
     @Override
-    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(NItems.NEAR_SPORES);
     }
-
+    
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return canPlantOnTop(world.getBlockState(pos.up()), world, pos);
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return mayPlaceOn(level.getBlockState(pos.above()), level, pos);
     }
-
+    
     @Override
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(NBlockTags.NEAR_HANG_PLANTABLE_ON) || floor.isOf(this);
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter level, BlockPos pos) {
+        return floor.is(NBlockTags.NEAR_HANG_PLANTABLE_ON) || floor.is(this);
     }
-
+    
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SUPPORTED);
         builder.add(AGE);
     }
-
+    
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
-        return state.get(SUPPORTED);
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+        return state.getValue(SUPPORTED);
     }
-
+    
     @Override
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-        return state.get(SUPPORTED);
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+        return state.getValue(SUPPORTED);
     }
-
+    
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
     }
 }

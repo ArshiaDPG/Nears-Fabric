@@ -4,135 +4,205 @@ import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NItemTags;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.recipe.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.*;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class NearsRecipeGenerator extends RecipeGenerator {
+public class NearsRecipeGenerator extends RecipeProvider {
     public static Map<Item, Item> COLOR_MELTING_MAP = new HashMap<>();
-    RegistryEntryLookup<Item> itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
+    HolderLookup.RegistryLookup<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
 
-    public NearsRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
-        super(registries, exporter);
+    public NearsRecipeGenerator(HolderLookup.Provider registries, RecipeOutput output) {
+        super(registries, output);
     }
 
     @Override
-    public void generate() {
-        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.MISC, NItems.SOUL_BERRY_PIPS)
-                .input(NItems.SOUL_BERRIES)
-                .criterion("has_soul_berries", conditionsFromItem(NItems.SOUL_BERRIES))
-                .offerTo(exporter);
+    public void buildRecipes() {
+        ShapelessRecipeBuilder
+	        .shapeless(itemLookup, RecipeCategory.MISC, NItems.SOUL_BERRY_PIPS)
+	        .requires(NItems.SOUL_BERRIES)
+	        .unlockedBy("has_soul_berries", has(NItems.SOUL_BERRIES))
+	        .save(output);
+	    
+	    ShapelessRecipeBuilder
+		    .shapeless(itemLookup, RecipeCategory.MISC, NItems.FAAR_SEEDS)
+		    .requires(NItems.FAAR)
+		    .unlockedBy("has_faar", has(NItems.FAAR))
+		    .save(output);
+	    
+	    ShapelessRecipeBuilder
+		    .shapeless(itemLookup, RecipeCategory.MISC, NItems.NEAR_SPORES)
+		    .requires(NItems.NEAR)
+		    .unlockedBy("has_near", has(NItems.NEAR))
+		    .save(output);
+	    
+	    ShapedRecipeBuilder
+		    .shaped(itemLookup, RecipeCategory.DECORATIONS, NBlocks.FAAR_BUNDLE)
+		    .define('F', NItems.FAAR)
+	        .pattern("FFF")
+	        .pattern("FFF")
+	        .pattern("FFF")
+	        .unlockedBy("has_faar", has(NItems.FAAR))
+	        .save(output);
+	    
+	    ShapelessRecipeBuilder
+		    .shapeless(itemLookup, RecipeCategory.FOOD, NItems.SOULLESS_PASTRY)
+		    .requires(NItems.SOUL_BERRIES)
+		    .requires(Items.SUGAR)
+		    .requires(Items.EGG)
+		    .unlockedBy("has_soul_berries", has(NItems.SOUL_BERRIES))
+		    .save(output);
+	    
+	    ShapelessRecipeBuilder
+		    .shapeless(itemLookup, RecipeCategory.FOOD, NItems.GLOW_SALAD)
+		    .requires(NItems.SOUL_BERRIES)
+		    .requires(Items.GLOW_BERRIES)
+		    .requires(Items.BOWL)
+		    .unlockedBy("has_bowl", has(Items.BOWL))
+		    .save(output);
+	    
+	    ShapelessRecipeBuilder
+		    .shapeless(itemLookup, RecipeCategory.FOOD, NItems.NETHER_STEW)
+	        .requires(NItems.SOUL_BERRIES)
+	        .requires(NItems.FAAR)
+	        .requires(NItems.NEAR)
+	        .requires(Items.BOWL)
+	        .requires(Items.NETHER_WART)
+	        .unlockedBy(
+				"has_nether_fruit",
+		        InventoryChangeTrigger.TriggerInstance.hasItems(
+					ItemPredicate.Builder
+						.item()
+						.of(itemLookup, NItemTags.NETHER_FRUITS)
+						.build()
+		        )
+	        )
+	        .save(output);
+        
+        nineBlockStorageRecipes(RecipeCategory.MISC, NItems.CINDER_GRAIN, RecipeCategory.BUILDING_BLOCKS, NBlocks.CINDER_BALE);
 
-        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.MISC, NItems.FAAR_SEEDS)
-                .input(NItems.FAAR)
-                .criterion("has_faar", conditionsFromItem(NItems.FAAR))
-                .offerTo(exporter);
-
-        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.MISC, NItems.NEAR_SPORES)
-                .input(NItems.NEAR)
-                .criterion("has_near", conditionsFromItem(NItems.NEAR))
-                .offerTo(exporter);
-
-        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.DECORATIONS, NBlocks.FAAR_BUNDLE)
-                .input('F', NItems.FAAR)
-                .pattern("FFF")
-                .pattern("FFF")
-                .pattern("FFF")
-                .criterion("has_faar", conditionsFromItem(NItems.FAAR))
-                .offerTo(exporter);
-
-        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.FOOD, NItems.SOULLESS_PASTRY)
-                .input(NItems.SOUL_BERRIES)
-                .input(Items.SUGAR)
-                .input(Items.EGG)
-                .criterion("has_soul_berries", conditionsFromItem(NItems.SOUL_BERRIES))
-                .offerTo(exporter);
-
-        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.FOOD, NItems.GLOW_SALAD)
-                .input(NItems.SOUL_BERRIES)
-                .input(Items.GLOW_BERRIES)
-                .input(Items.BOWL)
-                .criterion("has_bowl", conditionsFromItem(Items.BOWL))
-                .offerTo(exporter);
-
-        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.FOOD, NItems.NETHER_STEW)
-                .input(NItems.SOUL_BERRIES)
-                .input(NItems.FAAR)
-                .input(NItems.NEAR)
-                .input(Items.BOWL)
-                .input(Items.NETHER_WART)
-                .criterion("has_nether_fruit", InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(itemLookup, NItemTags.NETHER_FRUITS).build()))
-                .offerTo(exporter);
-
-        offerReversibleCompactingRecipes(RecipeCategory.MISC, NItems.CINDER_GRAIN, RecipeCategory.BUILDING_BLOCKS, NBlocks.CINDER_BALE);
-
-        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.FOOD, NItems.CINDER_SANGAK)
-                .input('G', NItems.CINDER_GRAIN)
-                .pattern("GGG")
-                .criterion("has_cinder_grain", conditionsFromItem(NItems.CINDER_GRAIN))
-                .offerTo(exporter);
+        ShapedRecipeBuilder
+	        .shaped(itemLookup, RecipeCategory.FOOD, NItems.CINDER_SANGAK)
+            .define('G', NItems.CINDER_GRAIN)
+            .pattern("GGG")
+            .unlockedBy("has_cinder_grain", has(NItems.CINDER_GRAIN))
+            .save(output);
 
         COLOR_MELTING_MAP.forEach((fruit, dye) -> {
-            CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(fruit),
+            SimpleCookingRecipeBuilder
+                .smelting(
+                    Ingredient.of(fruit),
                     RecipeCategory.DECORATIONS,
+                    CookingBookCategory.BLOCKS, //TODO: ???
                     dye,
                     0.15f,
-                    200).criterion(hasItem(fruit), conditionsFromItem(fruit)).offerTo(exporter, keyOf(getItemPath(dye) + "_from_smelting_" + getItemPath(fruit)));
+                    200
+                )
+                .unlockedBy(getHasName(fruit), has(fruit))
+                .save(output, keyOf(getItemName(dye) + "_from_smelting_" + getItemName(fruit)));
 
-            CookingRecipeJsonBuilder.createSmoking(Ingredient.ofItems(fruit),
+            SimpleCookingRecipeBuilder
+                .smoking(
+                    Ingredient.of(fruit),
                     RecipeCategory.DECORATIONS,
                     dye,
                     0.15f,
-                    100).criterion(hasItem(fruit), conditionsFromItem(fruit)).offerTo(exporter, keyOf(getItemPath(dye) + "_from_smoking_" + getItemPath(fruit)));
+                    100
+                )
+                .unlockedBy(getHasName(fruit), has(fruit))
+                .save(output, keyOf(getItemName(dye) + "_from_smoking_" + getItemName(fruit)));
 
-            CookingRecipeJsonBuilder.createCampfireCooking(Ingredient.ofItems(fruit),
+            SimpleCookingRecipeBuilder
+                .campfireCooking(
+                    Ingredient.of(fruit),
                     RecipeCategory.DECORATIONS,
                     dye,
                     0.15f,
-                    600).criterion(hasItem(fruit), conditionsFromItem(fruit)).offerTo(exporter, keyOf(getItemPath(dye) + "_from_campfire_cooking"));
+                    600
+                )
+                .unlockedBy(getHasName(fruit), has(fruit))
+                .save(output, keyOf(getItemName(dye) + "_from_campfire_cooking"));
 
         });
 
-        makeVanillaWheatRecipes(exporter);
+        makeVanillaWheatRecipes(output);
 
-        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, NBlocks.NEAR_TWIG_BLOCK, 1)
-                .input('#', NItems.NEAR_TWIG)
-                .pattern("###")
-                .pattern("###")
-                .pattern("###")
-                .criterion("has_log", conditionsFromItem(NItems.NEAR_TWIG)).offerTo(exporter);
+        ShapedRecipeBuilder
+            .shaped(itemLookup, RecipeCategory.BUILDING_BLOCKS, NBlocks.NEAR_TWIG_BLOCK, 1)
+            .define('#', NItems.NEAR_TWIG)
+            .pattern("###")
+            .pattern("###")
+            .pattern("###")
+            .unlockedBy("has_log", has(NItems.NEAR_TWIG)).save(output);
 
-        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Blocks.CRIMSON_PLANKS, 2)
-                .input(NBlocks.NEAR_TWIG_BLOCK).group("planks")
-                .criterion(hasItem(NBlocks.NEAR_TWIG_BLOCK), conditionsFromItem(NBlocks.NEAR_TWIG_BLOCK))
-                .offerTo(exporter);
+        ShapelessRecipeBuilder
+            .shapeless(itemLookup, RecipeCategory.BUILDING_BLOCKS, Blocks.CRIMSON_PLANKS, 2)
+            .requires(NBlocks.NEAR_TWIG_BLOCK).group("planks")
+            .unlockedBy(getHasName(NBlocks.NEAR_TWIG_BLOCK), has(NBlocks.NEAR_TWIG_BLOCK))
+            .save(output);
     }
 
-    public RegistryKey<Recipe<?>> keyOf(String name){
-        return RegistryKey.of(RegistryKeys.RECIPE, Nears.id(name));
+    public ResourceKey<Recipe<?>> keyOf(String name){
+        return ResourceKey.create(Registries.RECIPE, Nears.id(name));
     }
-    public void makeVanillaWheatRecipes(RecipeExporter exporter){
-        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.REDSTONE, Blocks.TARGET).input('H', NBlocks.CINDER_BALE).input('R', Items.REDSTONE).pattern(" R ").pattern("RHR").pattern(" R ").criterion("has_redstone", conditionsFromItem(Items.REDSTONE)).criterion("has_cinder_bale", conditionsFromItem(NBlocks.CINDER_BALE)).offerTo(exporter, fromBale(Blocks.TARGET));
-        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_MUD, 1).input(Blocks.MUD).input(NItems.CINDER_GRAIN).criterion("has_mud", conditionsFromItem(Blocks.MUD)).offerTo(exporter, fromGrain(Items.PACKED_MUD));
-        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.FOOD, Blocks.CAKE).input('A', Items.MILK_BUCKET).input('B', Items.SUGAR).input('C', NItems.CINDER_GRAIN).input('E', Items.EGG).pattern("AAA").pattern("BEB").pattern("CCC").criterion("has_egg", conditionsFromItem(Items.EGG)).offerTo(exporter, fromGrain(Items.CAKE));
-        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.FOOD, Items.COOKIE, 8).input('#', NItems.CINDER_GRAIN).input('X', Items.COCOA_BEANS).pattern("#X#").criterion("has_cocoa", conditionsFromItem(Items.COCOA_BEANS)).offerTo(exporter, fromGrain(Items.COOKIE));
+    public void makeVanillaWheatRecipes(RecipeOutput output){
+        ShapedRecipeBuilder
+            .shaped(itemLookup, RecipeCategory.REDSTONE, Blocks.TARGET)
+            .define('H', NBlocks.CINDER_BALE)
+	        .define('R', Items.REDSTONE)
+	        .pattern(" R ")
+	        .pattern("RHR")
+	        .pattern(" R ")
+	        .unlockedBy("has_redstone", has(Items.REDSTONE))
+	        .unlockedBy("has_cinder_bale", has(NBlocks.CINDER_BALE))
+	        .save(output, fromBale(Blocks.TARGET));
+		
+        ShapelessRecipeBuilder
+	        .shapeless(itemLookup, RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_MUD, 1)
+	        .requires(Blocks.MUD)
+	        .requires(NItems.CINDER_GRAIN)
+	        .unlockedBy("has_mud", has(Blocks.MUD))
+	        .save(output, fromGrain(Items.PACKED_MUD));
+		
+        ShapedRecipeBuilder
+	        .shaped(itemLookup, RecipeCategory.FOOD, Blocks.CAKE)
+	        .define('A', Items.MILK_BUCKET)
+	        .define('B', Items.SUGAR)
+	        .define('C', NItems.CINDER_GRAIN)
+	        .define('E', Items.EGG)
+	        .pattern("AAA")
+	        .pattern("BEB")
+	        .pattern("CCC")
+	        .unlockedBy("has_egg", has(Items.EGG))
+	        .save(output, fromGrain(Items.CAKE));
+		
+        ShapedRecipeBuilder
+	        .shaped(itemLookup, RecipeCategory.FOOD, Items.COOKIE, 8)
+	        .define('#', NItems.CINDER_GRAIN)
+	        .define('X', Items.COCOA_BEANS)
+	        .pattern("#X#")
+	        .unlockedBy("has_cocoa", has(Items.COCOA_BEANS))
+	        .save(output, fromGrain(Items.COOKIE));
     }
 
-    public String fromGrain(ItemConvertible itemConvertible){
-        return Registries.ITEM.getId(itemConvertible.asItem()).getPath() + "_from_cinder_grain";
+    public String fromGrain(ItemLike itemConvertible){
+        return BuiltInRegistries.ITEM.getKey(itemConvertible.asItem()).getPath() + "_from_cinder_grain";
     }
-    public String fromBale(ItemConvertible itemConvertible){
-        return Registries.ITEM.getId(itemConvertible.asItem()).getPath() + "_from_cinder_bale";
+    public String fromBale(ItemLike itemConvertible){
+        return BuiltInRegistries.ITEM.getKey(itemConvertible.asItem()).getPath() + "_from_cinder_bale";
     }
 }

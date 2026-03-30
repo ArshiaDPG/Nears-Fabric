@@ -4,104 +4,112 @@ import com.mojang.serialization.MapCodec;
 import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.tags.NBlockTags;
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class FaarGrowthBlock extends PlantBlock implements Fertilizable {
-    public static final MapCodec<FaarGrowthBlock> CODEC = createCodec(FaarGrowthBlock::new);
+public class FaarGrowthBlock extends VegetationBlock implements BonemealableBlock {
+    public static final MapCodec<FaarGrowthBlock> CODEC = simpleCodec(FaarGrowthBlock::new);
     public static final int MAX_AGE = 3;
-    public static final IntProperty AGE = Properties.AGE_3;
-    private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(1.0D, 8.0D, 1.0D, 15.0D, 16.0D, 15.0D);
-    private static final VoxelShape LARGE_SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+    private static final VoxelShape SMALL_SHAPE = Block.box(1.0D, 8.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+    private static final VoxelShape LARGE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
 
-    public FaarGrowthBlock(AbstractBlock.Settings settings) {
+    public FaarGrowthBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0));
     }
-
+    
     @Override
-    protected MapCodec<? extends PlantBlock> getCodec() {
+    protected MapCodec<? extends VegetationBlock> codec() {
         return CODEC;
     }
-
+    
     @Override
-    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(NItems.FAAR_SEEDS);
     }
-
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(AGE) <= 1) {
+    
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (state.getValue(AGE) <= 1) {
             return SMALL_SHAPE;
         } else {
-            return state.get(AGE) < MAX_AGE ? LARGE_SHAPE : super.getOutlineShape(state, world, pos, context);
+            return state.getValue(AGE) < MAX_AGE ? LARGE_SHAPE : super.getCollisionShape(state, level, pos, context);
         }
     }
-
+    
     @Override
-    public boolean canReplace(BlockState state, ItemPlacementContext context) {
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         return false;
     }
-
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (random.nextInt(5) == 0) {
-            grow(world, random, pos, state);
+            performBonemeal(level, random, pos, state);
         }
     }
-
-
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AGE);
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
         return true;
     }
-
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    public boolean hasRandomTicks(BlockState state) {
-        return state.get(AGE) <= MAX_AGE;
+    public boolean isRandomlyTicking(BlockState state) {
+        return state.getValue(AGE) <= MAX_AGE;
     }
-
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        if (state.get(AGE) < MAX_AGE){
-            int i = state.get(AGE) + random.nextBetween(1, 2);
+    
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        if (state.getValue(AGE) < MAX_AGE){
+            int i = state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2);
             i = Math.min(i, MAX_AGE);
-            BlockState blockState = state.with(AGE, i);
-            world.setBlockState(pos, blockState, 2);
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(blockState));
+            BlockState blockState = state.setValue(AGE, i);
+            level.setBlock(pos, blockState, 2);
+            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(blockState));
         }
         else{
-            world.setBlockState(pos, NBlocks.FAAR_BUNDLE.getDefaultState(), 2);
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(this.getDefaultState()));
+            level.setBlock(pos, NBlocks.FAAR_BUNDLE.defaultBlockState(), 2);
+            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(this.defaultBlockState()));
         }
     }
-
+    
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.up();
-        return this.canPlantOnTop(world.getBlockState(blockPos), world, blockPos);
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos blockPos = pos.above();
+        return this.mayPlaceOn(level.getBlockState(blockPos), level, blockPos);
     }
-
+    
     @Override
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(NBlockTags.FAAR_GROWTH_PLANTABLE_ON);
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter level, BlockPos pos) {
+        return floor.is(NBlockTags.FAAR_GROWTH_PLANTABLE_ON);
     }
 }
