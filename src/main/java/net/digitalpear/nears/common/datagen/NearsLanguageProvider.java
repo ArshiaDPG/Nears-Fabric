@@ -10,10 +10,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class NearsLanguageProvider extends FabricLanguageProvider {
 
+
     public NearsLanguageProvider(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(packOutput, registryLookup);
     }
-
 
     @Override
     public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
@@ -27,8 +27,6 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(NBlocks.NEAR_TWIG_BLOCK, "Block of Near Twigs");
         translationBuilder.add(NItems.NEAR_TWIG, "Near Twig");
 
-
-
         /*
             Faar Plants
          */
@@ -37,15 +35,12 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(NBlocks.FAAR_GROWTH, "Faar Growth");
         translationBuilder.add(NBlocks.FAAR_BUNDLE, "Bundle of Faars");
 
-
         /*
             Soul Crops
          */
         translationBuilder.add(NItems.SOUL_BERRIES, "Soul Berries");
         translationBuilder.add(NItems.SOUL_BERRY_PIPS, "Soul Berry Pips");
         translationBuilder.add(NBlocks.SOUL_BERRY_BUSH, "Soul Berry Bush");
-
-
 
         /*
             Cinder Plants
@@ -64,8 +59,6 @@ public class NearsLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(NItems.SOULLESS_PASTRY, "Soulless Pastry");
         translationBuilder.add(NItems.NETHER_STEW, "Nether Stew");
         translationBuilder.add(NItems.GLOW_SALAD, "Glow Salad");
-
-
 
         /*
             Advancements

@@ -1,27 +1,14 @@
 {
-  "type": "minecraft:simple_random_selector",
+  "type": "minecraft:simple_block",
   "config": {
-    "features": {
-      "feature": {
-        "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "nears:soul_berry_bush",
-              "Properties": {
-                "age": "3"
-              }
-            }
-          }
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "nears:soul_berry_bush",
+        "Properties": {
+          "age": "3"
         }
-      },
-      "placement": [
-        {
-          "type": "minecraft:count",
-          "count": 96
-        }
-      ]
+      }
     }
   }
 }

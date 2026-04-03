@@ -10,6 +10,12 @@ base {
 	archivesName = project.modid + "-" + project.minecraft_version
 }
 
+fabricApi {
+    configureDataGeneration {
+        client = true
+    }
+}
+
 repositories {
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods because
@@ -83,45 +89,19 @@ publishing {
         // retrieving dependencies.
     }
 }
-loom {
-    runs {
-        //
-        // This adds a new gradle task that runs the datagen API: "gradlew runDatagenClient"
-        //
-        datagenClient {
-            inherit client
-            name "Data Generation"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=${modid}"
-
-            runDir "build/datagen"
-        }
-    }
-}
-//
-// Adds the generated files into the jar you distribute to players.
-//
-sourceSets {
-    main {
-        resources {
-            srcDirs += [
-                    'src/main/generated'
-            ]
-        }
-    }
-}
 unifiedPublishing {
     project {
         displayName = "${project.minecraft_version}-${project.mod_version}"
         changelog = '''<ul>
-   <li>Updated to 1.21.11 (Courtesy of ianaduarte).</li>
+   <li>Updated to 26.1 (Courtesy of ianaduarte).</li>
+   <li>Tweaked Soul Berry and Cinder Grass generation to hopefully make them more common.</li>
+   <li>Near hangs should now with accompanying nether wart and weeping vines more often.</li>
 </ul> '''
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
-        gameVersions = ["${project.minecraft_version}"]
+        gameVersions = ["${project.minecraft_version}", "26.1.1"]
         gameLoaders = ["fabric"]
 
-        mainPublication tasks.remapJar // Declares the publicated jar
+        mainPublication tasks.sourcesJar // Declares the publicated jar
 
         relations {
             depends { // Mark as a required dependency

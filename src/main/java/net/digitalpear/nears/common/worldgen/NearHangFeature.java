@@ -12,6 +12,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
@@ -32,14 +33,11 @@ public class NearHangFeature extends Feature<NearHangFeatureConfig> {
         
         for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-radius, -radius, -radius), origin.offset(radius, radius, radius))) {
             if (isSupported(level, pos) && (random.nextFloat() > 0.93)){
-                generateNearHang(level, pos, random);
-                //TODO: this cannot be right
                 if (!generated){
-                    level.registryAccess().get(Registries.CONFIGURED_FEATURE).flatMap((registry) ->
-                            registry.value().get(config.accompanyingFeature.unwrapKey().get().identifier())).ifPresent((reference) ->
-                            reference.value().place(level, context.chunkGenerator(), random, origin.above()));
+                    level.registryAccess().lookup(Registries.CONFIGURED_FEATURE).flatMap((registry) -> registry.get(config.accompanyingFeature.unwrapKey().get())).ifPresent((mossPatch) -> mossPatch.value().place(level, context.chunkGenerator(), random, pos));
+                    generated = true;
                 }
-                generated = true;
+                generateNearHang(level, pos, random);
             }
         }
 

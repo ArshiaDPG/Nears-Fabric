@@ -2,18 +2,20 @@ package net.digitalpear.nears.init;
 
 import net.digitalpear.nears.Nears;
 import net.digitalpear.nears.init.data.tags.NBiomeTags;
+import net.digitalpear.nears.init.data.tags.NBlockTags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
+import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 
@@ -44,15 +46,17 @@ public class NPlacedFeatures {
         Holder.Reference<ConfiguredFeature<?, ?>> patchSoulBerries = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_SOUL_BERRY_BUSH);
         Holder.Reference<ConfiguredFeature<?, ?>> patchCinderGrass = registryEntryLookup.getOrThrow(NConfiguredFeatures.PATCH_CINDER_GRASS);
         
-        
         PlacementUtils.register(featureRegisterable, PATCH_NEAR_HANG, patchNears, makePatchPlacements(RarityFilter.onAverageOnceEvery(1)));
         PlacementUtils.register(featureRegisterable, PATCH_FAAR_GROWTH, patchFaars, makePatchPlacements(CountPlacement.of(UniformInt.of(0, 5))));
-        PlacementUtils.register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, patchSoulBerries, makePatchPlacements(CountPlacement.of(UniformInt.of(0, 3))));
-        PlacementUtils.register(featureRegisterable, PATCH_CINDER_GRASS, patchCinderGrass, makePatchPlacements(CountPlacement.of(UniformInt.of(0, 4))));
+        PlacementUtils.register(featureRegisterable, PATCH_SOUL_BERRY_BUSH, patchSoulBerries, soulBerryPlacements(NBlockTags.SOUL_BERRY_BUSH_PLANTABLE_ON));
+        PlacementUtils.register(featureRegisterable, PATCH_CINDER_GRASS, patchCinderGrass, soulBerryPlacements(NBlockTags.CINDER_GRASS_PLANTABLE_ON));
     }
 
     public static List<PlacementModifier> makePatchPlacements(PlacementModifier countOrRarity){
-        return List.of(countOrRarity, InSquarePlacement.spread(), PlacementUtils.RANGE_4_4, BiomeFilter.biome());
+        return List.of(countOrRarity, InSquarePlacement.spread(), PlacementUtils.RANGE_8_8, BiomeFilter.biome());
+    }
+    private static List<PlacementModifier> soulBerryPlacements(TagKey<Block> blockTagKey) {
+        return List.of(CountPlacement.of(UniformInt.of(0, 5)), InSquarePlacement.spread(), PlacementUtils.RANGE_4_4, BiomeFilter.biome(), CountPlacement.of(63), RandomOffsetPlacement.ofTriangle(7, 3), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), blockTagKey))));
     }
 
     public static void init() {

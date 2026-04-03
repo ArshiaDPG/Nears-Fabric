@@ -2,6 +2,7 @@ package net.digitalpear.nears.mixin;
 
 
 import net.digitalpear.nears.init.NBlocks;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;

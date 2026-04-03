@@ -9,8 +9,5 @@ import net.fabricmc.api.Environment;
 public class NearsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-		//No longer needed
-        //BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, NBlocks.SOUL_BERRY_BUSH, NBlocks.FAAR_GROWTH, NBlocks.CINDER_GRAIN, NBlocks.CINDER_GRASS, NBlocks.POTTED_CINDER_GRASS);
-        //BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, NBlocks.NEAR_HANG, NBlocks.NEAR_HANG_STEM);
     }
 }

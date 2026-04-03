@@ -5,8 +5,7 @@ import net.digitalpear.nears.common.datagen.provider.NearsRecipeProvider;
 import net.digitalpear.nears.common.datagen.tags.NearsBiomeTagProvider;
 import net.digitalpear.nears.common.datagen.tags.NearsBlockTagProvider;
 import net.digitalpear.nears.common.datagen.tags.NearsItemTagProvider;
-import net.digitalpear.nears.common.datagen.provider.worldgen.NConfiguredFeatureProvider;
-import net.digitalpear.nears.common.datagen.provider.worldgen.NPlacedFeatureProvider;
+import net.digitalpear.nears.common.datagen.provider.NDynamicRegistriesProvider;
 import net.digitalpear.nears.init.NConfiguredFeatures;
 import net.digitalpear.nears.init.NPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -28,8 +27,7 @@ public class NearsDatagen implements DataGeneratorEntrypoint {
         fabricDataGenerator.createPack().addProvider(NearsItemTagProvider::new);
         fabricDataGenerator.createPack().addProvider(NearsBiomeTagProvider::new);
 
-        fabricDataGenerator.createPack().addProvider(NConfiguredFeatureProvider::new);
-        fabricDataGenerator.createPack().addProvider(NPlacedFeatureProvider::new);
+        fabricDataGenerator.createPack().addProvider(NDynamicRegistriesProvider::new);
     }
 
     @Override
