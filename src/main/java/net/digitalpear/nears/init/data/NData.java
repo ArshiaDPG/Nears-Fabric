@@ -4,19 +4,19 @@ import net.digitalpear.nears.init.NBlocks;
 import net.digitalpear.nears.init.NItems;
 import net.digitalpear.nears.init.data.dispenser.DispenserFaarBundleBehavior;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.util.Rarity;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class NData {
 
     public static void registerCompostables(){
-        CompostingChanceRegistry compostingChanceRegistry = CompostingChanceRegistry.INSTANCE;
+        CompostableRegistry compostingChanceRegistry = CompostableRegistry.INSTANCE;
 
         compostingChanceRegistry.add(NItems.FAAR_SEEDS, 0.3f);
         compostingChanceRegistry.add(NItems.SOUL_BERRY_PIPS, 0.3f);
@@ -40,19 +40,19 @@ public class NData {
 
     public static void registerLootTableModifications(){
         LootTableEvents.MODIFY.register((key, tableBuilder, source, wrapperLookup) -> {
-            if (LootTables.BASTION_HOGLIN_STABLE_CHEST.equals(key) && source.isBuiltin()) {
-                tableBuilder.modifyPools(context -> context.with(ItemEntry.builder(NItems.NEAR).weight(6).quality(Rarity.COMMON.ordinal() + 1))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 4.0F))));
+            if (BuiltInLootTables.BASTION_HOGLIN_STABLE.equals(key) && source.isBuiltin()) {
+                tableBuilder.modifyPools(context -> context.add(LootItem.lootTableItem(NItems.NEAR).setWeight(6).setQuality(Rarity.COMMON.ordinal() + 1))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))));
             }
-            else if (LootTables.BASTION_OTHER_CHEST.equals(key) && source.isBuiltin()) {
-                tableBuilder.modifyPools(context -> context.with(ItemEntry.builder(NItems.NEAR).weight(2).quality(Rarity.COMMON.ordinal() + 1))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F))));
+            else if (BuiltInLootTables.BASTION_OTHER.equals(key) && source.isBuiltin()) {
+                tableBuilder.modifyPools(context -> context.add(LootItem.lootTableItem(NItems.NEAR).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))));
 
             }
-            else if (LootTables.NETHER_BRIDGE_CHEST.equals(key) && source.isBuiltin()) {
-                LootPool.Builder poolBuilder = LootPool.builder().with(ItemEntry.builder(NItems.SOUL_BERRIES).weight(1).quality(Rarity.COMMON.ordinal() + 1)
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0F, 6.0F))));
-                tableBuilder.pool(poolBuilder);
+            else if (BuiltInLootTables.NETHER_BRIDGE.equals(key) && source.isBuiltin()) {
+                LootPool.Builder poolBuilder = LootPool.lootPool().add(LootItem.lootTableItem(NItems.SOUL_BERRIES).setWeight(1).setQuality(Rarity.COMMON.ordinal() + 1)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 6.0F))));
+                tableBuilder.pool(poolBuilder.build());
             }
         });
     }

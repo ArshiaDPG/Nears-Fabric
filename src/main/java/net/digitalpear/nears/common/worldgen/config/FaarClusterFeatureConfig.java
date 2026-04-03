@@ -2,9 +2,9 @@ package net.digitalpear.nears.common.worldgen.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class FaarClusterFeatureConfig implements FeatureConfig {
+public class FaarClusterFeatureConfig implements FeatureConfiguration {
     public static final Codec<FaarClusterFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.intRange(0, 64).fieldOf("spread_vertical").forGetter(config -> {
             return config.spreadVertical;
